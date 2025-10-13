@@ -21,56 +21,56 @@
 
 ### To illustrate how the automated scheduling system will work, the following example shows the interaction between a client and the CREALTIVA STUDIO chatbot:
 
-Client:
-Hello, I would like to book a photo session.
+### Client:
+### Hello, I would like to book a photo session.
 
-Chatbot:
-Welcome to Crealtiva Studio. Would you like a session in our studio or at an event location?
+### Chatbot:
+### Welcome to Crealtiva Studio. Would you like a session in our studio or at an event location?
 
-1 In the studio
+### 1 In the studio
 
-2 At an event
+### 2 At an event
 
-Client:
-At an event.
+### Client:
+### At an event.
 
-Chatbot:
-Perfect. What type of event will it be?
-(For example: wedding, birthday, baptism, graduation, etc.)
+### Chatbot:
+### Perfect. What type of event will it be?
+### (For example: wedding, birthday, baptism, graduation, etc.)
 
-Client:
-A birthday.
+### Client:
+### A birthday.
 
-Chatbot:
-Great. On what date and at what time will the event take place?
+### Chatbot:
+### Great. On what date and at what time will the event take place?
 
-Client:
-October 25 at 4:00 p.m.
+### Client:
+### October 25 at 4:00 p.m.
 
-Chatbot:
-Thank you. Please share the event address.
+### Chatbot:
+### Thank you. Please share the event address.
 
-Client:
-Calle Bolívar and García Moreno, Pujilí.
+### Client:
+### Calle Bolívar and García Moreno, Pujilí.
 
-Chatbot:
-Got it. Would you like to confirm the reservation for October 25 at 4:00 p.m. at Calle Bolívar and García Moreno?
+### Chatbot:
+### Got it. Would you like to confirm the reservation for October 25 at 4:00 p.m. at Calle Bolívar and García Moreno?
 
-Client:
-Yes, confirm please.
+### Client:
+### Yes, confirm please.
 
-Chatbot:
-Your appointment has been confirmed.
-The information has been saved and added to the Crealtiva Studio calendar.
-A photographer will attend the event on the scheduled date.
+### Chatbot:
+### Your appointment has been confirmed.
+### The information has been saved and added to the Crealtiva Studio calendar.
+### A photographer will attend the event on the scheduled date.
 
-Would you like to receive our price list or packages?
+### Would you like to receive our price list or packages?
 
-Client:
-Yes, send them to me.
+### Client:
+### Yes, send them to me.
 
-Chatbot:
-Here are our available packages for events.
-Thank you for choosing Crealtiva Studio.
+### Chatbot:
+### Here are our available packages for events.
+### Thank you for choosing Crealtiva Studio.
 
 
