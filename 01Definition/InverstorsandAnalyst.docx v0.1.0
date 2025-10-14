@@ -14,4 +14,5 @@
 
 ## OVERVIEW
 ### Because of the problems of scheduling manually our client asks us to make a form to automatize this system but also connect it to his personal calendar this because his calendar can be automatically updated being this very useful to him to not waste time in clients that doesn`t appoint meetings this chatbot can filter them this being very useful to the photography studio to be more productive and also have an organized agenda.
-
+## Background
+## The chatbot will help the user in scheduling appointments, adapting it to use natural language. The main tasks are registering requests and checking availability. For this, a synchronized calendar will be used, allowing you to create, modify, and delete events easily.
