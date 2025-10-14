@@ -16,3 +16,56 @@
 ### Because of the problems of scheduling manually our client asks us to make a form to automatize this system but also connect it to his personal calendar this because his calendar can be automatically updated being this very useful to him to not waste time in clients that doesn`t appoint meetings this chatbot can filter them this being very useful to the photography studio to be more productive and also have an organized agenda.
 ## Background
 ## The chatbot will help the user in scheduling appointments, adapting it to use natural language. The main tasks are registering requests and checking availability. For this, a synchronized calendar will be used, allowing you to create, modify, and delete events easily.
+
+#### Example of Chatbot Interaction
+#### To illustrate how the automated scheduling system will work, the following example shows the interaction between a client and the CREALTIVA STUDIO chatbot:
+### Client:
+### Hello, I would like to book a photo session.
+
+###Chatbot:
+### Welcome to Crealtiva Studio. Would you like a session in our studio or at an event location?
+
+### 1. In the studio
+### 2. At an event
+
+### Client:
+### At an event.
+
+### Chatbot:
+### Perfect. What type of event will it be?
+### (For example: wedding, birthday, baptism, graduation, etc.)
+
+### Client:
+### A birthday.
+
+### Chatbot:
+### Great. On what date and at what time will the event take place?
+
+### Client:
+### October 25 at 4:00 p.m.
+
+### Chatbot:
+### Thank you. Please share the event address.
+
+### Client:
+### Calle Bolívar and García Moreno, Pujilí.
+
+### Chatbot:
+### Got it. Would you like to confirm the reservation for October 25 at 4:00 p.m. at Calle Bolívar and García Moreno?
+
+### Client:
+### Yes, confirm please.
+
+### Chatbot:
+### Your appointment has been confirmed.
+### The information has been saved and added to the Crealtiva Studio calendar.
+### A photographer will attend the event on the scheduled date.
+
+### Would you like to receive our price list or packages?
+
+### Client:
+### Yes, send them to me.
+
+### Chatbot:
+### Here are our available packages for events.
+### Thank you for choosing Crealtiva Studio.
