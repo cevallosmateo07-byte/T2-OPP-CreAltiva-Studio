@@ -1,4 +1,4 @@
-package ec.edu.espe.crealtivastudio.json;
+package crealtivastudio.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

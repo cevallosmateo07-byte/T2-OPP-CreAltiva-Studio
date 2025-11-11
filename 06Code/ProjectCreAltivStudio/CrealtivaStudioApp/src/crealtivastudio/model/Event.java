@@ -1,4 +1,4 @@
-package ec.edu.espe.crealtivastudio.model;
+package crealtivastudio.model;
 
 /**
  *

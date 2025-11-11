@@ -1,6 +1,6 @@
-package ec.edu.espe.crealtivastudio.model;
+package crealtivastudio.model;
 
-import ec.edu.espe.crealtivastudio.json.JsonOperations;
+import crealtivastudio.json.JsonOperations;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;

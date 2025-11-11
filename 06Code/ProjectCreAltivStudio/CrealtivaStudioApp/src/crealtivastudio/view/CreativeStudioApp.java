@@ -1,8 +1,8 @@
-package ec.edu.espe.crealtivastudio.view;
+package crealtivastudio.view;
 
-import ec.edu.espe.crealtivastudio.model.Customer;
-import ec.edu.espe.crealtivastudio.model.Event;
-import ec.edu.espe.crealtivastudio.model.Bill;
+import crealtivastudio.model.Customer;
+import crealtivastudio.model.Event;
+import crealtivastudio.model.Bill;
 import java.util.List;
 import java.util.Scanner;
 
