@@ -1,0 +1,10 @@
+[
+  {
+    "billId": 1,
+    "customerId": 1,
+    "eventId": 1,
+    "isPaid": false,
+    "notes": "por pagar",
+    "amount": 1350.0
+  }
+]

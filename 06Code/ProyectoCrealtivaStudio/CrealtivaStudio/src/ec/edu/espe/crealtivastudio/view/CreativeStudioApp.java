@@ -1,310 +1,538 @@
-
-
-
 package ec.edu.espe.crealtivastudio.view;
 
 import ec.edu.espe.crealtivastudio.model.Customer;
-import ec.edu.espe.crealtivastudio.model.Event; 
-import ec.edu.espe.crealtivastudio.controller.CustomerController;
-import ec.edu.espe.crealtivastudio.controller.EventController; 
-import java.util.Scanner;
-import java.nio.charset.StandardCharsets; 
+import ec.edu.espe.crealtivastudio.model.Event;
+import ec.edu.espe.crealtivastudio.model.Bill;
 import java.util.List;
+import java.util.Scanner;
 
 /**
- *
- * @author Daniel
+ * Aplicación principal para Creative Studio
+ * @author Daniel, Mateo
  */
-
 public class CreativeStudioApp {
-
-    private static final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8.name()); 
-    private static final CustomerController customerController = new CustomerController();
-    private static final EventController eventController = new EventController(); 
-    private static int nextCustomerId = 1;
-    private static int nextEventId = 1; 
-
+    private static Scanner scanner = new Scanner(System.in);
+    
     public static void main(String[] args) {
-        int option;
-
-        // Cargar IDs iniciales
-        nextCustomerId = getNextAvailableCustomerId(); 
-        nextEventId = getNextAvailableEventId(); 
-
-        System.out.println("=========================================");
-        System.out.println("   CREATIVE STUDIO - SISTEMA DE GESTION");
-        System.out.println("=========================================");
-
-        do {
-            System.out.println("\n--- MENU PRINCIPAL ---");
-            System.out.println("1. Gestion de Clientes"); 
-            System.out.println("2. Gestion de Eventos"); 
-            System.out.println("3. Gestion de Facturacion (Proximamente)");
-            System.out.println("4. Salir");
-            System.out.print("Seleccione una opcion: "); 
-
-            option = readIntInput(); 
-
+        System.out.println("==========================================");
+        System.out.println("     CREATIVE STUDIO MANAGEMENT SYSTEM");
+        System.out.println("==========================================");
+        
+        // Cargar datos existentes
+        Customer.reloadFromJson();
+        Bill.reloadFromJson();
+        
+        boolean exit = false;
+        while (!exit) {
+            displayMainMenu();
+            int option = getIntInput("Seleccione una opción: ");
+            
             switch (option) {
-                case 1:
-                    handleCustomerMenu();
-                    break;
-                case 2:
-                    handleEventMenu();
-                    break;
-                case 3:
-                    System.out.println("Funcionalidad de Facturacion en desarrollo.");
-                    break;
-                case 4:
-                    System.out.println("\nGracias por usar Creative Studio! Saliendo..."); 
-                    break;
-                default:
-                    System.out.println("Opcion no valida. Intente de nuevo."); 
+                case 1 -> manageCustomers();
+                case 2 -> manageEvents();
+                case 3 -> manageBills();
+                case 4 -> generateReports();
+                case 5 -> {
+                    exit = true;
+                    System.out.println("Gracias por usar Creative Studio Management System!");
+                }
+                default -> System.out.println("Opcion no valida. Intente nuevamente.");
             }
-        } while (option != 4);
-        scanner.close();
-    }
-    
-    // ===============================================
-    //               UTILITIES
-    // ===============================================
-    
-    private static int getNextAvailableCustomerId() {
-        return customerController.getAllCustomers().stream()
-                .mapToInt(Customer::getId)
-                .max()
-                .orElse(0) + 1;
-    }
-    
-    private static int getNextAvailableEventId() { 
-        return eventController.getAllEvents().stream()
-                .mapToInt(Event::getEventId)
-                .max()
-                .orElse(0) + 1;
-    }
-    
-    private static int readIntInput() {
-        while (!scanner.hasNextInt()) {
-            System.out.print("Entrada invalida. Ingrese un numero: ");
-            scanner.next();
         }
-        int input = scanner.nextInt();
-        scanner.nextLine(); 
-        return input;
     }
     
-    private static String readStringInput(String prompt) {
-        System.out.print(prompt);
-        return scanner.nextLine().trim(); 
+    private static void displayMainMenu() {
+        System.out.println("\n--- MENU PRINCIPAL ---");
+        System.out.println("1. Gestion de Clientes");
+        System.out.println("2. Gestion de Eventos");
+        System.out.println("3. Gestion de Facturas");
+        System.out.println("4. Reportes e Informes");
+        System.out.println("5. Salir");
     }
     
-    // ===============================================
-    //               MENU DE CLIENTES (Op. 1)
-    // ===============================================
-    
-    private static void handleCustomerMenu() {
-        int option;
-        do {
-            System.out.println("\n--- SUBMENU: GESTION DE CLIENTES ---");
-            System.out.println("1. Registrar Nuevo Cliente");
-            System.out.println("2. Ver Todos los Clientes");
-            System.out.println("3. Editar Cliente Existente");
-            System.out.println("4. Eliminar Cliente");
-            System.out.println("5. Volver al Menu Principal");
-            System.out.print("Seleccione una opcion: ");
+    // ==================== GESTIÓN DE CLIENTES ====================
+    private static void manageCustomers() {
+        boolean back = false;
+        while (!back) {
+            System.out.println("\n--- GESTION DE CLIENTES ---");
+            System.out.println("1. Registrar nuevo cliente");
+            System.out.println("2. Listar todos los clientes");
+            System.out.println("3. Buscar cliente por ID");
+            System.out.println("4. Buscar cliente por nombre");
+            System.out.println("5. Actualizar cliente");
+            System.out.println("6. Eliminar cliente");
+            System.out.println("7. Ver detalles completos de cliente");
+            System.out.println("8. Volver al menu principal");
             
-            option = readIntInput();
+            int option = getIntInput("Seleccione una opcion: ");
             
             switch (option) {
-                case 1: registerNewCustomer(); break;
-                case 2: viewAllCustomers(); break;
-                case 3: editCustomer(); break;
-                case 4: deleteCustomer(); break;
-                case 5: System.out.println("Volviendo al Menu Principal..."); break;
-                default: System.out.println("Opcion no valida. Intente de nuevo.");
+                case 1 -> registerCustomer();
+                case 2 -> listAllCustomers();
+                case 3 -> findCustomerById();
+                case 4 -> findCustomerByName();
+                case 5 -> updateCustomer();
+                case 6 -> deleteCustomer();
+                case 7 -> viewCustomerDetails();
+                case 8 -> back = true;
+                default -> System.out.println("Opcion no valida.");
             }
-        } while (option != 5);
+        }
     }
-
-    private static void registerNewCustomer() {
-        System.out.println("\n--- REGISTRO DE CLIENTE ---");
+    
+    private static void registerCustomer() {
+        System.out.println("\n--- REGISTRAR NUEVO CLIENTE ---");
         
-        String name = readStringInput("Nombre Completo: ");
-        String phone;
-        String email;
-        String address = readStringInput("Direccion: "); 
+        String name = getStringInput("Nombre: ");
+        String phone = getStringInput("Telefono (10 digitos): ");
+        String email = getStringInput("Email: ");
+        String address = getStringInput("Direccion: ");
         
-        do {
-            phone = readStringInput("Telefono (10 digitos): ");
-            if (!customerController.isValidPhone(phone)) {
-                System.out.println("ERROR: El telefono debe tener 10 digitos numericos. Vuelva a intentarlo.");
-            }
-        } while (!customerController.isValidPhone(phone));
-
-        do {
-            email = readStringInput("Email: ");
-            if (!customerController.isValidEmail(email)) {
-                System.out.println("ERROR: El formato del email es invalido. Vuelva a intentarlo.");
-            }
-        } while (!customerController.isValidEmail(email));
-
-        Customer newCustomer = new Customer(nextCustomerId, name, phone, email, address);
-        if (customerController.registerCustomer(newCustomer)) {
-            System.out.println("Cliente registrado exitosamente con ID: " + nextCustomerId);
-            nextCustomerId++;
+        Customer customer = new Customer(name, phone, email, address);
+        if (customer.save()) {
+            System.out.println("Cliente registrado exitosamente!");
+            System.out.println("ID asignado: " + customer.getId());
         } else {
-            System.out.println("Error al registrar el cliente.");
+            System.out.println("Error al registrar cliente. Verifique los datos.");
         }
     }
-
-    private static void viewAllCustomers() {
-        if (customerController.getAllCustomers().isEmpty()) {
-            System.out.println("\n--- No hay clientes registrados. ---");
+    
+    private static void listAllCustomers() {
+        System.out.println("\n--- LISTA DE CLIENTES ---");
+        List<Customer> customers = Customer.getAllCustomers();
+        
+        if (customers.isEmpty()) {
+            System.out.println("No hay clientes registrados.");
+        } else {
+            for (Customer customer : customers) {
+                System.out.println(customer.toSimpleString());
+            }
+            System.out.println("\nTotal de clientes: " + customers.size());
+        }
+    }
+    
+    private static void findCustomerById() {
+        int id = getIntInput("Ingrese el ID del cliente: ");
+        Customer customer = Customer.findCustomerById(id);
+        
+        if (customer != null) {
+            customer.displayCustomerInfo();
+        } else {
+            System.out.println("Cliente no encontrado.");
+        }
+    }
+    
+    private static void findCustomerByName() {
+        String name = getStringInput("Ingrese el nombre a buscar: ");
+        List<Customer> customers = Customer.findCustomersByName(name);
+        
+        if (customers.isEmpty()) {
+            System.out.println("No se encontraron clientes con ese nombre.");
+        } else {
+            System.out.println("\n--- RESULTADOS DE BUSQUEDA ---");
+            for (Customer customer : customers) {
+                System.out.println(customer.toSimpleString());
+            }
+        }
+    }
+    
+    private static void updateCustomer() {
+        int id = getIntInput("Ingrese el ID del cliente a actualizar: ");
+        Customer customer = Customer.findCustomerById(id);
+        
+        if (customer == null) {
+            System.out.println("Cliente no encontrado.");
             return;
         }
         
-        System.out.println("\n--- LISTA DE CLIENTES REGISTRADOS ---");
-        System.out.println("\nClientes: ");
-        customerController.getAllCustomers().forEach(System.out::println);
-    }
-    
-    private static void editCustomer() {
-        System.out.print("\nIngrese el ID del cliente a editar: ");
-        int idToEdit = readIntInput();
+        System.out.println("Cliente actual:");
+        customer.displayCustomerInfo();
         
-        Customer existingCustomer = customerController.findCustomerById(idToEdit);
-        if (existingCustomer == null) {
-            System.out.println("ERROR: Cliente con ID " + idToEdit + " no encontrado.");
-            return;
-        }
-
-        System.out.println("\n--- EDITANDO CLIENTE ID " + idToEdit + " ---");
-        System.out.println("Deje el campo vacio si no desea modificarlo.");
+        System.out.println("\nIngrese los nuevos datos (deje en blanco para mantener el actual):");
         
-        String newName = readStringInput("Nombre (" + existingCustomer.getName() + "): ");
-        String newAddress = readStringInput("Direccion (" + existingCustomer.getAddress() + "): ");
+        String newName = getStringInput("Nuevo nombre [" + customer.getName() + "]: ");
+        String newPhone = getStringInput("Nuevo telefono [" + customer.getPhone() + "]: ");
+        String newEmail = getStringInput("Nuevo email [" + customer.getEmail() + "]: ");
+        String newAddress = getStringInput("Nueva direccion [" + customer.getAddress() + "]: ");
         
-        // Validation for Phone
-        String newPhone = "";
-        boolean phoneValid = false;
-        do {
-            newPhone = readStringInput("Telefono (" + existingCustomer.getPhone() + "): ");
-            if (newPhone.isEmpty()) { phoneValid = true; } 
-            else if (customerController.isValidPhone(newPhone)) { phoneValid = true; } 
-            else { System.out.println("ERROR: El telefono debe tener 10 digitos numericos. Vuelva a intentarlo."); }
-        } while (!phoneValid);
+        if (!newName.isEmpty()) customer.setName(newName);
+        if (!newPhone.isEmpty()) customer.setPhone(newPhone);
+        if (!newEmail.isEmpty()) customer.setEmail(newEmail);
+        if (!newAddress.isEmpty()) customer.setAddress(newAddress);
         
-        // Validation for Email
-        String newEmail = "";
-        boolean emailValid = false;
-        do {
-            newEmail = readStringInput("Email (" + existingCustomer.getEmail() + "): ");
-            if (newEmail.isEmpty()) { emailValid = true; } 
-            else if (customerController.isValidEmail(newEmail)) { emailValid = true; } 
-            else { System.out.println("ERROR: El formato del email es invalido. Vuelva a intentarlo."); }
-        } while (!emailValid);
-        
-        Customer updatedCustomer = new Customer(
-            idToEdit,
-            newName.isEmpty() ? existingCustomer.getName() : newName,
-            newPhone.isEmpty() ? existingCustomer.getPhone() : newPhone,
-            newEmail.isEmpty() ? existingCustomer.getEmail() : newEmail,
-            newAddress.isEmpty() ? existingCustomer.getAddress() : newAddress
-        );
-        
-        if (customerController.updateCustomerDetails(idToEdit, updatedCustomer)) {
-            System.out.println("Cliente ID " + idToEdit + " actualizado con exito.");
+        if (customer.save()) {
+            System.out.println("Cliente actualizado exitosamente!");
         } else {
-            System.out.println("Error desconocido al actualizar.");
+            System.out.println("Error al actualizar cliente.");
         }
     }
     
     private static void deleteCustomer() {
-        System.out.print("\nIngrese el ID del cliente a eliminar: ");
-        int idToDelete = readIntInput();
+        int id = getIntInput("Ingrese el ID del cliente a eliminar: ");
         
-        if (customerController.deleteCustomer(idToDelete)) {
-            System.out.println("Cliente ID " + idToDelete + " eliminado exitosamente.");
+        if (Customer.deleteCustomer(id)) {
+            System.out.println("Cliente eliminado exitosamente!");
         } else {
-            System.out.println("ERROR: Cliente con ID " + idToDelete + " no encontrado.");
+            System.out.println("Error: Cliente no encontrado o no se pudo eliminar.");
         }
     }
     
-    // ===============================================
-    //               MENU DE EVENTOS (Op. 2)
-    // ===============================================
+    private static void viewCustomerDetails() {
+        int id = getIntInput("Ingrese el ID del cliente: ");
+        Customer customer = Customer.findCustomerById(id);
+        
+        if (customer != null) {
+            customer.displayCustomerInfo();
+        } else {
+            System.out.println("Cliente no encontrado.");
+        }
+    }
     
-    private static void handleEventMenu() {
-        int option;
-        do {
-            System.out.println("\n--- SUBMENU: GESTION DE EVENTOS ---");
-            System.out.println("1. Registrar Nuevo Evento");
-            System.out.println("2. Ver Todos los Eventos");
-            System.out.println("3. Volver al Menu Principal");
-            System.out.print("Seleccione una opcion: ");
+    // ==================== GESTIÓN DE EVENTOS ====================
+    private static void manageEvents() {
+        boolean back = false;
+        while (!back) {
+            System.out.println("\n--- GESTION DE EVENTOS ---");
+            System.out.println("1. Agregar evento a cliente");
+            System.out.println("2. Ver eventos de un cliente");
+            System.out.println("3. Eliminar evento");
+            System.out.println("4. Volver al menu principal");
             
-            option = readIntInput();
+            int option = getIntInput("Seleccione una opcion: ");
             
             switch (option) {
-                case 1: registerNewEvent(); break;
-                case 2: viewAllEvents(); break;
-                case 3: System.out.println("Volviendo al Menu Principal..."); break;
-                default: System.out.println("Opcion no valida. Intente de nuevo.");
+                case 1 -> addEventToCustomer();
+                case 2 -> viewCustomerEvents();
+                case 3 -> deleteEvent();
+                case 4 -> back = true;
+                default -> System.out.println("Opcion no valida.");
             }
-        } while (option != 3);
-    }
-    
-    private static void registerNewEvent() {
-        System.out.println("\n--- REGISTRO DE NUEVO EVENTO ---");
-        
-        int customerId;
-        Customer associatedCustomer = null;
-
-        // **ASOCIACION CLAVE**: Bucle de validacion para ID de Cliente
-        do {
-            System.out.print("Ingrese el ID del Cliente asociado: ");
-            customerId = readIntInput();
-            associatedCustomer = customerController.findCustomerById(customerId);
-            
-            if (associatedCustomer == null) {
-                System.out.println("ERROR: Cliente ID " + customerId + " no existe. Debe registrar un cliente valido.");
-                // Opcional: mostrar clientes disponibles
-                // viewAllCustomers(); 
-            }
-        } while (associatedCustomer == null);
-
-        // Si llega aqui, el cliente es valido. Procedemos con los datos del evento.
-        
-        String eventName = readStringInput("Nombre del Evento (Ej. Boda, XV): ");
-        String eventDate = readStringInput("Fecha del Evento (AAAA-MM-DD): ");
-        String eventDetails = readStringInput("Detalles (Ej. 4 horas, 2 Locaciones): ");
-        
-        
-        Event newEvent = new Event(
-            nextEventId, 
-            customerId, // Usamos el ID de cliente validado
-            eventName, 
-            eventDate, 
-            eventDetails
-        );
-
-        if (eventController.registerEvent(newEvent)) {
-            System.out.println("Evento registrado exitosamente con ID: " + nextEventId + " (Asociado a Cliente ID " + customerId + ").");
-            nextEventId++;
-        } else {
-            // Este error solo deberia ocurrir si el DAO falla o si el ID ya existia
-            System.out.println("Error al registrar el evento. Verifique el ID.");
         }
     }
     
-    private static void viewAllEvents() {
-        if (eventController.getAllEvents().isEmpty()) {
-            System.out.println("\n--- No hay eventos registrados. ---");
+    private static void addEventToCustomer() {
+        System.out.println("\n--- AGREGAR EVENTO A CLIENTE ---");
+        int customerId = getIntInput("ID del cliente: ");
+        Customer customer = Customer.findCustomerById(customerId);
+        
+        if (customer == null) {
+            System.out.println("Cliente no encontrado.");
             return;
         }
         
-        System.out.println("\n--- LISTA DE EVENTOS REGISTRADOS ---");
-        System.out.println("\nEventos: ");
-        eventController.getAllEvents().forEach(System.out::println);
+        System.out.println("Tipos de evento disponibles:");
+        System.out.println("1. Bodas ($1500.00) - 10% descuento");
+        System.out.println("2. Cumpleanos ($800.00)");
+        System.out.println("3. Bautizos ($2000.00) - 5% descuento");
+        System.out.println("4. Graduaciones ($600.00)");
+        
+        int eventType = getIntInput("Seleccione el tipo de evento (1-4): ");
+        if (eventType < 1 || eventType > 4) {
+            System.out.println("Tipo de evento no valido.");
+            return;
+        }
+        
+        String eventName = getStringInput("Nombre del evento: ");
+        String eventDate = getStringInput("Fecha del evento (YYYY-MM-DD): ");
+        
+        Event event = customer.addEvent(eventName, eventDate, eventType);
+        if (event != null) {
+            System.out.println("Evento agregado exitosamente!");
+            System.out.println("ID del evento: " + event.getEventId());
+            System.out.println("Precio final: $" + event.calculateFinalPrice());
+        } else {
+            System.out.println("Error al agregar evento.");
+        }
     }
+    
+    private static void viewCustomerEvents() {
+        int customerId = getIntInput("Ingrese el ID del cliente: ");
+        Customer customer = Customer.findCustomerById(customerId);
+        
+        if (customer != null) {
+            customer.displayCustomerInfo();
+        } else {
+            System.out.println("Cliente no encontrado.");
+        }
+    }
+    
+    private static void deleteEvent() {
+        int customerId = getIntInput("ID del cliente: ");
+        Customer customer = Customer.findCustomerById(customerId);
+        
+        if (customer == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+        
+        int eventId = getIntInput("ID del evento a eliminar: ");
+        if (customer.removeEvent(eventId)) {
+            System.out.println("Evento eliminado exitosamente!");
+        } else {
+            System.out.println("Error: Evento no encontrado.");
+        }
+    }
+    
+    // ==================== GESTIÓN DE FACTURAS ====================
+    private static void manageBills() {
+        boolean back = false;
+        while (!back) {
+            System.out.println("\n--- GESTION DE FACTURAS ---");
+            System.out.println("1. Crear nueva factura");
+            System.out.println("2. Listar todas las facturas");
+            System.out.println("3. Buscar factura por ID");
+            System.out.println("4. Buscar facturas por cliente");
+            System.out.println("5. Marcar factura como pagada");
+            System.out.println("6. Marcar factura como pendiente");
+            System.out.println("7. Eliminar factura");
+            System.out.println("8. Ver detalles de factura");
+            System.out.println("9. Volver al menu principal");
+            
+            int option = getIntInput("Seleccione una opcion: ");
+            
+            switch (option) {
+                case 1 -> createBill();
+                case 2 -> listAllBills();
+                case 3 -> findBillById();
+                case 4 -> findBillsByCustomer();
+                case 5 -> markBillAsPaid();
+                case 6 -> markBillAsPending();
+                case 7 -> deleteBill();
+                case 8 -> viewBillDetails();
+                case 9 -> back = true;
+                default -> System.out.println("Opcion no valida.");
+            }
+        }
+    }
+    
+    private static void createBill() {
+        System.out.println("\n--- CREAR NUEVA FACTURA ---");
+        int customerId = getIntInput("ID del cliente: ");
+        Customer customer = Customer.findCustomerById(customerId);
+        
+        if (customer == null) {
+            System.out.println("Cliente no encontrado.");
+            return;
+        }
+        
+        // Mostrar eventos del cliente
+        List<Event> events = customer.getEvents();
+        if (events.isEmpty()) {
+            System.out.println("El cliente no tiene eventos registrados.");
+            return;
+        }
+        
+        System.out.println("\nEventos del cliente:");
+        for (Event event : events) {
+            System.out.println("ID: " + event.getEventId() + " - " + event.getEventName() + 
+                             " (" + event.getEventType() + ") - $" + event.calculateFinalPrice());
+        }
+        
+        int eventId = getIntInput("ID del evento para la factura: ");
+        Event selectedEvent = customer.getEventById(eventId);
+        if (selectedEvent == null) {
+            System.out.println("Evento no encontrado.");
+            return;
+        }
+        
+        String notes = getStringInput("Notas (opcional): ");
+        
+        Bill bill = new Bill(customerId, eventId, notes);
+        if (bill.save()) {
+            System.out.println("Factura creada exitosamente!");
+            System.out.println("ID de factura: " + bill.getBillId());
+            System.out.println("Monto: $" + bill.getAmount());
+            System.out.println("Estado: PENDIENTE");
+        } else {
+            System.out.println("Error al crear factura.");
+        }
+    }
+    
+    private static void listAllBills() {
+        System.out.println("\n--- LISTA DE FACTURAS ---");
+        List<Bill> bills = Bill.getAllBills();
+        
+        if (bills.isEmpty()) {
+            System.out.println("No hay facturas registradas.");
+        } else {
+            for (Bill bill : bills) {
+                System.out.println(bill.toString());
+            }
+            System.out.println("\nTotal de facturas: " + bills.size());
+        }
+    }
+    
+    private static void findBillById() {
+        int id = getIntInput("Ingrese el ID de la factura: ");
+        Bill bill = Bill.findBillById(id);
+        
+        if (bill != null) {
+            bill.displayBillInfo();
+        } else {
+            System.out.println("Factura no encontrada.");
+        }
+    }
+    
+    private static void findBillsByCustomer() {
+        int customerId = getIntInput("Ingrese el ID del cliente: ");
+        List<Bill> bills = Bill.findBillsByCustomer(customerId);
+        
+        if (bills.isEmpty()) {
+            System.out.println("No se encontraron facturas para este cliente.");
+        } else {
+            System.out.println("\n--- FACTURAS DEL CLIENTE ---");
+            for (Bill bill : bills) {
+                System.out.println(bill.toString());
+            }
+        }
+    }
+    
+    private static void markBillAsPaid() {
+        int billId = getIntInput("ID de la factura a marcar como PAGADA: ");
+        Bill bill = Bill.findBillById(billId);
+        
+        if (bill != null) {
+            bill.confirmPayment();
+            System.out.println("Factura marcada como PAGADA.");
+        } else {
+            System.out.println("Factura no encontrada.");
+        }
+    }
+    
+    private static void markBillAsPending() {
+        int billId = getIntInput("ID de la factura a marcar como PENDIENTE: ");
+        Bill bill = Bill.findBillById(billId);
+        
+        if (bill != null) {
+            bill.markAsPending();
+            System.out.println("Factura marcada como PENDIENTE.");
+        } else {
+            System.out.println("Factura no encontrada.");
+        }
+    }
+    
+    private static void deleteBill() {
+        int billId = getIntInput("ID de la factura a eliminar: ");
+        Bill bill = Bill.findBillById(billId);
+        
+        if (bill != null && bill.delete()) {
+            System.out.println("Factura eliminada exitosamente!");
+        } else {
+            System.out.println("Error: Factura no encontrada o no se pudo eliminar.");
+        }
+    }
+    
+    private static void viewBillDetails() {
+        int billId = getIntInput("Ingrese el ID de la factura: ");
+        Bill bill = Bill.findBillById(billId);
+        
+        if (bill != null) {
+            bill.displayBillInfo();
+        } else {
+            System.out.println("Factura no encontrada.");
+        }
+    }
+    
+    // ==================== REPORTES E INFORMES ====================
+    private static void generateReports() {
+        boolean back = false;
+        while (!back) {
+            System.out.println("\n--- REPORTES E INFORMES ---");
+            System.out.println("1. Facturas pendientes de pago");
+            System.out.println("2. Facturas pagadas");
+            System.out.println("3. Resumen financiero");
+            System.out.println("4. Volver al menu principal");
+            
+            int option = getIntInput("Seleccione una opcion: ");
+            
+            switch (option) {
+                case 1 -> showPendingBills();
+                case 2 -> showPaidBills();
+                case 3 -> showFinancialSummary();
+                case 4 -> back = true;
+                default -> System.out.println("Opcion no valida.");
+            }
+        }
+    }
+    
+    private static void showPendingBills() {
+        System.out.println("\n--- FACTURAS PENDIENTES DE PAGO ---");
+        List<Bill> pendingBills = Bill.findPendingBills();
+        
+        if (pendingBills.isEmpty()) {
+            System.out.println("No hay facturas pendientes de pago.");
+        } else {
+            double totalPending = 0;
+            for (Bill bill : pendingBills) {
+                System.out.println(bill.showPendingPayment());
+                System.out.println("---");
+                totalPending += bill.getAmount();
+            }
+            System.out.println("TOTAL PENDIENTE: $" + String.format("%.2f", totalPending));
+            System.out.println("Numero de facturas pendientes: " + pendingBills.size());
+        }
+    }
+    
+    private static void showPaidBills() {
+        System.out.println("\n--- FACTURAS PAGADAS ---");
+        List<Bill> paidBills = Bill.findPaidBills();
+        
+        if (paidBills.isEmpty()) {
+            System.out.println("No hay facturas pagadas.");
+        } else {
+            double totalPaid = 0;
+            for (Bill bill : paidBills) {
+                System.out.println(bill.getPaymentSummary());
+                System.out.println("---");
+                totalPaid += bill.getAmount();
+            }
+            System.out.println("TOTAL PAGADO: $" + String.format("%.2f", totalPaid));
+            System.out.println("Numero de facturas pagadas: " + paidBills.size());
+        }
+    }
+    
+    private static void showFinancialSummary() {
+        System.out.println("\n--- RESUMEN FINANCIERO ---");
+        
+        List<Customer> customers = Customer.getAllCustomers();
+        List<Bill> allBills = Bill.getAllBills();
+        List<Bill> paidBills = Bill.findPaidBills();
+        List<Bill> pendingBills = Bill.findPendingBills();
+        
+        double totalRevenue = paidBills.stream().mapToDouble(Bill::getAmount).sum();
+        double pendingRevenue = pendingBills.stream().mapToDouble(Bill::getAmount).sum();
+        double totalEventValue = customers.stream().mapToDouble(Customer::getTotalEventCost).sum();
+        
+        System.out.println("ESTADISTICAS GENERALES:");
+        System.out.println("• Total de clientes: " + customers.size());
+        System.out.println("• Total de eventos: " + customers.stream().mapToInt(Customer::getEventCount).sum());
+        System.out.println("• Total de facturas: " + allBills.size());
+        System.out.println("• Facturas pagadas: " + paidBills.size());
+        System.out.println("• Facturas pendientes: " + pendingBills.size());
+        
+        System.out.println("\nINFORMACION FINANCIERA:");
+        System.out.println("• Ingresos recibidos: $" + String.format("%.2f", totalRevenue));
+        System.out.println("• Ingresos pendientes: $" + String.format("%.2f", pendingRevenue));
+        System.out.println("• Valor total de eventos: $" + String.format("%.2f", totalEventValue));
+        System.out.println("• Porcentaje cobrado: " + 
+            (totalEventValue > 0 ? String.format("%.1f", (totalRevenue / totalEventValue) * 100) : "0") + "%");
+    }
+    
+    // ==================== MÉTODOS UTILITARIOS ====================
+    private static int getIntInput(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Por favor ingrese un numero valido.");
+            }
+        }
+    }
+    
+    private static String getStringInput(String message) {
+        System.out.print(message);
+        return scanner.nextLine().trim();
+    }
+    
 }
