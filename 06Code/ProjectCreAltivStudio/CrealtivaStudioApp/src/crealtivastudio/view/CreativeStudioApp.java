@@ -3,17 +3,12 @@ package crealtivastudio.view;
 import crealtivastudio.model.Customer;
 import crealtivastudio.model.Event;
 import crealtivastudio.model.Bill;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 import java.util.Scanner;
 
 /**
  * Aplicación principal para Creative Studio
- * Gestión de clientes, eventos y facturas
- * Incluye programación automática y recordatorios de eventos
- * 
- * @author 
+ * @author Daniel, Mateo
  */
 public class CreativeStudioApp {
     private static Scanner scanner = new Scanner(System.in);
@@ -26,10 +21,18 @@ public class CreativeStudioApp {
         // Cargar datos existentes
         Customer.reloadFromJson();
         Bill.reloadFromJson();
-
-        // 🔔 NUEVO: mostrar recordatorios automáticos
-        showUpcomingEventsReminder();
-
+        
+        // Revisar recordatorios automáticos al inicio
+for (Customer c : Customer.getAllCustomers()) {
+    c.showUpcomingAppointments();
+}
+for (Bill b : Bill.getAllBills()) {
+    b.checkImportantDateAlert();
+}
+        
+        
+        
+        
         boolean exit = false;
         while (!exit) {
             displayMainMenu();
@@ -48,7 +51,7 @@ public class CreativeStudioApp {
             }
         }
     }
-
+    
     private static void displayMainMenu() {
         System.out.println("\n--- MENU PRINCIPAL ---");
         System.out.println("1. Gestion de Clientes");
@@ -57,41 +60,7 @@ public class CreativeStudioApp {
         System.out.println("4. Reportes e Informes");
         System.out.println("5. Salir");
     }
-
-    // ==================== FEATURE NUEVO ====================
-    // 🔔 Recordatorios automáticos de eventos próximos
-    private static void showUpcomingEventsReminder() {
-        System.out.println("\n🔔 RECORDATORIOS DE EVENTOS PRÓXIMOS 🔔");
-        List<Customer> customers = Customer.getAllCustomers();
-        boolean found = false;
-
-        for (Customer c : customers) {
-            for (Event e : c.getEvents()) {
-                if (isEventSoon(e.getEventDate(), 3)) {
-                    System.out.println("Cliente: " + c.getName());
-                    System.out.println("Evento: " + e.getEventName() + " (" + e.getEventType() + ")");
-                    System.out.println("Fecha: " + e.getEventDate());
-                    System.out.println("--------------------------------------");
-                    found = true;
-                }
-            }
-        }
-        if (!found) {
-            System.out.println("No hay eventos próximos en los próximos 3 días.");
-        }
-    }
-
-    private static boolean isEventSoon(String eventDate, int daysAhead) {
-        try {
-            LocalDate date = LocalDate.parse(eventDate);
-            LocalDate now = LocalDate.now();
-            Period diff = Period.between(now, date);
-            return !date.isBefore(now) && diff.getDays() <= daysAhead;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
+    
     // ==================== GESTIÓN DE CLIENTES ====================
     private static void manageCustomers() {
         boolean back = false;
@@ -121,9 +90,10 @@ public class CreativeStudioApp {
             }
         }
     }
-
+    
     private static void registerCustomer() {
         System.out.println("\n--- REGISTRAR NUEVO CLIENTE ---");
+        
         String name = getStringInput("Nombre: ");
         String phone = getStringInput("Telefono (10 digitos): ");
         String email = getStringInput("Email: ");
@@ -137,7 +107,7 @@ public class CreativeStudioApp {
             System.out.println("Error al registrar cliente. Verifique los datos.");
         }
     }
-
+    
     private static void listAllCustomers() {
         System.out.println("\n--- LISTA DE CLIENTES ---");
         List<Customer> customers = Customer.getAllCustomers();
@@ -151,7 +121,7 @@ public class CreativeStudioApp {
             System.out.println("\nTotal de clientes: " + customers.size());
         }
     }
-
+    
     private static void findCustomerById() {
         int id = getIntInput("Ingrese el ID del cliente: ");
         Customer customer = Customer.findCustomerById(id);
@@ -162,7 +132,7 @@ public class CreativeStudioApp {
             System.out.println("Cliente no encontrado.");
         }
     }
-
+    
     private static void findCustomerByName() {
         String name = getStringInput("Ingrese el nombre a buscar: ");
         List<Customer> customers = Customer.findCustomersByName(name);
@@ -176,7 +146,7 @@ public class CreativeStudioApp {
             }
         }
     }
-
+    
     private static void updateCustomer() {
         int id = getIntInput("Ingrese el ID del cliente a actualizar: ");
         Customer customer = Customer.findCustomerById(id);
@@ -190,6 +160,7 @@ public class CreativeStudioApp {
         customer.displayCustomerInfo();
         
         System.out.println("\nIngrese los nuevos datos (deje en blanco para mantener el actual):");
+        
         String newName = getStringInput("Nuevo nombre [" + customer.getName() + "]: ");
         String newPhone = getStringInput("Nuevo telefono [" + customer.getPhone() + "]: ");
         String newEmail = getStringInput("Nuevo email [" + customer.getEmail() + "]: ");
@@ -206,16 +177,17 @@ public class CreativeStudioApp {
             System.out.println("Error al actualizar cliente.");
         }
     }
-
+    
     private static void deleteCustomer() {
         int id = getIntInput("Ingrese el ID del cliente a eliminar: ");
+        
         if (Customer.deleteCustomer(id)) {
             System.out.println("Cliente eliminado exitosamente!");
         } else {
             System.out.println("Error: Cliente no encontrado o no se pudo eliminar.");
         }
     }
-
+    
     private static void viewCustomerDetails() {
         int id = getIntInput("Ingrese el ID del cliente: ");
         Customer customer = Customer.findCustomerById(id);
@@ -226,7 +198,7 @@ public class CreativeStudioApp {
             System.out.println("Cliente no encontrado.");
         }
     }
-
+    
     // ==================== GESTIÓN DE EVENTOS ====================
     private static void manageEvents() {
         boolean back = false;
@@ -248,7 +220,7 @@ public class CreativeStudioApp {
             }
         }
     }
-
+    
     private static void addEventToCustomer() {
         System.out.println("\n--- AGREGAR EVENTO A CLIENTE ---");
         int customerId = getIntInput("ID del cliente: ");
@@ -261,7 +233,7 @@ public class CreativeStudioApp {
         
         System.out.println("Tipos de evento disponibles:");
         System.out.println("1. Bodas ($1500.00) - 10% descuento");
-        System.out.println("2. Cumpleaños ($800.00)");
+        System.out.println("2. Cumpleanos ($800.00)");
         System.out.println("3. Bautizos ($2000.00) - 5% descuento");
         System.out.println("4. Graduaciones ($600.00)");
         
@@ -272,20 +244,18 @@ public class CreativeStudioApp {
         }
         
         String eventName = getStringInput("Nombre del evento: ");
-        String eventDate = getStringInput("Fecha del evento (YYYY-MM-DD o vacío para automática): ");
-        if (eventDate.isEmpty()) eventDate = null;
+        String eventDate = getStringInput("Fecha del evento (YYYY-MM-DD): ");
         
         Event event = customer.addEvent(eventName, eventDate, eventType);
         if (event != null) {
             System.out.println("Evento agregado exitosamente!");
             System.out.println("ID del evento: " + event.getEventId());
-            System.out.println("Fecha programada: " + event.getEventDate());
             System.out.println("Precio final: $" + event.calculateFinalPrice());
         } else {
             System.out.println("Error al agregar evento.");
         }
     }
-
+    
     private static void viewCustomerEvents() {
         int customerId = getIntInput("Ingrese el ID del cliente: ");
         Customer customer = Customer.findCustomerById(customerId);
@@ -296,7 +266,7 @@ public class CreativeStudioApp {
             System.out.println("Cliente no encontrado.");
         }
     }
-
+    
     private static void deleteEvent() {
         int customerId = getIntInput("ID del cliente: ");
         Customer customer = Customer.findCustomerById(customerId);
@@ -313,7 +283,7 @@ public class CreativeStudioApp {
             System.out.println("Error: Evento no encontrado.");
         }
     }
-
+    
     // ==================== GESTIÓN DE FACTURAS ====================
     private static void manageBills() {
         boolean back = false;
@@ -345,7 +315,7 @@ public class CreativeStudioApp {
             }
         }
     }
-
+    
     private static void createBill() {
         System.out.println("\n--- CREAR NUEVA FACTURA ---");
         int customerId = getIntInput("ID del cliente: ");
@@ -356,6 +326,7 @@ public class CreativeStudioApp {
             return;
         }
         
+        // Mostrar eventos del cliente
         List<Event> events = customer.getEvents();
         if (events.isEmpty()) {
             System.out.println("El cliente no tiene eventos registrados.");
@@ -387,7 +358,7 @@ public class CreativeStudioApp {
             System.out.println("Error al crear factura.");
         }
     }
-
+    
     private static void listAllBills() {
         System.out.println("\n--- LISTA DE FACTURAS ---");
         List<Bill> bills = Bill.getAllBills();
@@ -401,7 +372,7 @@ public class CreativeStudioApp {
             System.out.println("\nTotal de facturas: " + bills.size());
         }
     }
-
+    
     private static void findBillById() {
         int id = getIntInput("Ingrese el ID de la factura: ");
         Bill bill = Bill.findBillById(id);
@@ -412,7 +383,7 @@ public class CreativeStudioApp {
             System.out.println("Factura no encontrada.");
         }
     }
-
+    
     private static void findBillsByCustomer() {
         int customerId = getIntInput("Ingrese el ID del cliente: ");
         List<Bill> bills = Bill.findBillsByCustomer(customerId);
@@ -426,7 +397,7 @@ public class CreativeStudioApp {
             }
         }
     }
-
+    
     private static void markBillAsPaid() {
         int billId = getIntInput("ID de la factura a marcar como PAGADA: ");
         Bill bill = Bill.findBillById(billId);
@@ -438,7 +409,7 @@ public class CreativeStudioApp {
             System.out.println("Factura no encontrada.");
         }
     }
-
+    
     private static void markBillAsPending() {
         int billId = getIntInput("ID de la factura a marcar como PENDIENTE: ");
         Bill bill = Bill.findBillById(billId);
@@ -450,7 +421,7 @@ public class CreativeStudioApp {
             System.out.println("Factura no encontrada.");
         }
     }
-
+    
     private static void deleteBill() {
         int billId = getIntInput("ID de la factura a eliminar: ");
         Bill bill = Bill.findBillById(billId);
@@ -461,7 +432,7 @@ public class CreativeStudioApp {
             System.out.println("Error: Factura no encontrada o no se pudo eliminar.");
         }
     }
-
+    
     private static void viewBillDetails() {
         int billId = getIntInput("Ingrese el ID de la factura: ");
         Bill bill = Bill.findBillById(billId);
@@ -472,7 +443,7 @@ public class CreativeStudioApp {
             System.out.println("Factura no encontrada.");
         }
     }
-
+    
     // ==================== REPORTES E INFORMES ====================
     private static void generateReports() {
         boolean back = false;
@@ -481,8 +452,7 @@ public class CreativeStudioApp {
             System.out.println("1. Facturas pendientes de pago");
             System.out.println("2. Facturas pagadas");
             System.out.println("3. Resumen financiero");
-            System.out.println("4. Recordatorios de eventos próximos");
-            System.out.println("5. Volver al menu principal");
+            System.out.println("4. Volver al menu principal");
             
             int option = getIntInput("Seleccione una opcion: ");
             
@@ -490,13 +460,12 @@ public class CreativeStudioApp {
                 case 1 -> showPendingBills();
                 case 2 -> showPaidBills();
                 case 3 -> showFinancialSummary();
-                case 4 -> showUpcomingEventsReminder();
-                case 5 -> back = true;
+                case 4 -> back = true;
                 default -> System.out.println("Opcion no valida.");
             }
         }
     }
-
+    
     private static void showPendingBills() {
         System.out.println("\n--- FACTURAS PENDIENTES DE PAGO ---");
         List<Bill> pendingBills = Bill.findPendingBills();
@@ -508,4 +477,73 @@ public class CreativeStudioApp {
             for (Bill bill : pendingBills) {
                 System.out.println(bill.showPendingPayment());
                 System.out.println("---");
-                totalPending += bill.get
+                totalPending += bill.getAmount();
+            }
+            System.out.println("TOTAL PENDIENTE: $" + String.format("%.2f", totalPending));
+            System.out.println("Numero de facturas pendientes: " + pendingBills.size());
+        }
+    }
+    
+    private static void showPaidBills() {
+        System.out.println("\n--- FACTURAS PAGADAS ---");
+        List<Bill> paidBills = Bill.findPaidBills();
+        
+        if (paidBills.isEmpty()) {
+            System.out.println("No hay facturas pagadas.");
+        } else {
+            double totalPaid = 0;
+            for (Bill bill : paidBills) {
+                System.out.println(bill.getPaymentSummary());
+                System.out.println("---");
+                totalPaid += bill.getAmount();
+            }
+            System.out.println("TOTAL PAGADO: $" + String.format("%.2f", totalPaid));
+            System.out.println("Numero de facturas pagadas: " + paidBills.size());
+        }
+    }
+    
+    private static void showFinancialSummary() {
+        System.out.println("\n--- RESUMEN FINANCIERO ---");
+        
+        List<Customer> customers = Customer.getAllCustomers();
+        List<Bill> allBills = Bill.getAllBills();
+        List<Bill> paidBills = Bill.findPaidBills();
+        List<Bill> pendingBills = Bill.findPendingBills();
+        
+        double totalRevenue = paidBills.stream().mapToDouble(Bill::getAmount).sum();
+        double pendingRevenue = pendingBills.stream().mapToDouble(Bill::getAmount).sum();
+        double totalEventValue = customers.stream().mapToDouble(Customer::getTotalEventCost).sum();
+        
+        System.out.println("ESTADISTICAS GENERALES:");
+        System.out.println("• Total de clientes: " + customers.size());
+        System.out.println("• Total de eventos: " + customers.stream().mapToInt(Customer::getEventCount).sum());
+        System.out.println("• Total de facturas: " + allBills.size());
+        System.out.println("• Facturas pagadas: " + paidBills.size());
+        System.out.println("• Facturas pendientes: " + pendingBills.size());
+        
+        System.out.println("\nINFORMACION FINANCIERA:");
+        System.out.println("• Ingresos recibidos: $" + String.format("%.2f", totalRevenue));
+        System.out.println("• Ingresos pendientes: $" + String.format("%.2f", pendingRevenue));
+        System.out.println("• Valor total de eventos: $" + String.format("%.2f", totalEventValue));
+        System.out.println("• Porcentaje cobrado: " + 
+            (totalEventValue > 0 ? String.format("%.1f", (totalRevenue / totalEventValue) * 100) : "0") + "%");
+    }
+    
+    // ==================== MÉTODOS UTILITARIOS ====================
+    private static int getIntInput(String message) {
+        while (true) {
+            try {
+                System.out.print(message);
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Por favor ingrese un numero valido.");
+            }
+        }
+    }
+    
+    private static String getStringInput(String message) {
+        System.out.print(message);
+        return scanner.nextLine().trim();
+    }
+    
+}

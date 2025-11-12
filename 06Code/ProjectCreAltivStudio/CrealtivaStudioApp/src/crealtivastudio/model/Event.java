@@ -1,12 +1,13 @@
 package crealtivastudio.model;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 /**
- * Clase que representa un evento en el sistema
+ *
  * @author Daniel
  */
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event {
     private int eventId;
     private String eventName;
@@ -27,23 +28,10 @@ public class Event {
     public Event(int eventId, String eventName, String eventDate, int eventTypeCode) {
         this.eventId = eventId;
         this.eventName = eventName;
+        this.eventDate = eventDate;
         this.eventTypeCode = eventTypeCode;
         this.eventType = getEventTypeString(eventTypeCode);
         this.basePrice = calculateBasePrice();
-
-        // Si no se ingresa fecha, asigna automáticamente la próxima disponible
-        if (eventDate == null || eventDate.trim().isEmpty()) {
-            this.eventDate = generateNextAvailableDate();
-        } else {
-            this.eventDate = eventDate;
-        }
-    }
-
-    // --- NUEVO: Genera fecha automática si no se ingresa ---
-    private String generateNextAvailableDate() {
-        LocalDate today = LocalDate.now();
-        LocalDate nextDate = today.plusDays(7); // siguiente semana
-        return nextDate.format(DateTimeFormatter.ISO_DATE);
     }
 
     // Método para calcular precio base según tipo de evento
@@ -61,9 +49,12 @@ public class Event {
     public double calculateFinalPrice() {
         double finalPrice = this.basePrice;
         
+        // Descuento para bodas
         if (this.eventTypeCode == BODAS) {
             finalPrice *= 0.9; // 10% de descuento
         }
+        
+        // Descuento para bautizos
         if (this.eventTypeCode == BAUTIZOS) {
             finalPrice *= 0.95; // 5% de descuento
         }
@@ -109,4 +100,27 @@ public class Event {
 
     public double getBasePrice() { return basePrice; }
     public void setBasePrice(double basePrice) { this.basePrice = basePrice; }
+    
+    public String scheduleAutomaticAppointment() {
+    try {
+        LocalDate eventDate = LocalDate.parse(this.eventDate);
+        LocalDate appointmentDate = eventDate.minusDays(7); // cita 1 semana antes del evento
+        return "✅ Cita automática programada para el " + 
+               appointmentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) +
+               " (1 semana antes del evento \"" + this.eventName + "\")";
+    } catch (DateTimeParseException e) {
+        return "⚠️ Error: formato de fecha inválido para el evento " + this.eventName;
+    }
+}
+
+public boolean isUpcoming() {
+    try {
+        LocalDate eventDate = LocalDate.parse(this.eventDate);
+        LocalDate today = LocalDate.now();
+        return !eventDate.isBefore(today) && eventDate.isBefore(today.plusDays(3));
+    } catch (Exception e) {
+        return false;
+    }
+}
+    
 }

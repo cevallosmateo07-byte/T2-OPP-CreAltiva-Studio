@@ -5,7 +5,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.reflect.TypeToken;
-
+import java.time.LocalDate;
 /**
  *
  * @author Daniel
@@ -268,4 +268,27 @@ public class Customer {
                 .toList();
     }
     
+    public void showUpcomingAppointments() {
+    if (events == null || events.isEmpty()) {
+        System.out.println("El cliente " + this.name + " no tiene eventos registrados.");
+        return;
+    }
+
+    System.out.println("\n📅 Recordatorios para el cliente: " + this.name);
+    boolean found = false;
+
+    for (Event e : events) {
+        if (e.isUpcoming()) {
+            System.out.println("🔔 Evento próximo: " + e.getEventName() + 
+                               " (" + e.getEventType() + ") - Fecha: " + e.getEventDate());
+            System.out.println(e.scheduleAutomaticAppointment());
+            System.out.println("--------------------------------------");
+            found = true;
+        }
+    }
+
+    if (!found) {
+        System.out.println("✅ No hay eventos próximos en los próximos 3 días para este cliente.");
+    }
+}
 }

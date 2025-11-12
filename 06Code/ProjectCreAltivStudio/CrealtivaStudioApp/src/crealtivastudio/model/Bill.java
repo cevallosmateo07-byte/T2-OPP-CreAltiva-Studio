@@ -5,7 +5,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.reflect.TypeToken;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 /**
  *
  * @author Mateo Cevallos
@@ -263,6 +265,30 @@ public class Bill {
     public void displayBillInfo() {
         System.out.println(this.getPaymentSummary());
     }
+    
+    public void checkImportantDateAlert() {
+    Customer customer = Customer.findCustomerById(this.customerId);
+    Event event = (customer != null) ? customer.getEventById(this.eventId) : null;
+
+    if (event == null) return;
+
+    try {
+        LocalDate eventDate = LocalDate.parse(event.getEventDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate today = LocalDate.now();
+
+        if (eventDate.equals(today.plusDays(1)) && !this.isPaid) {
+            System.out.println("⚠️ Alerta: La factura #" + this.billId + " (" + event.getEventName() + 
+                               ") vence mañana. Monto pendiente: $" + String.format("%.2f", this.amount));
+        }
+        if (eventDate.equals(today)) {
+            System.out.println("🚨 Hoy es el evento \"" + event.getEventName() + "\" del cliente ID " + this.customerId);
+        }
+    } catch (DateTimeParseException e) {
+        System.out.println("Error: formato de fecha inválido en el evento ID " + this.eventId);
+    }
+}
+    
+    
     
 }
 
