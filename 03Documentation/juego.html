@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominio de la Doctrina - DyC Interactivo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Comic+Sans+MS:wght@400;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 1. CONFIGURACIÓN GENERAL */
+        :root {
+            --color-primary: #5EADF7; /* Azul Brillante */
+            --color-secondary: #F75EAD; /* Rosa Brillante */
+            --color-accent-1: #dcfd8bff; /* Lima */
+            --color-accent-2: #ff823aff; /* Naranja */
+            --font-main: 'Poppins', sans-serif;
+            --font-comic: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        /* Aplicar Poppins/Comic Sans según preferencia, usaremos Poppins como base y Comic Sans para detalles juveniles */
+        body {
+            font-family: var(--font-main);
+            background-color: #f0f4f8; /* Fondo muy claro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            cursor: pointer; /* Cursor de click para simular avance con tap */
+        }
+
+        .presentation-wrapper {
+            width: 1280px; /* Tamaño 16:9 */
+            height: 720px;
+            background-color: white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            padding: 40px 60px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease-in-out;
+            color: #333;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        /* 2. TIPOGRAFÍA Y ESTILOS */
+        h1, h2, h3, p {
+            font-family: var(--font-main);
+        }
+
+        .title-slide h1 {
+            font-size: 90px;
+            font-weight: 900;
+            color: var(--color-primary);
+            text-shadow: 4px 4px 0 var(--color-accent-1);
+            animation: bounceIn 1s ease-out;
+        }
+
+        .title-slide h1 span {
+            color: var(--color-secondary);
+            text-shadow: 4px 4px 0 var(--color-accent-2);
+        }
+
+        .slide-header {
+            width: 100%;
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--color-secondary);
+            margin-bottom: 30px;
+            text-align: left;
+            border-bottom: 4px solid var(--color-primary);
+            padding-bottom: 10px;
+            font-family: var(--font-comic);
+        }
+
+        .content-container {
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 3. ESTILOS DE JUEGO (PREGUNTA/RESPUESTA) */
+
+        /* Icono (Pregunta de Símbolo) */
+        .icon-question {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 150px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 10px dashed var(--color-secondary);
+            animation: pulse 2s infinite;
+        }
+        .icon-question p {
+            font-size: 28px;
+            font-weight: 700;
+            color: #555;
+            text-align: center;
+        }
+
+        /* Texto Incompleto (Pregunta de Texto) */
+        .text-question {
+            background-color: #ffe6f0; /* Rosa pastel */
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 8px solid var(--color-secondary);
+            max-width: 80%;
+            font-family: var(--font-comic);
+        }
+        .text-question p {
+            font-size: 32px;
+            line-height: 1.8;
+            color: #333;
+            font-weight: 400;
+        }
+
+        /* Respuesta (Ambos Tipos) */
+        .answer-text {
+            background-color: #e6f7ff; /* Azul pastel */
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 8px solid var(--color-primary);
+            max-width: 90%;
+            text-align: left;
+            animation: fadeIn 1s ease-out;
+        }
+        .answer-text p {
+            font-size: 32px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            font-weight: 400;
+        }
+        .answer-text p strong {
+            color: var(--color-secondary);
+            font-weight: 900;
+        }
+        .answer-text .reference {
+            margin-top: 20px;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-primary);
+            font-family: var(--font-comic);
+        }
+
+        /* Botones de Navegación */
+        .nav-button {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px var(--color-accent-2);
+            transition: all 0.1s;
+            margin-top: 30px;
+            border: none;
+            outline: none;
+            font-family: var(--font-comic);
+        }
+        .nav-button:hover {
+            background-color: var(--color-secondary);
+            box-shadow: 0 4px var(--color-primary);
+        }
+        .nav-button:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        /* 4. DIAPOSITIVA FINAL (CUADRÍCULA) */
+        .final-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            width: 100%;
+            height: 90%;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .grid-tile {
+            border-radius: 10px;
+            padding: 12px;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+        .grid-tile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid-tile p {
+            font-size: 14px;
+            line-height: 1.3;
+            color: #333;
+            font-family: var(--font-main);
+        }
+        .grid-tile .reference {
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        /* Colores de Cuadrícula Diferenciados */
+        .grid-tile:nth-child(6n+1) { background-color: #dcfd8bff; } /* Lima */
+        .grid-tile:nth-child(6n+2) { background-color: #fdd5bdff; } /* Durazno */
+        .grid-tile:nth-child(6n+3) { background-color: #bc84eeff; } /* Púrpura */
+        .grid-tile:nth-child(6n+4) { background-color: #ff823aff; } /* Naranja */
+        .grid-tile:nth-child(6n+5) { background-color: #ade8f4; } /* Azul claro */
+        .grid-tile:nth-child(6n+6) { background-color: #f7cad0; } /* Rosa claro */
+
+        /* Animaciones */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0px rgba(94, 173, 247, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(94, 173, 247, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0px rgba(94, 173, 247, 0); }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="presentation-wrapper" id="presentationWrapper">
+    </div>
+
+<script>
+    // --- DATOS DE LAS ESCRITURAS ---
+    const scriptures = [
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '✨',
+            iconColor: '#5EADF7',
+            question: '¿Qué gran acontecimiento fue presenciado por José Smith?',
+            fullText: 'José Smith vio “a dos Personajes, cuyo fulgor y gloria no admiten descripción”.',
+            reference: 'José Smith—Historia 1:15-20',
+            highlight: ['dos Personajes', 'fulgor', 'gloria']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: '“… la única iglesia ______ y ______”.',
+            fullText: '“… la única iglesia <strong>verdadera</strong> y <strong>viviente</strong>”.',
+            reference: 'Doctrina y Convenios 1:30'
+        },
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '📣',
+            iconColor: '#F75EAD',
+            question: '¿De quién viene la palabra, sea del Señor o de Sus siervos?',
+            fullText: '“… sea por mi propia voz o por la voz de mis siervos, es lo mismo”.',
+            reference: 'Doctrina y Convenios 1:37-38',
+            highlight: ['propia voz', 'voz de mis siervos']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: '“Mirad hacia mí en todo __________; no ______; no ______”.',
+            fullText: '“Mirad hacia mí en todo <strong>pensamiento</strong>; no <strong>dudéis</strong>; no <strong>temáis</strong>”.',
+            reference: 'Doctrina y Convenios 6:36'
+        },
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '🧠❤️',
+            iconColor: '#dcfd8bff',
+            question: '¿Cómo nos habla el Espíritu Santo?',
+            fullText: '“… hablaré a tu mente y a tu corazón por medio del Espíritu Santo”.',
+            reference: 'Doctrina y Convenios 8:2-3',
+            highlight: ['mente', 'corazón', 'Espíritu Santo']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: 'El Sacerdocio Aarónico “tiene las llaves del ministerio de _______, y del evangelio de _______________, y del ________”.',
+            fullText: 'El Sacerdocio Aarónico “tiene las llaves del ministerio de <strong>ángeles</strong>, y del evangelio de <strong>arrepentimiento</strong>, y del <strong>bautismo</strong>”.',
+            reference: 'Doctrina y Convenios 13:1'
+        },
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '💎',
+            iconColor: '#ff823aff',
+            question: '¿Qué piensa el Señor sobre cada persona?',
+            fullText: '“… el valor de las almas es grande a la vista de Dios”.',
+            reference: 'Doctrina y Convenios 18:10-11',
+            highlight: ['valor de las almas', 'grande']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: '“… ¡cuán grande no será vuestro ____ si me trajereis _______ _____!”.',
+            fullText: '“… ¡cuán grande no será vuestro <strong>gozo</strong> si me trajereis <strong>muchas almas</strong>!”.',
+            reference: 'Doctrina y Convenios 18:15-16'
+        },
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '🤕',
+            iconColor: '#bc84eeff',
+            question: '¿Quién sufrió por todos nosotros?',
+            fullText: '“… yo, [Jesucristo], he padecido estas cosas por todos”.',
+            reference: 'Doctrina y Convenios 19:16-19',
+            highlight: ['padecido estas cosas', 'por todos']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: '“… recibiréis [la] palabra [del profeta] […] como si viniera de mi ______ ______”.',
+            fullText: '“… recibiréis [la] palabra [del profeta] […] como si viniera de mi <strong>propia boca</strong>”.',
+            reference: 'Doctrina y Convenios 21:4-6'
+        },
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '👑',
+            iconColor: '#ade8f4',
+            question: '¿Qué sucederá en la Segunda Venida?',
+            fullText: '“… con poder y gran gloria me revelaré desde los cielos […] y moraré en rectitud con los hombres sobre la tierra mil años”.',
+            reference: 'Doctrina y Convenios 29:10-11',
+            highlight: ['poder y gran gloria', 'mil años']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: '“… el __________ lo decretó ____”.',
+            fullText: '“… el <strong>matrimonio</strong> lo decretó <strong>Dios</strong>”.',
+            reference: 'Doctrina y Convenios 49:15-17'
+        },
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '🧼',
+            iconColor: '#f7cad0',
+            question: '¿Qué sucede con quien se arrepiente?',
+            fullText: '“… quien se ha arrepentido de sus pecados es perdonado”.',
+            reference: 'Doctrina y Convenios 58:42-43',
+            highlight: ['arrepentido', 'perdonado']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: '“… a vosotros os es requerido ________ a _____ ___ ________”.',
+            fullText: '“… a vosotros os es requerido <strong>perdonar</strong> a <strong>todos los hombres</strong>”.',
+            reference: 'Doctrina y Convenios 64:9-11'
+        },
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '🌍🪐',
+            iconColor: '#dcfd8bff',
+            question: '¿Mediante quién fueron creados los mundos?',
+            fullText: '“… por [Jesucristo] […] los mundos son y fueron creados”.',
+            reference: 'Doctrina y Convenios 76:22-24',
+            highlight: ['Jesucristo', 'mundos']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: '“Yo, el Señor, estoy ________ cuando hacéis lo que os ____”.',
+            fullText: '“Yo, el Señor, estoy <strong>obligado</strong> cuando hacéis lo que os <strong>digo</strong>”.',
+            reference: 'Doctrina y Convenios 82:10'
+        },
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '🏛️',
+            iconColor: '#F75EAD',
+            question: '¿Dónde se manifiesta el poder de la divinidad?',
+            fullText: '“… en sus ordenanzas se manifiesta el poder de la divinidad”.',
+            reference: 'Doctrina y Convenios 84:20-22',
+            highlight: ['ordenanzas', 'poder de la divinidad']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: '“… buscad conocimiento, tanto por el _______ como por la __”.',
+            fullText: '“… buscad conocimiento, tanto por el <strong>estudio</strong> como por la <strong>fe</strong>”.',
+            reference: 'Doctrina y Convenios 88:118'
+        },
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '🍎🥕',
+            iconColor: '#ff823aff',
+            question: '¿Qué bendiciones vienen de la Palabra de Sabiduría?',
+            fullText: 'Las bendiciones de vivir la Palabra de Sabiduría: correrán y no se fatigarán, y andarán y no se cansarán.',
+            reference: 'Doctrina y Convenios 89:18-21',
+            highlight: ['Palabra de Sabiduría', 'correrán y no se fatigarán']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: '“El Sacerdocio de Melquisedec […] tiene _____ y ________ […] para administrar en las cosas ____________”.',
+            fullText: '“El Sacerdocio de Melquisedec […] tiene <strong>poder</strong> y <strong>autoridad</strong> […] para administrar en las cosas <strong>espirituales</strong>”.',
+            reference: 'Doctrina y Convenios 107:8'
+        },
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '⚖️',
+            iconColor: '#bc84eeff',
+            question: '¿Qué principio rige el sacerdocio?',
+            fullText: '“… los derechos del sacerdocio […] no pueden ser gobernados ni manejados sino conforme a los principios de la rectitud”.',
+            reference: 'Doctrina y Convenios 121:36, 41-42',
+            highlight: ['principios de la rectitud', 'derechos del sacerdocio']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: '“El Padre tiene un cuerpo de _____ y ______ […]; así también el ____; pero el Espíritu Santo […] es un personaje de ________”.',
+            fullText: '“El Padre tiene un cuerpo de <strong>carne</strong> y <strong>huesos</strong> […]; así también el <strong>Hijo</strong>; pero el Espíritu Santo […] es un personaje de <strong>Espíritu</strong>”.',
+            reference: 'Doctrina y Convenios 130:22-23'
+        },
+        {
+            type: 'icon',
+            title: 'Adivina la Escritura por Símbolo',
+            icon: '👨‍👩‍👧‍👦',
+            iconColor: '#ade8f4',
+            question: '¿Qué convenio es el más importante?',
+            fullText: '“… el nuevo y sempiterno convenio del matrimonio”.',
+            reference: 'Doctrina y Convenios 131:1-4',
+            highlight: ['nuevo y sempiterno convenio', 'matrimonio']
+        },
+        {
+            type: 'text',
+            title: 'Completa la Escritura',
+            question: 'José Smith sacó “a luz el _____ __ ______, que tradujo por el ___ y el _____ de ____”.',
+            fullText: 'José Smith sacó “a luz el <strong>Libro de Mormón</strong>, que tradujo por el <strong>don</strong> y el <strong>poder</strong> de <strong>Dios</strong>”.',
+            reference: 'Doctrina y Convenios 135:3'
+        }
+    ];
+
+    let currentSlideIndex = 0;
+    const totalSlides = (scriptures.length * 2) + 2; // Title (1) + Game (48) + Summary (1)
+
+    // --- FUNCIONES DE RENDERIZADO ---
+
+    function createSlide(id, content, isInteractive = false) {
+        const slide = document.createElement('div');
+        slide.className = `slide ${id === 0 ? 'active' : ''} ${id === 0 ? 'title-slide' : ''}`;
+        slide.id = `slide-${id}`;
+        slide.innerHTML = content;
+
+        if (isInteractive) {
+            const button = document.createElement('button');
+            button.className = 'nav-button';
+            button.textContent = id % 2 === 0 && id > 0 ? 'Revelar Respuesta' : 'Siguiente Dominio';
+            button.onclick = (e) => {
+                e.stopPropagation(); // Prevenir el avance automático por clic en el wrapper
+                nextSlide();
+            };
+            slide.appendChild(button);
+        }
+
+        return slide;
+    }
+
+    function renderQuestionSlide(index, data) {
+        let contentHTML;
+        if (data.type === 'icon') {
+            contentHTML = `
+                <h2 class="slide-header">${data.title}</h2>
+                <div class="content-container">
+                    <div class="icon-question" style="background-color: ${data.iconColor}; border-color: ${data.iconColor};">
+                        ${data.icon}
+                    </div>
+                </div>
+                <p class="mt-4 text-2xl font-semibold text-gray-600 font-comic">Pista: ${data.question}</p>
+            `;
+        } else { // type === 'text'
+            contentHTML = `
+                <h2 class="slide-header">${data.title}</h2>
+                <div class="content-container">
+                    <div class="text-question">
+                        <p>${data.question}</p>
+                    </div>
+                </div>
+            `;
+        }
+        return createSlide(index, contentHTML, true);
+    }
+
+    function renderAnswerSlide(index, data) {
+        // Enfatizar las palabras clave
+        let finalScripture = data.fullText;
+        if (data.highlight) {
+            data.highlight.forEach(word => {
+                const regex = new RegExp(`(${word})`, 'gi');
+                finalScripture = finalScripture.replace(regex, '<strong>$1</strong>');
+            });
+        }
+
+        const contentHTML = `
+            <h2 class="slide-header">¡Respuesta Correcta!</h2>
+            <div class="content-container">
+                <div class="answer-text">
+                    <p>${data.fullText}</p>
+                    <p class="reference">${data.reference}</p>
+                </div>
+            </div>
+        `;
+        return createSlide(index, contentHTML, true);
+    }
+
+    function renderTitleSlide() {
+        const contentHTML = `
+            <div class="title-slide flex flex-col items-center justify-center h-full">
+                <h1>Dominio de <span>la Doctrina</span></h1>
+                <p class="text-4xl mt-6 font-semibold text-gray-700 font-comic">Doctrina y Convenios / José Smith—Historia</p>
+                <p class="text-3xl mt-10 font-bold text-gray-500 font-comic">¡Un juego de repaso interactivo!</p>
+            </div>
+        `;
+        return createSlide(0, contentHTML, false); // No botón, solo clic para avanzar
+    }
+
+    function renderSummarySlide() {
+        const gridContent = scriptures.map((data, idx) => {
+            const colors = ['#dcfd8bff', '#fdd5bdff', '#bc84eeff', '#ff823aff', '#ade8f4', '#f7cad0'];
+            const colorIndex = idx % 6;
+            return `
+                <div class="grid-tile" style="background-color: ${colors[colorIndex]};">
+                    <p>${data.fullText.replace(/<\/?strong>/g, '')}</p>
+                    <p class="reference">${data.reference}</p>
+                </div>
+            `;
+        }).join('');
+
+        const contentHTML = `
+            <h2 class="slide-header" style="text-align: center; color: #333; border-color: #333;">Los 24 Dominios de la Doctrina</h2>
+            <div class="final-grid">
+                ${gridContent}
+            </div>
+        `;
+        return createSlide(totalSlides - 1, contentHTML, false);
+    }
+
+    function initializeSlides() {
+        const wrapper = document.getElementById('presentationWrapper');
+        wrapper.innerHTML = ''; // Limpiar
+
+        wrapper.appendChild(renderTitleSlide());
+
+        let slideId = 1;
+        scriptures.forEach(data => {
+            // Diapositiva de Pregunta
+            wrapper.appendChild(renderQuestionSlide(slideId++, data));
+            // Diapositiva de Respuesta
+            wrapper.appendChild(renderAnswerSlide(slideId++, data));
+        });
+
+        wrapper.appendChild(renderSummarySlide());
+
+        // Manejar click/tap en cualquier lugar para avanzar, excepto en botones
+        wrapper.onclick = (e) => {
+            if (e.target.closest('.nav-button') === null) {
+                nextSlide();
+            }
+        };
+
+        showSlide(currentSlideIndex);
+    }
+
+    function showSlide(index) {
+        const slides = document.querySelectorAll('.slide');
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
+            if (i === index) {
+                slide.classList.add('active');
+            }
+        });
+        currentSlideIndex = index;
+    }
+
+    function nextSlide() {
+        if (currentSlideIndex < totalSlides - 1) {
+            showSlide(currentSlideIndex + 1);
+        } else {
+            // Reiniciar o mostrar mensaje final
+            alert('¡Fin del repaso! Haz clic en OK para volver al inicio.');
+            showSlide(0);
+        }
+    }
+
+    // --- INICIALIZACIÓN ---
+    initializeSlides();
+
+</script>
+
+</body>
+</html>

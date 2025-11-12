@@ -2,7 +2,7 @@ package crealtivastudio.model;
 
 /**
  *
- * @author Daniel
+ * @author Object Master, ESPE
  */
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

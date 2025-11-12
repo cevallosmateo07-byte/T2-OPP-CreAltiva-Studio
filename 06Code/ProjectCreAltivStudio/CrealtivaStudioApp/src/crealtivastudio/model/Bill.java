@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 /**
  *
- * @author Mateo Cevallos
+ * @author Object Master, ESPE
  */
 public class Bill {
     private int billId;

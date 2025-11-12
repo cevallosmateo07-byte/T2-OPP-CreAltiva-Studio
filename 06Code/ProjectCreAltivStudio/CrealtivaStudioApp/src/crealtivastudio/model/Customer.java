@@ -8,7 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import java.time.LocalDate;
 /**
  *
- * @author Daniel
+ * @author Object Master, ESPE
  */
 public class Customer {
     private int id; 
@@ -291,4 +291,15 @@ public class Customer {
         System.out.println("✅ No hay eventos próximos en los próximos 3 días para este cliente.");
     }
 }
+    // Dentro de Customer.java
+public static Event findEventById(int eventId) {
+    for (Customer customer : allCustomers) {
+        Event event = customer.getEventById(eventId); // Usa el método de instancia que ya existe
+        if (event != null) {
+            return event;
+        }
+    }
+    return null; // No se encontró en ningún cliente
+}
+    
 }
