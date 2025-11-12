@@ -37,11 +37,11 @@ public class Event {
     // Método para calcular precio base según tipo de evento
     private double calculateBasePrice() {
         switch (this.eventTypeCode) {
-            case BODAS: return 1500.00;
-            case CUMPLEANOS: return 800.00;
-            case BAUTIZOS: return 2000.00;
-            case GRADUACIONES: return 600.00;
-            default: return 500.00;
+            case BODAS: return 150.00;
+            case CUMPLEANOS: return 80.00;
+            case BAUTIZOS: return 20.00;
+            case GRADUACIONES: return 60.00;
+            default: return 50.00;
         }
     }
     
@@ -105,11 +105,11 @@ public class Event {
     try {
         LocalDate eventDate = LocalDate.parse(this.eventDate);
         LocalDate appointmentDate = eventDate.minusDays(7); // cita 1 semana antes del evento
-        return "✅ Cita automática programada para el " + 
+        return "Cita automática programada para el " + 
                appointmentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) +
                " (1 semana antes del evento \"" + this.eventName + "\")";
     } catch (DateTimeParseException e) {
-        return "⚠️ Error: formato de fecha inválido para el evento " + this.eventName;
+        return "Error: formato de fecha inválido para el evento " + this.eventName;
     }
 }
 

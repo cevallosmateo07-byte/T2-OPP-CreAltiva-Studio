@@ -23,11 +23,11 @@ public class CreativeStudioApp {
         Bill.reloadFromJson();
         
         // Revisar recordatorios automáticos al inicio
-for (Customer c : Customer.getAllCustomers()) {
-    c.showUpcomingAppointments();
+for (Customer customer : Customer.getAllCustomers()) {
+    customer.showUpcomingAppointments();
 }
-for (Bill b : Bill.getAllBills()) {
-    b.checkImportantDateAlert();
+for (Bill bill : Bill.getAllBills()) {
+    bill.checkImportantDateAlert();
 }
         
         
@@ -232,10 +232,10 @@ for (Bill b : Bill.getAllBills()) {
         }
         
         System.out.println("Tipos de evento disponibles:");
-        System.out.println("1. Bodas ($1500.00) - 10% descuento");
-        System.out.println("2. Cumpleanos ($800.00)");
-        System.out.println("3. Bautizos ($2000.00) - 5% descuento");
-        System.out.println("4. Graduaciones ($600.00)");
+        System.out.println("1. Bodas ($150.00) - 10% descuento");
+        System.out.println("2. Cumpleanos ($80.00)");
+        System.out.println("3. Bautizos ($20.00) - 5% descuento");
+        System.out.println("4. Graduaciones ($60.00)");
         
         int eventType = getIntInput("Seleccione el tipo de evento (1-4): ");
         if (eventType < 1 || eventType > 4) {
