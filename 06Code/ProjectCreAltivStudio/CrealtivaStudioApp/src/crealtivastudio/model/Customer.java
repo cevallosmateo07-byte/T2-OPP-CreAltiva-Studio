@@ -274,12 +274,12 @@ public class Customer {
         return;
     }
 
-    System.out.println("\n📅 Recordatorios para el cliente: " + this.name);
+    System.out.println("\nRecordatorios para el cliente: " + this.name);
     boolean found = false;
 
     for (Event e : events) {
         if (e.isUpcoming()) {
-            System.out.println("🔔 Evento próximo: " + e.getEventName() + 
+            System.out.println("Evento próximo: " + e.getEventName() + 
                                " (" + e.getEventType() + ") - Fecha: " + e.getEventDate());
             System.out.println(e.scheduleAutomaticAppointment());
             System.out.println("--------------------------------------");
