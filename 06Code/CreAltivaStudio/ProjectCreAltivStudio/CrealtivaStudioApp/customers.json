@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "kevin",
+    "phone": "1234567890",
+    "email": "kachalan@espe.edu.ec",
+    "address": "la comuna",
+    "events": [
+      {
+        "eventId": 1,
+        "eventName": "cumple",
+        "eventDate": "2025-11-20",
+        "eventType": "Cumpleaños",
+        "eventTypeCode": 2,
+        "basePrice": 80.0
+      },
+      {
+        "eventId": 2,
+        "eventName": "ssssss",
+        "eventDate": "2025-11-12",
+        "eventType": "Bodas",
+        "eventTypeCode": 1,
+        "basePrice": 150.0
+      }
+    ]
+  }
+]
