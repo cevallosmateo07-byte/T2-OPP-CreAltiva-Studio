@@ -9,10 +9,10 @@
       {
         "eventId": 1,
         "eventName": "cumple",
-        "eventDate": "2025-11-20",
+        "eventDate": "2000-10-2",
         "eventType": "Cumpleaños",
         "eventTypeCode": 2,
-        "basePrice": 80.0
+        "basePrice": 800.0
       },
       {
         "eventId": 2,
@@ -20,7 +20,7 @@
         "eventDate": "2025-11-12",
         "eventType": "Bodas",
         "eventTypeCode": 1,
-        "basePrice": 150.0
+        "basePrice": 1500.0
       }
     ]
   }

@@ -277,11 +277,11 @@ public class Bill {
         LocalDate today = LocalDate.now();
 
         if (eventDate.equals(today.plusDays(1)) && !this.isPaid) {
-            System.out.println(" Alerta: La factura #" + this.billId + " (" + event.getEventName() + 
+            System.out.println("⚠️ Alerta: La factura #" + this.billId + " (" + event.getEventName() + 
                                ") vence mañana. Monto pendiente: $" + String.format("%.2f", this.amount));
         }
         if (eventDate.equals(today)) {
-            System.out.println(" Hoy es el evento \"" + event.getEventName() + "\" del cliente ID " + this.customerId);
+            System.out.println("🚨 Hoy es el evento \"" + event.getEventName() + "\" del cliente ID " + this.customerId);
         }
     } catch (DateTimeParseException e) {
         System.out.println("Error: formato de fecha inválido en el evento ID " + this.eventId);
