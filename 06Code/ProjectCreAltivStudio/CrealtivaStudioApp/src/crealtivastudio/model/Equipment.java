@@ -38,7 +38,7 @@ public class Equipment {
     /**
      * Constructor vacío, necesario para la deserialización de Gson.
      */
-    public Equipment() {}
+    public Equipment(String name1, String serial, String status1) {}
 
     /**
      * Constructor para crear una nueva pieza de equipamiento.
@@ -237,5 +237,9 @@ public class Equipment {
                "| Descripcion:\t" + description + "\n" +
                "| Estado:\t" + status + "\n" +
                separator;
+    }
+
+    public String getId() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

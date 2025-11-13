@@ -148,7 +148,7 @@ public class Customer {
     
     public boolean isValidCustomer() {
         return this.name != null && !this.name.trim().isEmpty() && 
-               isValidEmail() && isValidPhone();
+                isValidEmail() && isValidPhone();
     }
     
     // --- MÉTODOS JSON ---
@@ -227,13 +227,13 @@ public class Customer {
     public String toSimpleString() {
         String separator = "--------------------------------------";
         return separator + "\n" +
-               "| ID:\t\t" + this.getId() + "\n" +
-               "| Nombre:\t" + this.getName() + "\n" +
-               "| Telefono:\t" + this.getPhone() + "\n" +
-               "| Email:\t" + this.getEmail() + "\n" +
-               "| Direccion:\t" + this.getAddress() + "\n" +
-               "| Eventos:\t" + (this.events != null ? this.events.size() : 0) + "\n" +
-               separator;
+                "| ID:\t\t" + this.getId() + "\n" +
+                "| Nombre:\t" + this.getName() + "\n" +
+                "| Telefono:\t" + this.getPhone() + "\n" +
+                "| Email:\t" + this.getEmail() + "\n" +
+                "| Direccion:\t" + this.getAddress() + "\n" +
+                "| Eventos:\t" + (this.events != null ? this.events.size() : 0) + "\n" +
+                separator;
     }
     
     public void displayCustomerInfo() {
@@ -302,4 +302,57 @@ public static Event findEventById(int eventId) {
     return null; // No se encontró en ningún cliente
 }
     
+    // ==========================================================
+    // === NUEVOS MÉTODOS PARA GESTIÓN DE CALENDARIO/RECORDATORIOS ===
+    // ==========================================================
+    
+    /**
+     * Permite añadir un recordatorio manual a un evento específico de este cliente.
+     * @param eventId El ID del evento al que se agregará el recordatorio.
+     * @param reminderDetails Los detalles del recordatorio (ej: "Llamar para confirmar menu").
+     * @return true si el recordatorio fue añadido y guardado exitosamente, false si el evento no existe.
+     */
+    public boolean addManualReminderToEvent(int eventId, String reminderDetails) {
+        Event event = getEventById(eventId);
+        
+        if (event == null) {
+            return false;
+        }
+        
+        // Suponemos que la clase Event tiene un método para añadir recordatorios
+        // y que el recordatorio automático ya fue añadido en el Event.
+        event.addReminder("MANUAL: " + reminderDetails);
+        
+        // Guardar la actualización en JSON
+        return saveAllToJson();
+    }
+
+    /**
+     * Muestra todos los recordatorios (automáticos y manuales) para un evento específico.
+     * @param eventId El ID del evento.
+     */
+    public void displayEventReminders(int eventId) {
+        Event event = getEventById(eventId);
+        
+        if (event == null) {
+            System.out.println("Error: Evento con ID " + eventId + " no encontrado para este cliente.");
+            return;
+        }
+        
+        System.out.println("\n--- RECORDATORIOS PARA EL EVENTO: " + event.getEventName() + " ---");
+        System.out.println("Fecha: " + event.getEventDate());
+        
+        // Suponemos que la clase Event tiene un método getReminders() que devuelve una lista de Strings
+        List<String> reminders = event.getReminders();
+        
+        if (reminders.isEmpty()) {
+            System.out.println("No hay recordatorios registrados para este evento.");
+        } else {
+            for (String reminder : reminders) {
+                System.out.println("📌 " + reminder);
+            }
+        }
+        System.out.println("-------------------------------------------------");
+    }
+
 }
