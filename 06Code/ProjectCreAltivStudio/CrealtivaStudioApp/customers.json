@@ -23,5 +23,22 @@
         "basePrice": 1500.0
       }
     ]
+  },
+  {
+    "id": 2,
+    "name": "daniel",
+    "phone": "0979317376",
+    "email": "xxfernan626xx@gmail.com",
+    "address": "Quito",
+    "events": [
+      {
+        "eventId": 3,
+        "eventName": "Bautizo",
+        "eventDate": "2025-12-06",
+        "eventType": "Bautizos",
+        "eventTypeCode": 3,
+        "basePrice": 20.0
+      }
+    ]
   }
 ]

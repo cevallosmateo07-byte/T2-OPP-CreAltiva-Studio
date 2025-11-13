@@ -6,6 +6,7 @@ import crealtivastudio.model.Event;
 import crealtivastudio.model.Bill;
 import crealtivastudio.model.Photographer;
 import crealtivastudio.model.Equipment;
+import crealtivastudio.model.VideoCall;
 
 import java.util.ArrayList; // Importado para la selección de equipo
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 
 /**
  * Aplicación principal para Creative Studio
- * @author Daniel, Mateo (Modificado por Gemini)
+ * @author Daniel
  */
 public class CreativeStudioApp {
     private static final Scanner scanner = new Scanner(System.in);
@@ -27,7 +28,8 @@ public class CreativeStudioApp {
         Customer.reloadFromJson();
         Bill.reloadFromJson();
         Equipment.reloadFromJson(); // <-- MODIFICACIÓN
-        Photographer.reloadFromJson(); // <-- MODIFICACIÓN
+        Photographer.reloadFromJson();
+        VideoCall.reloadFromJson();// <-- MODIFICACIÓN
         
         // Revisar recordatorios automáticos al inicio
         for (Customer c : Customer.getAllCustomers()) {
@@ -40,7 +42,7 @@ public class CreativeStudioApp {
         boolean exit = false;
         while (!exit) {
             displayMainMenu();
-            int option = getIntInput("Seleccione una opción: ");
+            int option = getIntInput("Seleccione una opcion: ");
             
             switch (option) {
                 case 1 -> manageCustomers();
@@ -49,7 +51,8 @@ public class CreativeStudioApp {
                 case 4 -> generateReportsMenu();
                 case 5 -> managePhotographers();
                 case 6 -> manageEquipment(); // <-- MODIFICACIÓN
-                case 7 -> { // <-- MODIFICACIÓN (número)
+                case 7 -> manageVideoCalls();
+                case 8 -> { 
                     exit = true;
                     System.out.println("Gracias por usar Creative Studio Management System!");
                 }
@@ -66,7 +69,8 @@ public class CreativeStudioApp {
         System.out.println("4. Reportes e Informes");
         System.out.println("5. Gestion de Fotografos");
         System.out.println("6. Gestion de Equipamiento"); // <-- MODIFICACIÓN
-        System.out.println("7. Salir"); // <-- MODIFICACIÓN (número)
+        System.out.println("7. Gestion de Videollamadas");
+        System.out.println("8. Salir"); // <-- MODIFICACIÓN (número)
     }
     
     // ==================== GESTIÓN DE CLIENTES ====================
@@ -880,7 +884,7 @@ public class CreativeStudioApp {
         }
         
         if (!item.isAvailable()) {
-             System.out.println("Error: El equipo está " + item.getStatus() + ". No se puede eliminar.");
+             System.out.println("Error: El equipo esta " + item.getStatus() + ". No se puede eliminar.");
              System.out.println("Marque el equipo como 'Disponible' antes de eliminarlo.");
              return;
         }
@@ -891,9 +895,125 @@ public class CreativeStudioApp {
             System.out.println("Error al eliminar el equipo.");
         }
     }
+   // ==================== GESTIÓN DE VIDEOLLAMADAS ====================
+
+private static void manageVideoCalls() {
+    boolean back = false;
+    while (!back) {
+        System.out.println("\n--- GESTION DE VIDEOLLAMADAS ---");
+        System.out.println("1. Programar nueva videollamada");
+        System.out.println("2. Listar todas las videollamadas");
+        System.out.println("3. Buscar videollamadas por cliente");
+        System.out.println("4. Eliminar videollamada");
+        System.out.println("5. Volver al menu principal");
+        
+        int option = getIntInput("Seleccione una opcion: ");
+        
+        switch (option) {
+            case 1 -> scheduleVideoCall();
+            case 2 -> listAllVideoCalls();
+            case 3 -> findVideoCallsByCustomer();
+            case 4 -> deleteVideoCall();
+            case 5 -> back = true;
+            default -> System.out.println("Opción no valida.");
+        }
+    }
+}
+
+private static void scheduleVideoCall() {
+    System.out.println("\n--- PROGRAMAR NUEVA VIDEOLLAMADA ---");
+    
+    
+    int customerId = getIntInput("ID del cliente: ");
+    Customer customer = Customer.findCustomerById(customerId);
+    if (customer == null) {
+        System.out.println(" Cliente no encontrado.");
+        return;
+    }
+    
+   
+    List<Event> events = customer.getEvents();
+    if (events.isEmpty()) {
+        System.out.println(" El cliente no tiene eventos. Registre un evento primero.");
+        return;
+    }
+    
+    System.out.println("\nEventos del cliente " + customer.getName() + " (Obligatorio seleccionar uno):");
+    for (Event event : events) {
+        System.out.println("ID: " + event.getEventId() + " - " + event.getEventName() + 
+                           " (Fecha: " + event.getEventDate() + ")");
+    }
+    
+    int eventId = 0;
+    Event selectedEvent = null;
+    
+    
+    while (selectedEvent == null) {
+        eventId = getIntInput("Ingrese el ID del evento asociado: ");
+        selectedEvent = customer.getEventById(eventId);
+        
+        if (selectedEvent == null) {
+            System.out.println("️ ID de evento no válido o no pertenece a este cliente. Intente de nuevo.");
+        }
+    }
+
+    
+    String medium = getStringInput("Medio de la llamada (Zoom/Meet): ");
+    String callDate = getStringInput("Fecha de la videollamada (YYYY-MM-DD): ");
+    
+
+    VideoCall call = new VideoCall(customerId, eventId, callDate, medium);
+    
+    System.out.println("\nIntentando guardar la videollamada...");
+    if (call.save()) {
+        System.out.println(" ¡Videollamada programada exitosamente!");
+        System.out.println("ID asignado: " + call.getCallId());
+    } else {
+        System.out.println(" Error al programar la videollamada. Verifique que la fecha sea ANTES del evento.");
+    }
+}
+private static void listAllVideoCalls() {
+    System.out.println("\n--- LISTA DE TODAS LAS VIDEOLLAMADAS ---");
+    List<VideoCall> calls = VideoCall.getAllVideoCalls();
+    
+    if (calls.isEmpty()) {
+        System.out.println("No hay videollamadas registradas.");
+    } else {
+        for (VideoCall call : calls) {
+            System.out.println(call.getCallInfo());
+            System.out.println("---");
+        }
+        System.out.println("\nTotal de videollamadas: " + calls.size());
+    }
+}
+
+private static void findVideoCallsByCustomer() {
+    int customerId = getIntInput("Ingrese el ID del cliente: ");
+    List<VideoCall> calls = VideoCall.findByCustomer(customerId);
+    
+    if (calls.isEmpty()) {
+        System.out.println("No se encontraron videollamadas para el cliente ID " + customerId + ".");
+    } else {
+        System.out.println("\n--- VIDEOLLAMADAS DEL CLIENTE ID " + customerId + " ---");
+        for (VideoCall call : calls) {
+            System.out.println(call.getCallInfo());
+            System.out.println("---");
+        }
+    }
+}
+
+private static void deleteVideoCall() {
+    int callId = getIntInput("ID de la videollamada a eliminar: ");
+    VideoCall call = VideoCall.findById(callId);
+    
+    if (call != null && call.delete()) {
+        System.out.println(" Videollamada eliminada exitosamente!");
+    } else {
+        System.out.println(" Error: Videollamada no encontrada o no se pudo eliminar.");
+    }
+} 
     
     // ==================== MÉTODOS UTILITARIOS ====================
-    // (Sin cambios, se mantiene el código original)
     private static int getIntInput(String message) {
         while (true) {
             try {
