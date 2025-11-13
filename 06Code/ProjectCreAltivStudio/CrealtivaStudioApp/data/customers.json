@@ -12,7 +12,9 @@
         "eventDate": "2000-10-2",
         "eventType": "Cumpleaños",
         "eventTypeCode": 2,
-        "basePrice": 800.0
+        "basePrice": 800.0,
+        "customerId": 0,
+        "reminders": []
       },
       {
         "eventId": 2,
@@ -20,7 +22,21 @@
         "eventDate": "2025-11-12",
         "eventType": "Bodas",
         "eventTypeCode": 1,
-        "basePrice": 1500.0
+        "basePrice": 1500.0,
+        "customerId": 0,
+        "reminders": [
+          "MANUAL: l"
+        ]
+      },
+      {
+        "eventId": 4,
+        "eventName": "boda",
+        "eventDate": "1919-54-5",
+        "eventType": "Bodas",
+        "eventTypeCode": 1,
+        "basePrice": 150.0,
+        "customerId": 0,
+        "reminders": []
       }
     ]
   },
@@ -37,7 +53,9 @@
         "eventDate": "2025-12-06",
         "eventType": "Bautizos",
         "eventTypeCode": 3,
-        "basePrice": 20.0
+        "basePrice": 20.0,
+        "customerId": 0,
+        "reminders": []
       }
     ]
   }

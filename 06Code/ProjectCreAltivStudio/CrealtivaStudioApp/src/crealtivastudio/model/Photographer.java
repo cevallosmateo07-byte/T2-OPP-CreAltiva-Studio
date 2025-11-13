@@ -35,7 +35,7 @@ public class Photographer {
     /**
      * Constructor vacío, necesario para la deserialización de Gson.
      */
-    public Photographer() {
+    public Photographer(String name1, String phone1, String email, double salary) {
         this.equipmentIds = new ArrayList<>();
     }
 

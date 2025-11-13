@@ -57,7 +57,7 @@ public class VideoCall {
             return false;
         }
 
-        // Validación de Fechas  (Debe ser ANTES del evento)
+        // Validación de Fechas Clave (Debe ser ANTES del evento)
         try {
             LocalDate callDateLD = LocalDate.parse(this.videoCallDate);
             LocalDate eventDateLD = LocalDate.parse(event.getEventDate());
@@ -107,7 +107,9 @@ public class VideoCall {
         return JsonOperations.saveListToFile(allVideoCalls, VIDEOCALLS_FILE);
     }
     
-   
+    // El resto de métodos estáticos y Getters/Setters siguen siendo los mismos.
+    // ... (getAllVideoCalls, findById, findByCustomer, reloadFromJson, calculateNextId, updateNextId, Getters/Setters)
+    
     public static void reloadFromJson() {
         allVideoCalls = loadAllFromJson();
         updateNextId();
@@ -152,6 +154,20 @@ public class VideoCall {
                 callId, customerName, eventId, medium, videoCallDate);
     }
 
+    
+@Override
+public String toString() {
+    Customer customer = Customer.findCustomerById(customerId);
+    String customerName = (customer != null) ? customer.getName() : "Cliente No Encontrado";
+    
+    return String.format(
+        "Videollamada ID: %d | Cliente: %s (ID: %d) | Evento ID: %d | Medio: %s | Fecha: %s",
+        callId, customerName, customerId, eventId, medium, videoCallDate
+    );
+}
+    
+    
+
     public int getCallId() { return callId; }
     public void setCallId(int callId) { this.callId = callId; }
 
@@ -166,4 +182,12 @@ public class VideoCall {
 
     public String getMedium() { return medium; }
     public void setMedium(String medium) { this.medium = medium; }
+
+    public String getDate() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void setDate(String newDate) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
