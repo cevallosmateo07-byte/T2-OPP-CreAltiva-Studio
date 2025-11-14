@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "name": "mateo",
+    "phone": "0123456789",
+    "email": "qwerty@uiop.com",
+    "address": "aaaa",
+    "events": [
+      {
+        "eventId": 1,
+        "eventName": "bautizo pedro",
+        "eventDate": "2025-11-15",
+        "eventType": "Bautizos",
+        "eventTypeCode": 3,
+        "basePrice": 20.0,
+        "customerId": 0,
+        "reminders": []
+      },
+      {
+        "eventId": 2,
+        "eventName": "cumpleaños andres",
+        "eventDate": "2025-11-20",
+        "eventType": "Cumpleaños",
+        "eventTypeCode": 2,
+        "basePrice": 80.0,
+        "customerId": 0,
+        "reminders": []
+      }
+    ]
+  }
+]
