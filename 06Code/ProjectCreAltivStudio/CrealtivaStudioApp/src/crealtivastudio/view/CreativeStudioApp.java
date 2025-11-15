@@ -1,6 +1,5 @@
 package crealtivastudio.view;
 
-// Importaciones del modelo
 import crealtivastudio.model.Customer;
 import crealtivastudio.model.Event;
 import crealtivastudio.model.Bill;
@@ -12,9 +11,9 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Aplicación principal para Creative Studio
+ * App console Creative Studio
  *
- * @author Daniel, Mateo
+ * @author Object Masters, OOP, ESPE
  */
 public class CreativeStudioApp {
 
@@ -25,7 +24,6 @@ public class CreativeStudioApp {
         System.out.println("     CREATIVE STUDIO MANAGEMENT SYSTEM");
         System.out.println("==========================================");
 
-        // Cargar todos los datos al iniciar
         Customer.reloadFromJson();
         Bill.reloadFromJson();
         Equipment.reloadFromJson();
@@ -33,11 +31,9 @@ public class CreativeStudioApp {
         VideoCall.reloadFromJson();
         Event.reloadFromJson();
 
-        // Revisar recordatorios automáticos al inicio
-        System.out.println("\n--- ALERTAS DE INICIO (CALENDARIO AUTOMÁTICO) ---");
+        System.out.println("\n--- ALERTAS DE INICIO (CALENDARIO AUTOMATICO) ---");
         boolean hasAlerts = false;
         for (Customer c : Customer.getAllCustomers()) {
-            // Este método llama a showUpcomingAppointments() que muestra las alertas
             c.showUpcomingAppointments();
             hasAlerts = true;
         }
@@ -90,20 +86,17 @@ public class CreativeStudioApp {
         System.out.println("5. Gestion de Fotografos");
         System.out.println("6. Gestion de Equipamiento");
         System.out.println("7. Gestion de Videollamadas");
-        System.out.println("8. Gestión de Calendario/Recordatorios");
+        System.out.println("8. Gestion de Calendario/Recordatorios");
         System.out.println("9. Salir");
     }
 
-    // ==========================================================
-    // === GESTIÓN DE CALENDARIO/RECORDATORIOS ===
-    // ==========================================================
-    private static void manageReminders() {
+      private static void manageReminders() {
         boolean back = false;
         while (!back) {
-            System.out.println("\n--- GESTIÓN DE CALENDARIO Y RECORDATORIOS ---");
-            System.out.println("1. Ver todos los eventos próximos (Recordatorios Automáticos)");
+            System.out.println("\n--- GESTION DE CALENDARIO Y RECORDATORIOS ---");
+            System.out.println("1. Ver todos los eventos proximos (Recordatorios Automaticos)");
             System.out.println("2. Agregar Recordatorio Manual a un Evento");
-            System.out.println("3. Ver Recordatorios de un Evento Específico");
+            System.out.println("3. Ver Recordatorios de un Evento Especifico");
             System.out.println("4. Volver al menu principal");
 
             int option = getIntInput("Seleccione una opcion: ");
@@ -124,7 +117,7 @@ public class CreativeStudioApp {
     }
 
     private static void viewUpcomingEventsAlerts() {
-        System.out.println("\n--- EVENTOS PRÓXIMOS (DÍAS 0 a 3) ---");
+        System.out.println("\n--- EVENTOS PROXIMOS (DIAS 0 a 3) ---");
         boolean found = false;
         for (Customer c : Customer.getAllCustomers()) {
             c.showUpcomingAppointments();
@@ -145,7 +138,6 @@ public class CreativeStudioApp {
             return;
         }
 
-        // Muestra los eventos para que el usuario pueda elegir
         customer.displayCustomerInfo();
 
         int eventId = getIntInput("ID del evento al que desea añadir el recordatorio: ");
@@ -666,7 +658,6 @@ public class CreativeStudioApp {
         System.out.println("Total Facturas Emitidas: " + Bill.getAllBills().size());
         System.out.println("Total Fotógrafos: " + Photographer.getAllPhotographers().size());
         System.out.println("Total Equipo Registrado: " + Equipment.getAllEquipment().size());
-        //System.out.println("Ingresos Totales (Pagado): $" + String.format("%.2f", Bill.getTotalRevenue()));
     }
 
     // ==================== GESTIÓN DE FOTÓGRAFOS ====================
@@ -698,7 +689,6 @@ public class CreativeStudioApp {
         
         int id = getIntInput("ID del fotografo: ");
         String name = getStringInput("Nombre: ");
-        // Validacion nombre: solo letras y espacios
         if (!name.matches("[a-zA-ZÁÉÍÓÚáéíóúÑñ ]+")) {
             System.out.println("Nombre invalido. Use solo letras y espacios.");
             return;
@@ -710,7 +700,6 @@ public class CreativeStudioApp {
             return;
         }
         
-        // Mostrar eventos disponibles para asignacion (tomando eventos existentes)
         List<Customer> customers = Customer.getAllCustomers();
         List<Event> allEvents = customers.stream()
                 .flatMap(c -> c.getEvents().stream())
@@ -781,24 +770,18 @@ public class CreativeStudioApp {
     
     private static void deletePhotographer() {
         int id = getIntInput("Ingrese el ID del fotógrafo a eliminar: ");
-        // Intentamos usar un método estático si existe, si no, intentará fallar de forma controlada.
         try {
-            boolean removed = Photographer.deletePhotographer(id); // si tu clase no tiene este método, impleméntalo o reemplaza por tu lógica
+            boolean removed = Photographer.deletePhotographer(id); 
             if (removed) {
                 System.out.println("Fotógrafo eliminado exitosamente!");
             } else {
                 System.out.println("Error: Fotógrafo no encontrado o no se pudo eliminar.");
             }
         } catch (NoSuchMethodError e) {
-            // Si la clase Photographer no tiene deletePhotographer, hacemos un fallback:
             List<Photographer> photographers = Photographer.getAllPhotographers();
             boolean removed = photographers.removeIf(p -> p.getId() == id);
             if (removed) {
-                // intentamos guardar la lista si Photographer tiene método save() estático o similar,
-                // si no existe, informamos al desarrollador que agregue persistencia.
                 try {
-                    // intentar escribir usando save() de cada fotógrafo reescribiendo archivo (si existe saveToJson en Photographer)
-                    // si no existe, notificar:
                     System.out.println("Fotógrafo eliminado de la lista en memoria. Asegúrese de implementar la persistencia en Photographer.deletePhotographer(id).");
                 } catch (Exception ex) {
                     System.out.println("Fotógrafo eliminado en memoria, pero no se pudo persistir. Implementa deletePhotographer en Photographer.");
@@ -808,62 +791,122 @@ public class CreativeStudioApp {
             }
         }
     }
+ // ==================== GESTIÓN DE EQUIPAMIENTO  ====================
 
-
-    // ==================== GESTIÓN DE EQUIPAMIENTO ====================
     private static void manageEquipment() {
         boolean back = false;
         while (!back) {
             System.out.println("\n--- GESTION DE EQUIPAMIENTO ---");
             System.out.println("1. Registrar nuevo equipo");
-            System.out.println("2. Listar todo el equipo");
-            System.out.println("3. Volver al menu principal");
-
+            System.out.println("2. Listar todo el equipamiento");
+            System.out.println("3. Actualizar estado de equipo");
+            System.out.println("4. Eliminar equipo");
+            System.out.println("5. Volver al menu principal");
+            
             int option = getIntInput("Seleccione una opcion: ");
-
+            
             switch (option) {
-                case 1 ->
-                    registerEquipment();
-                case 2 ->
-                    listAllEquipment();
-                case 3 ->
-                    back = true;
-                default ->
-                    System.out.println("Opcion no valida.");
+                case 1 -> registerEquipment();
+                case 2 -> listAllEquipment();
+                case 3 -> updateEquipmentStatus();
+                case 4 -> deleteEquipment();
+                case 5 -> back = true;
+                default -> System.out.println("Opcion no valida.");
             }
         }
     }
 
     private static void registerEquipment() {
         System.out.println("\n--- REGISTRAR NUEVO EQUIPO ---");
+        String name = getStringInput("Nombre del equipo (ej. Canon R5): ");
+        String description = getStringInput("Descripcion (ej. Camara mirrorless): ");
 
-        String name = getStringInput("Nombre del equipo: ");
-        String serial = getStringInput("Número de serie: ");
-        String status = getStringInput("Estado (Ej: Disponible, En uso, Reparación): ");
+        if (name.isEmpty()) {
+            System.out.println("El nombre es obligatorio.");
+            return;
+        }
 
-        Equipment equipment = new Equipment(name, serial, status);
-        if (equipment.save()) {
-            System.out.println("Equipo registrado exitosamente! ID: " + equipment.getId());
+        Equipment newEquipment = new Equipment(name, description);
+        if (newEquipment.save()) {
+            System.out.println(" Equipo registrado exitosamente ID: " + newEquipment.getEquipmentId());
         } else {
-            System.out.println("Error al registrar equipo. Verifique los datos.");
+            System.out.println("Error al guardar el equipo.");
         }
     }
 
     private static void listAllEquipment() {
-        System.out.println("\n--- LISTA DE EQUIPOS ---");
+        System.out.println("\n--- INVENTARIO DE EQUIPAMIENTO ---");
         List<Equipment> allEquipment = Equipment.getAllEquipment();
 
         if (allEquipment.isEmpty()) {
-            System.out.println("No hay equipos registrados.");
-        } else {
-            for (Equipment e : allEquipment) {
-                System.out.println(e.toSimpleString());
+            System.out.println("No hay equipamiento registrado en el inventario.");
+            return;
+        }
+
+        for (Equipment item : allEquipment) {
+            System.out.println(item.toString());
+        }
+        System.out.println("\nTotal de items: " + allEquipment.size());
+    }
+
+    private static void updateEquipmentStatus() {
+        System.out.println("\n--- ACTUALIZAR ESTADO DE EQUIPO ---");
+        int equipmentId = getIntInput("Ingrese el ID del equipo: ");
+        Equipment item = Equipment.findById(equipmentId);
+
+        if (item == null) {
+            System.out.println("Equipo no encontrado.");
+            return;
+        }
+
+        System.out.println("Equipo actual: " + item.toSimpleString());
+        System.out.println("Seleccione el nuevo estado:");
+        System.out.println("1. " + Equipment.STATUS_AVAILABLE);
+        System.out.println("2. " + Equipment.STATUS_IN_USE);
+        System.out.println("3. " + Equipment.STATUS_MAINTENANCE);
+        
+        int option = getIntInput("Opcion: ");
+        switch (option) {
+            case 1 -> {
+                item.markAsAvailable();
+                System.out.println("Estado actualizado a: " + Equipment.STATUS_AVAILABLE);
             }
-            System.out.println("\nTotal de equipos: " + allEquipment.size());
+            case 2 -> {
+                item.markAsInUse();
+                System.out.println("Estado actualizado a: " + Equipment.STATUS_IN_USE);
+            }
+            case 3 -> {
+                item.markAsMaintenance();
+                System.out.println("Estado actualizado a: " + Equipment.STATUS_MAINTENANCE);
+            }
+            default -> System.out.println("Opcion no valida.");
         }
     }
 
-    // ==================== GESTIÓN DE VIDEOLLAMADAS ====================
+    private static void deleteEquipment() {
+        System.out.println("\n--- ELIMINAR EQUIPO ---");
+        int equipmentId = getIntInput("Ingrese el ID del equipo a eliminar: ");
+        Equipment item = Equipment.findById(equipmentId);
+
+        if (item == null) {
+            System.out.println("Equipo no encontrado.");
+            return;
+        }
+        
+        if (!item.isAvailable()) {
+             System.out.println("Error: El equipo está " + item.getStatus() + ". No se puede eliminar.");
+             System.out.println("Marque el equipo como 'Disponible' antes de eliminarlo.");
+             return;
+        }
+
+        if (item.delete()) {
+            System.out.println("¡Equipo eliminado exitosamente!");
+        } else {
+            System.out.println("Error al eliminar el equipo.");
+        }
+    }
+
+// ==================== GESTIÓN DE VIDEOLLAMADAS ====================
     private static void manageVideoCalls() {
         boolean back = false;
         while (!back) {
@@ -897,15 +940,12 @@ private static void createVideoCall() {
         return;
     }
     
-    // Muestra eventos del cliente para referencia
     customer.displayCustomerInfo();
     int eventId = getIntInput("ID del evento relacionado: ");
     
-    // CORREGIDO: Usar nombres de variables consistentes
     String callDate = getStringInput("Fecha de la videollamada (YYYY-MM-DD): ");
     String medium = getStringInput("Medio (Zoom/Meet/Teams): ");
     
-    // CORREGIDO: Constructor con 4 parámetros y condición completa en el if
     VideoCall videoCall = new VideoCall(customerId, eventId, callDate, medium);
     if (videoCall.save()) {
         System.out.println("Videollamada programada exitosamente! ID: " + videoCall.getCallId());
@@ -922,7 +962,6 @@ private static void listVideoCalls() {
         System.out.println("No hay videollamadas programadas.");
     } else {
         for (VideoCall call : calls) {
-            // CORREGIDO: Usar getCallInfo() que sí existe en tu clase VideoCall
             System.out.println(call.getCallInfo());
         }
         System.out.println("\nTotal de videollamadas: " + calls.size());
@@ -934,11 +973,11 @@ private static void listVideoCalls() {
         System.out.print(prompt);
         while (!scanner.hasNextInt()) {
             System.out.println("Entrada invalida. Por favor, ingrese un número entero.");
-            scanner.next(); // consumir la entrada inválida
+            scanner.next(); 
             System.out.print(prompt);
         }
         int value = scanner.nextInt();
-        scanner.nextLine(); // <<-- ESTO CONSUME EL \n PENDIENTE. ¡CLAVE PARA EL FUNCIONAMIENTO!
+        scanner.nextLine(); 
         return value;
     }
 

@@ -1,9 +1,6 @@
 
 package crealtivastudio.model;
 
-
-
-
 import crealtivastudio.json.JsonOperations;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -12,27 +9,22 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * Modelo para gestionar las Videollamadas programadas con persistencia independiente.
- * @author Daniel
+ * Class
+ *
+ * @author Object Masters, OOP, ESPE
  */
-
 public class VideoCall {
-
-    // --- Atributos ---
     private int callId;
     private int customerId;
     private int eventId;
     private String videoCallDate;
     private String medium;
-
-    // --- Constantes para JSON: Archivo INDEPENDIENTE ---
-    private static final String VIDEOCALLS_FILE = "videocalls"; // Esto crea videocalls.json
+    private static final String VIDEOCALLS_FILE = "videocalls";
     private static final Type VIDEOCALL_LIST_TYPE = new TypeToken<List<VideoCall>>(){}.getType();
     
     private static List<VideoCall> allVideoCalls = loadAllFromJson();
     private static int nextCallId = calculateNextId();
 
-    // --- Constructor vacío y Constructor Principal ---
     public VideoCall() {}
 
     public VideoCall(int customerId, int eventId, String videoCallDate, String medium) {
@@ -42,9 +34,6 @@ public class VideoCall {
         this.videoCallDate = videoCallDate;
         this.medium = medium;
     }
-
-    // --- MÉTODOS CRUD con Validación ---
-
     public boolean save() {
         Customer customer = Customer.findCustomerById(this.customerId);
         if (customer == null) {
@@ -56,9 +45,7 @@ public class VideoCall {
             System.out.println("Error: Evento referenciado (ID: " + this.eventId + ") no existe o no pertenece al cliente.");
             return false;
         }
-
-        // Validación de Fechas Clave (Debe ser ANTES del evento)
-        try {
+    try {
             LocalDate callDateLD = LocalDate.parse(this.videoCallDate);
             LocalDate eventDateLD = LocalDate.parse(event.getEventDate());
             
@@ -71,8 +58,6 @@ public class VideoCall {
             System.out.println("⚠️ Error de formato: La fecha de la videollamada o del evento es inválida (debe ser yyyy-MM-dd).");
             return false;
         }
-        
-        // Lógica de Guardado
         VideoCall existing = findById(this.callId);
         if (existing != null) {
             allVideoCalls.remove(existing);
@@ -81,7 +66,6 @@ public class VideoCall {
         }
         
         allVideoCalls.add(this);
-        // Persistencia garantizada en 'videocalls.json'
         return saveAllToJson(); 
     }
 
@@ -93,23 +77,15 @@ public class VideoCall {
         }
         return removed;
     }
-
-    // --- MÉTODOS ESTÁTICOS Y DE PERSISTENCIA ---
-
-    private static List<VideoCall> loadAllFromJson() {
-        // Carga desde 'videocalls.json'
+  private static List<VideoCall> loadAllFromJson() {
+       
         List<VideoCall> loadedCalls = JsonOperations.loadListFromFile(VIDEOCALLS_FILE, VIDEOCALL_LIST_TYPE);
         return (loadedCalls != null) ? loadedCalls : new ArrayList<>();
     }
 
     private static boolean saveAllToJson() {
-        // Guarda en 'videocalls.json'
         return JsonOperations.saveListToFile(allVideoCalls, VIDEOCALLS_FILE);
     }
-    
-    // El resto de métodos estáticos y Getters/Setters siguen siendo los mismos.
-    // ... (getAllVideoCalls, findById, findByCustomer, reloadFromJson, calculateNextId, updateNextId, Getters/Setters)
-    
     public static void reloadFromJson() {
         allVideoCalls = loadAllFromJson();
         updateNextId();
@@ -184,10 +160,10 @@ public String toString() {
     public void setMedium(String medium) { this.medium = medium; }
 
     public String getDate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void setDate(String newDate) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }

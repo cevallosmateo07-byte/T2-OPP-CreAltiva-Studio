@@ -1,5 +1,20 @@
 [
   {
-    "equipmentId": 1
+    "equipmentId": 1,
+    "name": "canon",
+    "description": "mirir",
+    "status": "Disponible"
+  },
+  {
+    "equipmentId": 2,
+    "name": "1",
+    "description": "2",
+    "status": "Disponible"
+  },
+  {
+    "equipmentId": 3,
+    "name": "1",
+    "description": "1",
+    "status": "Disponible"
   }
 ]

@@ -7,10 +7,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 /**
+ * Class
  *
- * @author Mateo Cevallos
+ * @author Object Masters, OOP, ESPE
  */
 public class Month {
 
@@ -28,15 +28,12 @@ public class Month {
         this(YearMonth.of(year, month));
     }
 
-    /**
-     * Agrega un evento al mes si corresponde a la fecha del mes
-     */
+ 
     public boolean addEvent(Event event) {
         if (event == null || !isEventInMonth(event)) {
             return false;
         }
 
-        // Evitar duplicados
         if (!events.contains(event)) {
             events.add(event);
             return true;
@@ -44,15 +41,11 @@ public class Month {
         return false;
     }
 
-    /**
-     * Agrega una videollamada al mes si corresponde a la fecha del mes
-     */
     public boolean addVideoCall(VideoCall videoCall) {
         if (videoCall == null || !isVideoCallInMonth(videoCall)) {
             return false;
         }
 
-        // Evitar duplicados
         if (!videoCalls.contains(videoCall)) {
             videoCalls.add(videoCall);
             return true;
@@ -109,55 +102,38 @@ public class Month {
         }
     }
 
-    /**
-     * Obtiene todos los eventos del mes
-     */
+
     public List<Event> getEvents() {
         return new ArrayList<>(events);
     }
 
-    /**
-     * Obtiene todas las videollamadas del mes
-     */
     public List<VideoCall> getVideoCalls() {
         return new ArrayList<>(videoCalls);
     }
 
-    /**
-     * Obtiene eventos por tipo
-     */
     public List<Event> getEventsByType(int eventTypeCode) {
         return events.stream()
                 .filter(event -> event.getEventTypeCode() == eventTypeCode)
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Obtiene videollamadas por cliente
-     */
     public List<VideoCall> getVideoCallsByCustomer(int customerId) {
         return videoCalls.stream()
                 .filter(vc -> vc.getCustomerId() == customerId)
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Obtiene el total de eventos en el mes
-     */
+
     public int getTotalEvents() {
         return events.size();
     }
 
-    /**
-     * Obtiene el total de videollamadas en el mes
-     */
+
     public int getTotalVideoCalls() {
         return videoCalls.size();
     }
 
-    /**
-     * Obtiene eventos para un día específico del mes
-     */
+
     public List<Event> getEventsByDay(int day) {
         return events.stream()
                 .filter(event -> {
@@ -171,9 +147,7 @@ public class Month {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Obtiene videollamadas para un día específico del mes
-     */
+
     public List<VideoCall> getVideoCallsByDay(int day) {
         return videoCalls.stream()
                 .filter(videoCall -> {
@@ -187,9 +161,7 @@ public class Month {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Genera resumen del mes
-     */
+
     public String getMonthSummary() {
         return String.format(
                 "Resumen de %s:\n"
@@ -203,9 +175,7 @@ public class Month {
         );
     }
 
-    /**
-     * Genera un reporte detallado del mes
-     */
+
     public String getDetailedReport() {
         StringBuilder report = new StringBuilder();
         report.append("═".repeat(50)).append("\n");
@@ -240,9 +210,7 @@ public class Month {
         return report.toString();
     }
 
-    /**
-     * Encuentra el cliente dueño de un evento
-     */
+   
     private Customer findCustomerByEvent(Event event) {
         for (Customer customer : Customer.getAllCustomers()) {
             if (customer.getEventById(event.getEventId()) != null) {
@@ -252,7 +220,7 @@ public class Month {
         return null;
     }
 
-    // --- Métodos de utilidad ---
+    
     public YearMonth getYearMonth() {
         return yearMonth;
     }
@@ -270,35 +238,26 @@ public class Month {
         return yearMonth.getMonthValue();
     }
 
-    // --- Métodos estáticos para crear meses ---
-    /**
-     * Crea un objeto Month para el mes actual
-     */
     public static Month getCurrentMonth() {
         Month currentMonth = new Month(YearMonth.now());
         currentMonth.loadAllFromSystem();
         return currentMonth;
     }
 
-    /**
-     * Crea un objeto Month para un mes específico
-     */
+ 
     public static Month getMonth(int year, int month) {
         Month monthObj = new Month(year, month);
         monthObj.loadAllFromSystem();
         return monthObj;
     }
 
-    /**
-     * Obtiene todos los meses que tienen actividades
-     */
+   
     public static List<Month> getAllMonthsWithActivities() {
         List<Month> monthsWithActivities = new ArrayList<>();
 
-        // Obtener todos los años y meses únicos con eventos o videollamadas
+        
         List<YearMonth> uniqueMonths = new ArrayList<>();
 
-        // De eventos
         for (Customer customer : Customer.getAllCustomers()) {
             for (Event event : customer.getEvents()) {
                 try {
@@ -308,12 +267,12 @@ public class Month {
                         uniqueMonths.add(ym);
                     }
                 } catch (DateTimeParseException e) {
-                    // Ignorar fechas inválidas
+                   
                 }
             }
         }
 
-        // De videollamadas
+      
         for (VideoCall videoCall : VideoCall.getAllVideoCalls()) {
             try {
                 LocalDate callDate = LocalDate.parse(videoCall.getVideoCallDate());
@@ -322,11 +281,11 @@ public class Month {
                     uniqueMonths.add(ym);
                 }
             } catch (DateTimeParseException e) {
-                // Ignorar fechas inválidas
+                
             }
         }
 
-        // Crear objetos Month para cada mes único
+        
         for (YearMonth ym : uniqueMonths) {
             Month month = new Month(ym);
             month.loadAllFromSystem();

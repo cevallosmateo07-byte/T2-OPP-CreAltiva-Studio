@@ -7,8 +7,9 @@ import java.util.List;
 import com.google.gson.reflect.TypeToken;
 import java.time.LocalDate;
 /**
+ * Class
  *
- * @author Object Master, ESPE
+ * @author Object Masters, OOP, ESPE
  */
 public class Customer {
     private int id; 
@@ -17,17 +18,12 @@ public class Customer {
     private String email;
     private String address;
     private List<Event> events;
-
-    // Constantes para archivos JSON
-    private static final String CUSTOMERS_FILE = "customers";
+   private static final String CUSTOMERS_FILE = "customers";
     private static final Type CUSTOMER_LIST_TYPE = new TypeToken<List<Customer>>(){}.getType();
-    
-    // Lista estática para simular base de datos
+
     private static List<Customer> allCustomers = loadAllFromJson();
     private static int nextCustomerId = calculateNextId();
     private static int nextEventId = calculateNextEventId();
-
-    // Constructor vacío necesario para Gson
     public Customer() {
         this.events = new ArrayList<>();
     }
@@ -50,21 +46,16 @@ public class Customer {
         this.events = new ArrayList<>();
         updateNextIds();
     }
-
-    // --- MÉTODOS CRUD PARA CUSTOMER ---
-    
     public boolean save() {
         if (!isValidCustomer()) {
             System.out.println("Error: Cliente no válido");
             return false;
         }
         
-        // Verificar si ya existe (para update)
         Customer existing = findCustomerById(this.id);
         if (existing != null) {
             allCustomers.remove(existing);
         } else {
-            // Si es nuevo, asegurar que el ID sea único
             if (this.id == 0) {
                 this.id = nextCustomerId++;
             }
@@ -101,9 +92,6 @@ public class Customer {
         }
         return removed;
     }
-
-    // --- MÉTODOS ESTÁTICOS (para operaciones globales) ---
-    
     public static List<Customer> getAllCustomers() {
         return new ArrayList<>(allCustomers);
     }
@@ -134,9 +122,6 @@ public class Customer {
         allCustomers = loadAllFromJson();
         updateNextIds();
     }
-    
-    // --- MÉTODOS DE VALIDACIÓN ---
-    
     public boolean isValidEmail() {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         return this.email != null && this.email.matches(emailRegex);
@@ -150,9 +135,6 @@ public class Customer {
         return this.name != null && !this.name.trim().isEmpty() && 
                 isValidEmail() && isValidPhone();
     }
-    
-    // --- MÉTODOS JSON ---
-    
     private static List<Customer> loadAllFromJson() {
         List<Customer> loadedCustomers = JsonOperations.loadListFromFile(CUSTOMERS_FILE, CUSTOMER_LIST_TYPE);
         return loadedCustomers != null ? loadedCustomers : new ArrayList<>();
@@ -188,9 +170,6 @@ public class Customer {
         nextCustomerId = calculateNextId();
         nextEventId = calculateNextEventId();
     }
-    
-    // --- GETTERS Y SETTERS (necesarios para Gson) ---
-    
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -221,10 +200,7 @@ public class Customer {
                 .findFirst()
                 .orElse(null);
     }
-
-    // --- MÉTODOS DE PRESENTACIÓN ---
-    
-    public String toSimpleString() {
+   public String toSimpleString() {
         String separator = "--------------------------------------";
         return separator + "\n" +
                 "| ID:\t\t" + this.getId() + "\n" +
@@ -247,9 +223,6 @@ public class Customer {
             }
         }
     }
-    
-    // --- MÉTODOS DE INFORMES ---
-    
     public double getTotalEventCost() {
         if (events == null) return 0.0;
         return events.stream()
@@ -279,7 +252,7 @@ public class Customer {
 
     for (Event e : events) {
         if (e.isUpcoming()) {
-            System.out.println("Evento próximo: " + e.getEventName() + 
+            System.out.println("Evento proximo: " + e.getEventName() + 
                                " (" + e.getEventType() + ") - Fecha: " + e.getEventDate());
             System.out.println(e.scheduleAutomaticAppointment());
             System.out.println("--------------------------------------");
@@ -288,49 +261,27 @@ public class Customer {
     }
 
     if (!found) {
-        System.out.println("✅ No hay eventos próximos en los próximos 3 días para este cliente.");
+        System.out.println(" No hay eventos proximos en los proximos 3 días para este cliente.");
     }
 }
-    // Dentro de Customer.java
 public static Event findEventById(int eventId) {
     for (Customer customer : allCustomers) {
-        Event event = customer.getEventById(eventId); // Usa el método de instancia que ya existe
+        Event event = customer.getEventById(eventId); 
         if (event != null) {
             return event;
         }
     }
-    return null; // No se encontró en ningún cliente
+    return null; 
 }
-    
-    // ==========================================================
-    // === NUEVOS MÉTODOS PARA GESTIÓN DE CALENDARIO/RECORDATORIOS ===
-    // ==========================================================
-    
-    /**
-     * Permite añadir un recordatorio manual a un evento específico de este cliente.
-     * @param eventId El ID del evento al que se agregará el recordatorio.
-     * @param reminderDetails Los detalles del recordatorio (ej: "Llamar para confirmar menu").
-     * @return true si el recordatorio fue añadido y guardado exitosamente, false si el evento no existe.
-     */
     public boolean addManualReminderToEvent(int eventId, String reminderDetails) {
         Event event = getEventById(eventId);
         
         if (event == null) {
             return false;
         }
-        
-        // Suponemos que la clase Event tiene un método para añadir recordatorios
-        // y que el recordatorio automático ya fue añadido en el Event.
         event.addReminder("MANUAL: " + reminderDetails);
-        
-        // Guardar la actualización en JSON
         return saveAllToJson();
     }
-
-    /**
-     * Muestra todos los recordatorios (automáticos y manuales) para un evento específico.
-     * @param eventId El ID del evento.
-     */
     public void displayEventReminders(int eventId) {
         Event event = getEventById(eventId);
         
@@ -342,14 +293,13 @@ public static Event findEventById(int eventId) {
         System.out.println("\n--- RECORDATORIOS PARA EL EVENTO: " + event.getEventName() + " ---");
         System.out.println("Fecha: " + event.getEventDate());
         
-        // Suponemos que la clase Event tiene un método getReminders() que devuelve una lista de Strings
         List<String> reminders = event.getReminders();
         
         if (reminders.isEmpty()) {
             System.out.println("No hay recordatorios registrados para este evento.");
         } else {
             for (String reminder : reminders) {
-                System.out.println("📌 " + reminder);
+                System.out.println(" Recuerda  " + reminder);
             }
         }
         System.out.println("-------------------------------------------------");

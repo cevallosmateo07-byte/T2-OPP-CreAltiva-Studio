@@ -9,17 +9,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 /**
+ * Class
  *
- * @author Object Master, ESPE
+ * @author Object Masters, OOP, ESPE
  */
 public class Bill {
 
     public static Object[] getTotalRevenue() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     public static double getTotalPending() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     private int billId;
     private int customerId;
@@ -28,15 +29,11 @@ public class Bill {
     private String notes;
     private double amount;
     
-    // Constantes para archivos JSON
     private static final String BILLS_FILE = "bills";
     private static final Type BILL_LIST_TYPE = new TypeToken<List<Bill>>(){}.getType();
     
-    // Lista estática para simular base de datos
     private static List<Bill> allBills = loadAllFromJson();
     private static int nextBillId = calculateNextBillId();
-
-    // Constructor vacío necesario para Gson
     public Bill(int id, int customerId1, double amount1, boolean paid) {}
 
     public Bill(int customerId, int eventId, String notes) {
@@ -58,7 +55,6 @@ public class Bill {
         updateNextBillId();
     }
 
-    // --- MÉTODOS DE PAGO ---
     
     public void confirmPayment() {
         this.isPaid = true;
@@ -78,7 +74,6 @@ public class Bill {
         return !isPaid;
     }
     
-    // Método para calcular el monto basado en el evento
     private double calculateAmount() {
         Customer customer = Customer.findCustomerById(this.customerId);
         if (customer == null) return 0.0;
@@ -88,29 +83,22 @@ public class Bill {
         
         return event.calculateFinalPrice();
     }
-    
-    // --- MÉTODOS CRUD ---
-    
     public boolean save() {
-        // Verificar que el customer y event existan
         Customer customer = Customer.findCustomerById(this.customerId);
         if (customer == null || customer.getEventById(this.eventId) == null) {
             System.out.println("Error: Cliente o evento no encontrado");
             return false;
         }
         
-        // Verificar si ya existe (para update)
         Bill existing = findBillById(this.billId);
         if (existing != null) {
             allBills.remove(existing);
         } else {
-            // Si es nuevo, asegurar que el ID sea único
             if (this.billId == 0) {
                 this.billId = nextBillId++;
             }
         }
         
-        // Recalcular amount si es necesario
         if (this.amount == 0) {
             this.amount = calculateAmount();
         }
@@ -127,9 +115,6 @@ public class Bill {
         }
         return removed;
     }
-    
-    // --- MÉTODOS ESTÁTICOS ---
-    
     public static List<Bill> getAllBills() {
         return new ArrayList<>(allBills);
     }
@@ -188,9 +173,6 @@ public class Bill {
     private static void updateNextBillId() {
         nextBillId = calculateNextBillId();
     }
-    
-    // --- MÉTODOS DE INFORMACIÓN ---
-    
     public String confirmPaymentStatus() {
         if (this.isPaid) {
             return "La factura ID " + this.billId + " está PAGADA.";
@@ -233,8 +215,6 @@ public class Bill {
                "--------------------------------------";
     }
 
-    // --- GETTERS Y SETTERS (necesarios para Gson) ---
-    
     public int getBillId() { return billId; }
     public void setBillId(int billId) { this.billId = billId; }
 
@@ -252,8 +232,6 @@ public class Bill {
     
     public double getAmount() { return amount; }
     public void setAmount(double amount) { this.amount = amount; }
-    
-    // --- MÉTODOS DE PRESENTACIÓN ---
     
     @Override
     public String toString() {
