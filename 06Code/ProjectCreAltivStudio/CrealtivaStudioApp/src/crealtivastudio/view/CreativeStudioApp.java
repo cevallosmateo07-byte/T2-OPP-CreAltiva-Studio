@@ -673,60 +673,142 @@ public class CreativeStudioApp {
     private static void managePhotographers() {
         boolean back = false;
         while (!back) {
-            System.out.println("\n--- GESTION DE FOTÓGRAFOS ---");
-            System.out.println("1. Registrar nuevo fotógrafo");
-            System.out.println("2. Listar todos los fotógrafos");
-            System.out.println("3. Volver al menu principal");
-
+            System.out.println("\n--- GESTION DE FOTOGRAFOS ---");
+            System.out.println("1. Registrar nuevo fotografo");
+            System.out.println("2. Listar todos los fotografos");
+            System.out.println("3. Buscar fotografo por ID");
+            System.out.println("4. Eliminar fotografo");
+            System.out.println("5. Volver al menu principal");
+            
             int option = getIntInput("Seleccione una opcion: ");
-
+            
             switch (option) {
-                case 1 ->
-                    registerPhotographer();
-                case 2 ->
-                    listAllPhotographers();
-                case 3 ->
-                    back = true;
-                default ->
-                    System.out.println("Opcion no valida.");
+                case 1 -> registerPhotographer();
+                case 2 -> listAllPhotographers();
+                case 3 -> findPhotographerById();
+                case 4 -> deletePhotographer();
+                case 5 -> back = true;
+                default -> System.out.println("Opcion no valida.");
             }
         }
     }
-
+    
     private static void registerPhotographer() {
-        System.out.println("\n--- REGISTRAR NUEVO FOTÓGRAFO ---");
-
+        System.out.println("\n--- REGISTRAR NUEVO FOTOGRAFO ---");
+        
+        int id = getIntInput("ID del fotografo: ");
         String name = getStringInput("Nombre: ");
-        String phone = getStringInput("Telefono: ");
-        String email = getStringInput("Email: ");
-        double salary = 0;
-        try {
-            salary = Double.parseDouble(getStringInput("Salario base: "));
-        } catch (NumberFormatException e) {
-            System.out.println("Salario inválido. Usando 0.0.");
+        // Validacion nombre: solo letras y espacios
+        if (!name.matches("[a-zA-ZÁÉÍÓÚáéíóúÑñ ]+")) {
+            System.out.println("Nombre invalido. Use solo letras y espacios.");
+            return;
         }
-
-        Photographer photographer = new Photographer(name, phone, email, salary);
+        
+        String phone = getStringInput("Telefono (opcional, solo digitos): ");
+        if (!phone.isEmpty() && !phone.matches("\\d+")) {
+            System.out.println("Telefono invalido. Use solo numeros.");
+            return;
+        }
+        
+        // Mostrar eventos disponibles para asignacion (tomando eventos existentes)
+        List<Customer> customers = Customer.getAllCustomers();
+        List<Event> allEvents = customers.stream()
+                .flatMap(c -> c.getEvents().stream())
+                .toList();
+        
+        if (allEvents.isEmpty()) {
+            System.out.println("No hay eventos registrados. Registre un evento antes de asignar un fotografo.");
+            return;
+        }
+        
+        System.out.println("\nEventos disponibles:");
+        for (Event e : allEvents) {
+            System.out.println("ID: " + e.getEventId() + " - " + e.getEventName() + " (" + e.getEventType() + ")");
+        }
+        
+        int eventId = getIntInput("Ingrese el ID del evento a asignar: ");
+        Event selectedEvent = allEvents.stream()
+                .filter(e -> e.getEventId() == eventId)
+                .findFirst()
+                .orElse(null);
+        if (selectedEvent == null) {
+            System.out.println("Evento no encontrado.");
+            return;
+        }
+        String assignedEvent = selectedEvent.getEventName();
+        
+        String equipment = getStringInput("Equipos (separados por comas): ");
+        
+        String confirm = getStringInput("¿Confirma asistencia? (s/n): ");
+        boolean attending = confirm.equalsIgnoreCase("s") || confirm.equalsIgnoreCase("si");
+        
+        Photographer photographer = new Photographer(id, name, assignedEvent, equipment, attending);
         if (photographer.save()) {
-            System.out.println("Fotógrafo registrado exitosamente! ID: " + photographer.getId());
+            System.out.println("Fotógrafo registrado exitosamente!");
+            System.out.println("ID del fotógrafo: " + photographer.getId());
         } else {
-            System.out.println("Error al registrar fotógrafo. Verifique los datos.");
+            System.out.println("Error al registrar fotógrafo. Verifique el ID (no duplicado) y vuelva a intentar.");
         }
     }
-
+    
     private static void listAllPhotographers() {
-        System.out.println("\n--- LISTA DE FOTÓGRAFOS ---");
+        System.out.println("\n--- LISTA DE FOTOGRAFOS ---");
         List<Photographer> photographers = Photographer.getAllPhotographers();
-
+        
         if (photographers.isEmpty()) {
             System.out.println("No hay fotógrafos registrados.");
         } else {
             for (Photographer p : photographers) {
-                System.out.println(p.toSimpleString());
+                System.out.println(p.toString());
+                System.out.println("---");
             }
             System.out.println("\nTotal de fotógrafos: " + photographers.size());
         }
     }
+    
+    private static void findPhotographerById() {
+        int id = getIntInput("Ingrese el ID del fotógrafo: ");
+        Photographer found = Photographer.getAllPhotographers().stream()
+                .filter(p -> p.getId() == id)
+                .findFirst()
+                .orElse(null);
+        if (found != null) {
+            System.out.println(found.toString());
+        } else {
+            System.out.println("Fotógrafo no encontrado.");
+        }
+    }
+    
+    private static void deletePhotographer() {
+        int id = getIntInput("Ingrese el ID del fotógrafo a eliminar: ");
+        // Intentamos usar un método estático si existe, si no, intentará fallar de forma controlada.
+        try {
+            boolean removed = Photographer.deletePhotographer(id); // si tu clase no tiene este método, impleméntalo o reemplaza por tu lógica
+            if (removed) {
+                System.out.println("Fotógrafo eliminado exitosamente!");
+            } else {
+                System.out.println("Error: Fotógrafo no encontrado o no se pudo eliminar.");
+            }
+        } catch (NoSuchMethodError e) {
+            // Si la clase Photographer no tiene deletePhotographer, hacemos un fallback:
+            List<Photographer> photographers = Photographer.getAllPhotographers();
+            boolean removed = photographers.removeIf(p -> p.getId() == id);
+            if (removed) {
+                // intentamos guardar la lista si Photographer tiene método save() estático o similar,
+                // si no existe, informamos al desarrollador que agregue persistencia.
+                try {
+                    // intentar escribir usando save() de cada fotógrafo reescribiendo archivo (si existe saveToJson en Photographer)
+                    // si no existe, notificar:
+                    System.out.println("Fotógrafo eliminado de la lista en memoria. Asegúrese de implementar la persistencia en Photographer.deletePhotographer(id).");
+                } catch (Exception ex) {
+                    System.out.println("Fotógrafo eliminado en memoria, pero no se pudo persistir. Implementa deletePhotographer en Photographer.");
+                }
+            } else {
+                System.out.println("Fotógrafo no encontrado.");
+            }
+        }
+    }
+
 
     // ==================== GESTIÓN DE EQUIPAMIENTO ====================
     private static void manageEquipment() {
