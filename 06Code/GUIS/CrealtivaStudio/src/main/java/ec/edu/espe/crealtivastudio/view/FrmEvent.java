@@ -1,6 +1,9 @@
 package ec.edu.espe.crealtivastudio.view;
 import ec.edu.espe.crealtivastudio.controller.FrameValidations;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import org.bson.Document;
+import ec.edu.espe.crealtivastudio.controller.CrudOperations;
 /**
  *
  * @author Mateo Cevallos
@@ -263,7 +266,17 @@ public class FrmEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApplyDisccountActionPerformed
 
     private void btnAssignAndSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignAndSaveActionPerformed
-        // TODO add your handling code here:
+        String eventName = txtEventName.getText();
+        Date date = cldDateChooser.getDate();
+        int disccount = (int) spnDisccount.getValue();
+        
+        Document event = new Document("eventName", eventName)
+                .append("date", date)
+                .append("discount", disccount);
+        
+        CrudOperations.insert("Events", event);
+        JOptionPane.showMessageDialog(this, "Evento guardado en la base de datos Mongo DB");
+        
     }//GEN-LAST:event_btnAssignAndSaveActionPerformed
 
     /**

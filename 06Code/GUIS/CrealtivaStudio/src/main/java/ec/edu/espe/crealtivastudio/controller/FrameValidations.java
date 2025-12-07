@@ -3,7 +3,6 @@ package ec.edu.espe.crealtivastudio.controller;
 import com.sun.jdi.IntegerType;
 import com.toedter.calendar.JDateChooser;
 import java.util.Date;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 
