@@ -29,6 +29,13 @@ private List<Photographer> photographersCache;
     private Photographer selectedPhotographer = null; 
   
 
+
+    // Los JLabels y JButton declarados para evitar conflictos de ámbito
+
+
+    /**
+     * Creates new form FrmPhotographer
+     */
     public FrmPhotographer() { 
      MongoConnection.connect(); 
     ensureInitialRegistration();
@@ -36,7 +43,10 @@ private List<Photographer> photographersCache;
     
     listAssigned.setModel(listAssignedModel);
     loadPhotographers();
+    // ✅ Inicializar el modelo ANTES de usarlo
+  
 
+    // ✅ Ahora sí es seguro cargar desde la DB
     loadPhotographersFromDB();
 
     btnAssignEquipment.setText("Asignar Equipos"); 
@@ -77,7 +87,7 @@ private List<Photographer> photographersCache;
 
     }
     
-
+    // --- LÓGICA DE ESTADO Y SELECCIÓN ---
     
     private Photographer findPhotographerByName(String name) {
         return Photographer.findByName(name);
@@ -102,10 +112,11 @@ private Photographer getSelectedPhotographer() {
     int index = listAssigned.getSelectedIndex();
 
     if (index == -1) {
-        return null; 
+        return null; // No mostrar JOptionPane aquí, solo devolver null.
     }
 
-
+    // Retorna el fotógrafo seleccionado de la lista cargada (cache)
+    // El índice de la lista visible debe coincidir con el índice del caché.
     if (photographersCache != null && index < photographersCache.size()) {
         return photographersCache.get(index);
     }
@@ -113,6 +124,8 @@ private Photographer getSelectedPhotographer() {
 }
 
 
+
+// FrmPhotographer.java (Mantener y verificar esta función)
 private void loadPhotographers() {
    listAssignedModel.clear();
 
@@ -130,14 +143,16 @@ private void loadPhotographersFromDB() {
         listAssigned.setModel(listAssignedModel);
     }
     
-
+    // 1. Obtener la lista de todos los fotógrafos
+    // Es CRUCIAL que photographersCache se mantenga actualizado para findSelectedPhotographer
     photographersCache = Photographer.findAll(); 
 
-
+    // 2. Limpiar el modelo visual
     listAssignedModel.clear(); 
-
-    for (Photographer p : photographersCache) {
     
+    // 3. Añadir cada fotógrafo a la lista visual
+    for (Photographer p : photographersCache) {
+        // toSimpleString() es el método que genera el texto con el ID y el estado.
         listAssignedModel.addElement(p.toSimpleString()); 
     }
 }
@@ -153,15 +168,16 @@ private void addPhotographerToList(Photographer p) {
         listAssigned.setModel(listAssignedModel);
     }
 
+    // Intentar detectar por ID para evitar duplicados y permitir actualización
     int pid = p.getId();
     for (int i = 0; i < listAssignedModel.size(); i++) {
         String elem = listAssignedModel.get(i);
         try {
-           
+            // Se espera formato "ID:123 | Nombre ...", igual que en toSimpleString()
             String idPart = elem.split("\\|")[0].replace("ID:", "").trim();
             int existingId = Integer.parseInt(idPart);
             if (existingId == pid) {
-               
+                // Si ya existe, *actualizamos* la línea (no duplicamos)
                 listAssignedModel.set(i, p.toSimpleString());
                 return;
             }
@@ -174,20 +190,20 @@ private void addPhotographerToList(Photographer p) {
         }
     }
 
-  
+    // No encontrado -> añadimos
     listAssignedModel.addElement(p.toSimpleString());
 }
 
 
 private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
-   Photographer selected = getSelectedPhotographer(); 
+   Photographer selected = getSelectedPhotographer(); // Debe devolver null si no hay selección
 
     if (selected == null) {
         JOptionPane.showMessageDialog(this, "Seleccione un fotógrafo de la lista primero.", "Error de Selección", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
-  
+    // 🚫 Bloquear si el fotógrafo ya está ocupado
     if (selected.isAssigned()) {
         JOptionPane.showMessageDialog(
             this,
@@ -200,14 +216,15 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
     try {
-       
+        // ✅ Si la ventana ya está abierta → traerla al frente
         if (frmEquipment != null && frmEquipment.isDisplayable()) {
             frmEquipment.toFront();
             frmEquipment.requestFocus();
             return;
         }
 
-       
+        // ✅ Crear la ventana con contexto del fotógrafo
+        // ESTO ES CLAVE: Asegúrate de que FrmEquipment use el constructor (Photographer p)
         frmEquipment = new FrmEquipment(selected); 
         frmEquipment.setVisible(true);
 
@@ -230,7 +247,12 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
 }
 
 
+    // --- CÓDIGO GENERADO Y MÉTODOS AUXILIARES ---
 
+  /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: DO NOT MODIFY THIS CODE EXCEPT PARA LA INICIALIZACIÓN DE NUEVOS COMPONENTES.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -504,7 +526,7 @@ int index = listAssigned.getSelectedIndex();
 
     String selected = listAssignedModel.get(index);
 
- 
+    // Extraer ID
     int id = Integer.parseInt(selected.split("\\|")[0].replace("ID:", "").trim());
 
     int opt = JOptionPane.showConfirmDialog(
@@ -599,17 +621,17 @@ if (frmAvailability == null || !frmAvailability.isDisplayable()) {
         frmAvailability.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent e) {
-               
+                // ✅ 1. Recargar LISTA (obtiene datos de MongoDB)
                 loadPhotographersFromDB(); 
 
-               
+                // ✅ 2. Recargar ESTADOS visuales
                 loadAllPhotographersStatus();
 
-              
+                // ✅ 3. Limpiar selección actual
                 selectedPhotographer = null;
                 txtSelectedPhotographer.setText("fotógrafo");
 
-                
+                // ✅ 4. Bloquear acciones hasta nueva selección
                 btnAssignEquipment.setEnabled(false);
                 btnRemove.setEnabled(false);
                 btnSave.setEnabled(false);
@@ -631,6 +653,8 @@ this.setVisible(false);        // TODO add your handling code here:
      * @param args the command line arguments
      */
 
+
+    // FrmPhotographer.java
 
 private void selectPhotographerByName(String name) {
  Photographer p = findPhotographerByName(name);
@@ -665,7 +689,7 @@ private void selectPhotographerByName(String name) {
             "Acción Bloqueada", JOptionPane.WARNING_MESSAGE);
     }
 
-  
+    // --- Añadir / actualizar visualmente en la lista (evita duplicados) ---
     addPhotographerToList(p);
 }
     public void loadAllPhotographersStatus() {
@@ -680,9 +704,9 @@ private void selectPhotographerByName(String name) {
 
     for (String name : names) {
         if (Photographer.findByName(name) == null) {
-           
+            // El fotógrafo no existe, lo registramos.
             int newId = Photographer.getNextId();
-        
+            // Creamos con assignedEvent = "" (disponible)
             Photographer newPhotographer = new Photographer(newId, name, "", "", true);
             
             if (newPhotographer.save()) {

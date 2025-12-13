@@ -26,11 +26,11 @@ if (url != null) {
     ImageIcon icon = new ImageIcon(url);
     Image img = icon.getImage();
     
-    
+    // Obtener ancho y alto del JLabel
     int width = lblwelcome.getWidth();
     int height = lblwelcome.getHeight();
     
-   
+    // Escalar imagen al tamaño del JLabel
     Image scaled = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     lblwelcome.setIcon(new ImageIcon(scaled));
 

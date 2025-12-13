@@ -52,6 +52,11 @@
     <artifactId>mongodb-driver-sync</artifactId>
     <version>4.11.1</version>
 </dependency>
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+        </dependency>
     </dependencies>
 
     <name>CrealtivaStudioApp</name>

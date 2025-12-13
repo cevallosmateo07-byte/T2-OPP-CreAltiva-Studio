@@ -19,7 +19,7 @@ public class FrmEquipmentAvailable extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     javax.swing.SwingUtilities.invokeLater(() -> {
-        loadImageIntoLabel(jLabel3, "tripode.png");     
+        loadImageIntoLabel(jLabel3, "tripode.png");      // ajusta nombres reales
         loadImageIntoLabel(jLabel4, "camara.jpeg");
         loadImageIntoLabel(jLabel5, "led.jpeg");
         loadImageIntoLabel(jLabel6, "microfono.jpg");
@@ -37,7 +37,7 @@ public class FrmEquipmentAvailable extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon(url);
         Image img = icon.getImage();
 
-      
+        // Asegurarse que label ya tenga tamaño válido
         int w = Math.max(1, label.getWidth());
         int h = Math.max(1, label.getHeight());
 

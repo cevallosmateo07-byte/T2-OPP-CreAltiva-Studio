@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
  * @author Kevin Chalan, OBJECT MASTER, OOP
  */
 public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmCrealtivaStudiosMenu.class.getName());
 
     /**
@@ -19,23 +19,22 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
         initComponents();
         URL url = getClass().getResource("/ec/edu/espe/crealtivastudios/images/chica1.jpg");
 
-if (url != null) {
-    ImageIcon icon = new ImageIcon(url);
-    Image img = icon.getImage();
-    
-    
-    int width = jLabel1.getWidth();
-    int height = jLabel1.getHeight();
-    
-   
-    Image scaled = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-    jLabel1.setIcon(new ImageIcon(scaled));
+        if (url != null) {
+            ImageIcon icon = new ImageIcon(url);
+            Image img = icon.getImage();
 
-   
-    jLabel1.setText("");
+            // Obtener ancho y alto del JLabel
+            int width = jLabel1.getWidth();
+            int height = jLabel1.getHeight();
+
+            // Escalar imagen al tamaño del JLabel
+            Image scaled = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            jLabel1.setIcon(new ImageIcon(scaled));
+
+            // Elimina texto del JLabel
+            jLabel1.setText("");
+        }
     }
-}
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,6 +53,8 @@ if (url != null) {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -85,6 +86,23 @@ if (url != null) {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Citas");
+
+        jMenuItem4.setText("Eventos");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
+
+        jMenuItem5.setText("Calendario");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Clientes");
@@ -165,28 +183,40 @@ if (url != null) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-   FrmPhotographer frmPhotographer = new FrmPhotographer();
-frmPhotographer.setVisible(true);
-this.setVisible(false);    
+        FrmPhotographer frmPhotographer = new FrmPhotographer();
+        frmPhotographer.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-FrmEquipmentAvailable frmEquipmentAvailable  = new FrmEquipmentAvailable ();
-frmEquipmentAvailable.setVisible(true);
-this.setVisible(false);
+        FrmEquipmentAvailable frmEquipmentAvailable = new FrmEquipmentAvailable();
+        frmEquipmentAvailable.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-FrmAtendencePhotographers frmAtendencePhotographers = new FrmAtendencePhotographers();
-frmAtendencePhotographers.setVisible(true);
-this.setVisible(false);// TODO add your handling code here:
+        FrmAtendencePhotographers frmAtendencePhotographers = new FrmAtendencePhotographers();
+        frmAtendencePhotographers.setVisible(true);
+        this.setVisible(false);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-   FrmPhotographer frmPhotographer = new FrmPhotographer();
-frmPhotographer.setVisible(true);
-this.setVisible(false);        
+        FrmPhotographer frmPhotographer = new FrmPhotographer();
+        frmPhotographer.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        FrmCalendar frmCalendar = new FrmCalendar();
+        frmCalendar.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        FrmEvent frmEvent = new FrmEvent();
+        frmEvent.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,6 +256,8 @@ this.setVisible(false);
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;

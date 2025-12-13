@@ -39,23 +39,24 @@ public class FrmAtendencePhotographers extends javax.swing.JFrame {
     public FrmAtendencePhotographers() {
        initComponents();
         
-       
+        // 2. CONFIGURACIÓN INICIAL
+        // Intentar conectar si no hay conexión
         try {
             MongoConnection.getDatabase();
         } catch (Exception e) {
             MongoConnection.connect();
         }
         
-        setupTable();       
+        setupTable();        // Configurar columnas
         
-        setupTableListener();
+        setupTableListener();// Activar guardado automático
          loadPhotographers();
-        
+        // Ocultar los combobox manuales ya que usaremos la tabla
         hideUnusedComponents();
     }
     
     private void hideUnusedComponents() {
-      
+        // Ocultamos esto porque usaremos la tabla directa, es más profesional
         jComboBox1.setVisible(false);
         jComboBox2.setVisible(false);
         jComboBox3.setVisible(false);
@@ -65,7 +66,7 @@ public class FrmAtendencePhotographers extends javax.swing.JFrame {
     }
 
     private void setupTable() {
-      
+        // Definimos las columnas: ID es necesario para actualizar en Mongo
         String ids[] = {"ID", "Nombre", "Evento Asignado", "Asistencia"};
         mt.setColumnIdentifiers(ids);
         tblPhotographers.setModel(mt);
@@ -74,17 +75,17 @@ public class FrmAtendencePhotographers extends javax.swing.JFrame {
     private void loadPhotographers() {
         try {
             MongoCollection<Document> collection = MongoConnection.getPhotographerCollection();
-            mt.setRowCount(0); 
+            mt.setRowCount(0); // Limpiar tabla
 
             for (Document doc : collection.find()) {
                 int id = doc.getInteger("id");
                 String name = doc.getString("name");
                 String event = doc.getString("assignedEvent");
                 
-               
+                // Si el campo no existe en mongo, asumimos false
                 boolean attending = doc.getBoolean("attending", false);
 
-            
+                // Agregamos la fila a la tabla visual
                 mt.addRow(new Object[]{id, name, event, attending});
             }
         } catch (Exception e) {
@@ -92,7 +93,7 @@ public class FrmAtendencePhotographers extends javax.swing.JFrame {
         }
     }
 
-    
+    // LISTENER: ESCUCHA CLICS EN LA TABLA
     private void setupTableListener() {
         mt.addTableModelListener(new TableModelListener() {
             @Override
@@ -109,16 +110,16 @@ public class FrmAtendencePhotographers extends javax.swing.JFrame {
         });
     }
 
-   
+    // ACTUALIZAR MONGODB
     private void updateAttendanceInMongo(int row) {
         try {
-            
+            // Obtener ID y el valor del Checkbox
             int id = (int) mt.getValueAt(row, 0); 
             boolean isAttending = (boolean) mt.getValueAt(row, 3);
 
             MongoCollection<Document> collection = MongoConnection.getPhotographerCollection();
             
-       
+            // Buscar por ID y actualizar el campo 'attending'
             collection.updateOne(
                 Filters.eq("id", id), 
                 Updates.set("attending", isAttending)

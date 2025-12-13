@@ -22,7 +22,7 @@ private Photographer micaela;
      * Creates new form FrmAvailable
      */
     public FrmAvailable() {
-       MongoConnection.connect(); 
+       MongoConnection.connect(); // Asegurar la conexión
         initComponents();
         loadPhotographerData();
         loadAvailability();
@@ -30,13 +30,13 @@ private Photographer micaela;
         
          }
  private void loadPhotographerData() {
-    MongoConnection.connect(); 
+    MongoConnection.connect(); // Asegura la conexión
 
-    
+    // Intentar recuperar el fotógrafo por nombre. Si no existe, crearlo y GUARDARLO.
     micaela = Photographer.findByName("Micaela Garcia");
     if (micaela == null) {
         micaela = new Photographer(Photographer.getNextId(), "Micaela Garcia", "", "", true);
-        micaela.save(); 
+        micaela.save(); // 🔥 CLAVE: Guardar el nuevo registro.
     }
 
     luisa = Photographer.findByName("Luisa Andrade");
@@ -226,27 +226,27 @@ comboMicaela.setSelectedItem(micaela.isAssigned() ? "No disponible " : "Disponib
     updatePhotographerAvailability("Paola Maza", comboPaola);
 
     JOptionPane.showMessageDialog(this, "Disponibilidad actualizada");
-    this.dispose(); 
+    this.dispose(); // 🔥 importante
     }//GEN-LAST:event_btnGuardarActionPerformed
 private void updatePhotographerAvailability(String name, JComboBox<String> combo) {
 
    Photographer p = Photographer.findByName(name);
     if (p == null) return;
 
-   
-    String selected = combo.getSelectedItem().toString().trim(); 
+    // Obtener el valor seleccionado y limpiarlo de posibles espacios
+    String selected = combo.getSelectedItem().toString().trim(); // <-- Aseguramos .trim()
 
     if (selected.equalsIgnoreCase("No disponible")) {
         p.setAssigned(true);
-      
+        // 🔥 CLAVE: Usar un texto NO VACÍO para marcarlo como ocupado/no disponible.
         p.setAssignedEvent("Bloqueado por disponibilidad"); 
     } else {
         p.setAssigned(false);
-       
+        // 🔥 CLAVE: Usar un texto VACÍO para marcarlo como disponible.
         p.setAssignedEvent(""); 
     }
 
-    p.save(); 
+    p.save(); // ✅ Guarda los cambios en MongoDB
 }
 
     /**

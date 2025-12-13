@@ -27,7 +27,8 @@ public class FrmEquipment extends javax.swing.JFrame {
   public FrmEquipment(Photographer p) {
  initComponents();
     
-   
+    // 🔥 1. Comportamiento de cierre (DISPOSE_ON_CLOSE)
+    // Esto asegura que solo se cierre FrmEquipment, y no toda la aplicación.
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE); 
 
     this.photographerContext = p;
@@ -36,16 +37,17 @@ public class FrmEquipment extends javax.swing.JFrame {
 
     setTitle("Asignar Equipo a: " + p.getName());
 
-   
+    // 🔥 2. AJUSTE DEL TEXTO DEL BOTÓN (jButton6)
+    // Si hay un contexto de fotógrafo, cambiamos "Borrar" a "Retirar Equipo".
     if (this.photographerContext != null) {
-       
+        // En el modo de asignación, el botón elimina la asignación, no el equipo global.
         jButton6.setText("Retirar Equipo"); 
     } else {
-        
+        // Mantiene 'Borrar' si no hay contexto de fotógrafo (para eliminar el equipo global)
         jButton6.setText("Borrar"); 
     }
 
- 
+    // 3. Lógica de carga
     ensureInitialEquipmentExists(); 
     loadEquipmentAndPhotographerStatus(); 
 
@@ -53,41 +55,63 @@ public class FrmEquipment extends javax.swing.JFrame {
 }
 
   private void ensureInitialEquipmentExists() {
+    // Usamos el comportamiento GLOBAL de addEquipment para crear si no existe en la DB
+    // Nota: Necesitas que 'Equipment.findByName()' exista, pero si no, 
+    // la lógica de addEquipment() con context=null ya es suficiente 
+    // para evitar duplicados en la lista temporal, pero necesitamos guardarlos.
 
-
+    // Para simplificar, asumiremos que si llamamos a addEquipment con context=null, 
+    // se guardará si no existe (tu lógica ya lo hace si no hay duplicados en la JList visual).
+    // Sin embargo, para que sea robusto, la clase Equipment debería tener un findByName
+    
+    // Si no puedes modificar Equipment.java para añadir findByName, esta es la solución:
+    
+    // Temporalmente, usamos addEquipment con context=null para forzar la creación
+    // si el equipo no está ya en la DB.
+    
+    // Creamos una instancia temporal para forzar el comportamiento de creación:
     Photographer tempNullPhotographer = null;
     
-
+    // Llamar a la lógica de guardado global (donde photographerContext es null)
+    // Usamos una versión simplificada de tu addEquipment para evitar el JOPtionPane repetido
+    // y solo forzar la persistencia en el inicio, usando la lógica actual:
+    
     createOrUpdateEquipment("Camera EOS R5", "Cámara Profesional Canon");
     createOrUpdateEquipment("Tripod PRO X", "Trípode de Aluminio");
     createOrUpdateEquipment("LED Light Panel", "Iluminación Suave");
     createOrUpdateEquipment("Microphone Shotgun", "Micrófono Direccional");
     createOrUpdateEquipment("Softbox 90cm", "Iluminación Suave");
     
-    
+    // No necesitamos recargar la lista aquí, ya lo hace loadEquipmentAndPhotographerStatus()
 }
   private void createOrUpdateEquipment(String name, String description) {
     String nameNorm = name.trim();
     
-    
+    // Revisar si ya existe
     MongoConnection.connect();
     var collection = MongoConnection.getEquipmentCollection();
     var existingDoc = collection.find(new Document("name", nameNorm)).first();
     
     if (existingDoc == null) {
-       
+        // Crear y guardar solo si no existe
         Equipment eq = new Equipment(nameNorm, description);
         eq.save();
     }
 }
 
+    /**
+     * Creates new form FrmEquipment (MODO CONTEXTUAL)
+     */
+   
+    // --- MÉTODOS DE LÓGICA CONTEXTUAL/GLOBAL ---
 
+    // Método principal de carga que unifica la lógica de los antiguos loadEquipmentFromDB y la nueva contextualización.
     private void loadEquipmentAndPhotographerStatus() {
       listEquipmentModel.clear();
     MongoConnection.connect();
     var collection = MongoConnection.getEquipmentCollection();
 
- 
+    // Conjunto normalizado de nombres asignados (trim + lowercase)
     java.util.Set<String> assignedNormalized = new java.util.HashSet<>();
     if (photographerContext != null) {
         for (String n : photographerContext.getEquipment()) {
@@ -105,7 +129,7 @@ public class FrmEquipment extends javax.swing.JFrame {
 
         String displayString = eq.toSimpleString();
 
-        
+        // Comparación normalizada
         String eqNameNorm = (eq.getName() == null) ? "" : eq.getName().trim().toLowerCase();
         if (photographerContext != null && assignedNormalized.contains(eqNameNorm)) {
             displayString += " (ASIGNADO A ESTE FOTÓGRAFO)";
@@ -115,13 +139,13 @@ public class FrmEquipment extends javax.swing.JFrame {
     }
     }
     
-   
+    // Función para agregar equipos (reutilizable)
     private void addEquipment(String name, String description) {
        if (name == null) return;
     String nameNorm = name.trim();
 
     if (photographerContext != null) {
-       
+        // Preparar conjunto normalizado para comparación
         java.util.Set<String> assignedNormalized = new java.util.HashSet<>();
         for (String n : photographerContext.getEquipment()) {
             if (n != null) assignedNormalized.add(n.trim().toLowerCase());
@@ -132,23 +156,23 @@ public class FrmEquipment extends javax.swing.JFrame {
             return;
         }
 
-        
+        // Añadir y persistir
         photographerContext.getEquipment().add(nameNorm);
-        MongoConnection.connect(); 
+        MongoConnection.connect(); // por si acaso
         boolean ok = photographerContext.save();
         if (!ok) {
             JOptionPane.showMessageDialog(this, "Error al guardar la asignación en la base de datos.");
-           
+            // intentar quitar el añadido en memoria si falló
             photographerContext.getEquipment().remove(nameNorm);
             return;
         }
 
-    
+        // Recargar la vista (usará comparación normalizada)
         loadEquipmentAndPhotographerStatus();
         JOptionPane.showMessageDialog(this, "Equipo '" + name + "' asignado a " + photographerContext.getName() + ".");
 
     } else {
-        
+        // Comportamiento global: evitar duplicados en la colección/tabla
         for (int i = 0; i < listEquipmentModel.size(); i++) {
             if (listEquipmentModel.get(i).toLowerCase().contains(nameNorm.toLowerCase())) {
                 JOptionPane.showMessageDialog(this, "El equipo '" + name + "' ya ha sido asignado.");
@@ -164,7 +188,7 @@ public class FrmEquipment extends javax.swing.JFrame {
     
     }
 
-   
+    // Funciones auxiliares para guardar y cancelar
     private void saveAction() {
         JOptionPane.showMessageDialog(this, "Datos guardados correctamente.");
     }
@@ -197,7 +221,7 @@ public class FrmEquipment extends javax.swing.JFrame {
                     eq.markAsAvailable(); 
                 }
                 
-                loadEquipmentAndPhotographerStatus(); 
+                loadEquipmentAndPhotographerStatus(); // Recarga para actualizar el estado
                 
                 JOptionPane.showMessageDialog(this, "Estado actualizado a: " + eq.getStatus());
             }
@@ -217,20 +241,21 @@ public class FrmEquipment extends javax.swing.JFrame {
     String selectedString = listEquipmentModel.get(index);
     
     try {
-       
+        // Asumiendo que el ID es la primera parte de la cadena
         String idPart = selectedString.split("\\|")[0]; 
         int id = Integer.parseInt(idPart.replace("ID:", "").trim());
 
         Equipment eq = Equipment.findById(id);
         if (eq == null) return;
 
+        // 🔥 LÓGICA CLAVE: Diferenciar entre Retirar (asignado) y Borrar (global)
 
         if (photographerContext != null) {
-           
+            // --- CASO 1: RETIRAR EQUIPO DEL FOTÓGRAFO ASIGNADO (Solo la asignación) ---
             
             String equipName = eq.getName().trim();
 
-           
+            // Verificar si está asignado a ESTE fotógrafo
             if (!photographerContext.getEquipment().contains(equipName)) {
                  JOptionPane.showMessageDialog(this, "El equipo '" + equipName + "' no está asignado a " + photographerContext.getName() + ".");
                  return;
@@ -239,24 +264,28 @@ public class FrmEquipment extends javax.swing.JFrame {
             int opt = JOptionPane.showConfirmDialog(this, "¿Retirar asignación del equipo '" + equipName + "' de " + photographerContext.getName() + "?", "Confirmar Retiro", JOptionPane.YES_NO_OPTION);
 
             if (opt == JOptionPane.YES_OPTION) {
-              
+                // 1. Remover de la lista del fotógrafo en memoria y en Mongo.
                 photographerContext.getEquipment().remove(equipName);
                 photographerContext.save(); 
                 
-              
+                // 2. Opcional: Marcar el equipo como Disponible si estaba En Uso (dejarlo como está si no hay un sistema de inventario más complejo).
+                // eq.markAsAvailable(); // <-- Si necesitas cambiar el estado del equipo mismo
+
+                // 3. Recargar la lista visual. Esto QUITARÁ la etiqueta "(ASIGNADO A ESTE FOTÓGRAFO)".
                 loadEquipmentAndPhotographerStatus(); 
                 jTextField1.setText("");
                 JOptionPane.showMessageDialog(this, "Asignación del equipo '" + equipName + "' retirada exitosamente.");
             }
             
         } else {
-           
+            // --- CASO 2: BORRAR EQUIPO GLOBALMENTE (eliminar de la colección Equipment) ---
             int opt = JOptionPane.showConfirmDialog(this, "¿ELIMINAR PERMANENTEMENTE equipo ID " + id + "?", "Confirmar Borrado", JOptionPane.YES_NO_OPTION);
 
             if (opt == JOptionPane.YES_OPTION) {
-         
+                // Borrar de la colección de equipos
                 eq.delete(); 
-       
+                
+                // 4. Recargar la lista visual para que desaparezca el ítem completo.
                 loadEquipmentAndPhotographerStatus(); 
                 jTextField1.setText("");
                 JOptionPane.showMessageDialog(this, "Equipo eliminado permanentemente.");
@@ -268,7 +297,7 @@ public class FrmEquipment extends javax.swing.JFrame {
     }
     
 
-
+    // --- CÓDIGO GENERADO DEL DISEÑADOR (SIN MODIFICACIONES AQUÍ) ---
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -542,6 +571,7 @@ public class FrmEquipment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // --- MANEJO DE EVENTOS ---
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         addEquipment("Camera EOS R5", "Cámara Profesional Canon");// TODO add your handling code here:
