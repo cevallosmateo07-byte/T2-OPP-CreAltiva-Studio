@@ -222,10 +222,10 @@ public class FrmCustomerRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
     
     private void clearForm() {
-    txtName.setText("");
-    txtPhone.setText("");
-    txtEmail.setText("");
-    txtAddress.setText("");
+        txtName.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+        txtAddress.setText("");
     }
     
     /**

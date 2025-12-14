@@ -4,6 +4,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.Document;
 import utils.JsonOperations;
 
 /**
@@ -27,7 +28,7 @@ public class Customer {
     public Customer() {
         this.events = new ArrayList<>();
     }
-
+    
     public Customer(String name, String phone, String email, String address) {
         this.id = nextCustomerId++;
         this.name = name;

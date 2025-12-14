@@ -52,10 +52,12 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        mnuCustomer = new javax.swing.JMenu();
+        mniCustomerRegister = new javax.swing.JMenuItem();
+        mnuCite = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        mniVideCalls = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -85,7 +87,24 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
         jMenu1.setText("Archivo");
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Citas");
+        mnuCustomer.setText("Clientes");
+
+        mniCustomerRegister.setText("Registro de clientes");
+        mniCustomerRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniCustomerRegisterActionPerformed(evt);
+            }
+        });
+        mnuCustomer.add(mniCustomerRegister);
+
+        jMenuBar1.add(mnuCustomer);
+
+        mnuCite.setText("Citas");
+        mnuCite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCiteActionPerformed(evt);
+            }
+        });
 
         jMenuItem4.setText("Eventos");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +112,15 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
                 jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        mnuCite.add(jMenuItem4);
+
+        mniVideCalls.setText("Videollamadas");
+        mniVideCalls.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniVideCallsActionPerformed(evt);
+            }
+        });
+        mnuCite.add(mniVideCalls);
 
         jMenuItem5.setText("Calendario");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -101,12 +128,9 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
                 jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        mnuCite.add(jMenuItem5);
 
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Clientes");
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(mnuCite);
 
         jMenu4.setText("Pagos");
         jMenuBar1.add(jMenu4);
@@ -213,10 +237,35 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        
         FrmEvent frmEvent = new FrmEvent();
         frmEvent.setVisible(true);
+        
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void mniCustomerRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCustomerRegisterActionPerformed
+        
+        FrmCustomer frmCustomer = new FrmCustomer();
+        frmCustomer.setLocationRelativeTo(null); // centrar ventana
+        frmCustomer.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_mniCustomerRegisterActionPerformed
+
+    private void mnuCiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCiteActionPerformed
+       
+    }//GEN-LAST:event_mnuCiteActionPerformed
+
+    private void mniVideCallsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniVideCallsActionPerformed
+        
+        FrmVideoCalls videoCallWindow = new FrmVideoCalls();
+        videoCallWindow.setVisible(true);
+        videoCallWindow.setLocationRelativeTo(null);
+        
+        this.dispose();
+        
+    }//GEN-LAST:event_mniVideCallsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,8 +295,6 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
@@ -262,5 +309,9 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JMenuItem mniCustomerRegister;
+    private javax.swing.JMenuItem mniVideCalls;
+    private javax.swing.JMenu mnuCite;
+    private javax.swing.JMenu mnuCustomer;
     // End of variables declaration//GEN-END:variables
 }
