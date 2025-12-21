@@ -361,10 +361,10 @@ public class FrmCustomer extends javax.swing.JFrame {
     }
 
     private void clearForm() {
-    txtName.setText("");
-    txtPhone.setText("");
-    txtEmail.setText("");
-    txtAddress.setText("");
+        txtName.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+        txtAddress.setText("");
     }
     
 
