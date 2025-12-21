@@ -266,7 +266,7 @@ public class FrmCustomer extends javax.swing.JFrame {
         }
 
         if ("OK".equals(result)) {
-            JOptionPane.showMessageDialog(this, "Operacion realizada correctamente");
+            JOptionPane.showMessageDialog(this, "Cliente guardado correctamente");
             clearForm();
             loadCustomersTable();
             editing = false;

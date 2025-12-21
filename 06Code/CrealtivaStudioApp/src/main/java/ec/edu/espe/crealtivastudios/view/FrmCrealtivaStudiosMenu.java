@@ -59,7 +59,9 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
         mniVideCalls = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
+        jReportEvent = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -133,9 +135,27 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
         jMenuBar1.add(mnuCite);
 
         jMenu4.setText("Pagos");
+
+        jMenuItem6.setText("Bill");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem6);
+
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Reportes");
+
+        jReportEvent.setText("Reporte de Evento");
+        jReportEvent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jReportEventActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jReportEvent);
+
         jMenuBar1.add(jMenu5);
 
         jMenu6.setText("Equipo");
@@ -267,6 +287,18 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mniVideCallsActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+ FrmBill frmBill = new FrmBill();
+    frmBill.setVisible(true);
+    this.dispose();         // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jReportEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jReportEventActionPerformed
+FrmReportEvent frmReportEvent = new FrmReportEvent();
+frmReportEvent.setVisible(true);
+this.dispose();   
+    }//GEN-LAST:event_jReportEventActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -305,6 +337,8 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jReportEvent;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;

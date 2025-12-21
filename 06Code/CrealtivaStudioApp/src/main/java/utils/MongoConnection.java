@@ -14,10 +14,10 @@ public class MongoConnection {
         if (database != null) return; // ya conectado
 
         // --- URI actualizado ---
-        String uri = "mongodb+srv://kevin:kevin2001@cluster0.oxinj5p.mongodb.net/CreativaStudioDB?retryWrites=true&w=majority";
+        String uri = "mongodb+srv://Mateo:Mateo2006@cluster0.2mp0ve2.mongodb.net/?appName=Cluster0";
         mongoClient = MongoClients.create(uri);
-        database = mongoClient.getDatabase("CreativaStudioDB");
-        System.out.println("Conectado a MongoDB Atlas en CreativaStudioDB");
+        database = mongoClient.getDatabase("CreAltivaStudioDB");
+        
     }
 
     public static MongoCollection<Document> getPhotographerCollection() {

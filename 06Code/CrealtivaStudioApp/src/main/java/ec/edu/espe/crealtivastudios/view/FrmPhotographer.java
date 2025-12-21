@@ -99,9 +99,15 @@ private List<Photographer> photographersCache;
         Photographer p = findPhotographerByName(name);
         
         if (p != null) {
-            String status = p.getStatus();
-            label.setText(status);
-            label.setForeground(p.isAssigned() ? java.awt.Color.RED : new java.awt.Color(0, 153, 51));
+            if (p.isAssigned()) {
+                // Tiene evento -> Listo para equipo -> VERDE
+                label.setText("LISTO PARA EQUIPO");
+                label.setForeground(new java.awt.Color(0, 153, 51)); 
+            } else {
+                // Sin evento -> Disponible -> GRIS
+                label.setText("DISPONIBLE");
+                label.setForeground(java.awt.Color.GRAY);
+            }
         } else {
             label.setText("no registrado");
             label.setForeground(java.awt.Color.GRAY);
@@ -151,9 +157,18 @@ private void loadPhotographersFromDB() {
     listAssignedModel.clear(); 
     
     // 3. Añadir cada fotógrafo a la lista visual
-    for (Photographer p : photographersCache) {
-        // toSimpleString() es el método que genera el texto con el ID y el estado.
-        listAssignedModel.addElement(p.toSimpleString()); 
+   for (Photographer p : photographersCache) {
+        String estadoTexto;
+        // Si tiene evento, está listo para recibir equipo
+        if (p.isAssigned()) {
+            estadoTexto = "LISTO PARA ASIGNAR EQUIPO (" + p.getAssignedEvent() + ")";
+        } else {
+            estadoTexto = "DISPONIBLE (Sin evento)";
+        }
+        
+        // Creamos el texto manualmente
+        String display = "ID:" + p.getId() + " | " + p.getName() + " [" + estadoTexto + "]";
+        listAssignedModel.addElement(display); 
     }
 }
 
@@ -190,8 +205,12 @@ private void addPhotographerToList(Photographer p) {
         }
     }
 
+    // Lógica visual personalizada (Misma que arriba)
+    String estadoTexto = p.isAssigned() ? "LISTO PARA ASIGNAR EQUIPO" : "DISPONIBLE";
+    String display = "ID:" + p.getId() + " | " + p.getName() + " [" + estadoTexto + "]";
+    
     // No encontrado -> añadimos
-    listAssignedModel.addElement(p.toSimpleString());
+    listAssignedModel.addElement(display);
 }
 
 
@@ -203,13 +222,11 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
         return;
     }
 
-    // 🚫 Bloquear si el fotógrafo ya está ocupado
-    if (selected.isAssigned()) {
+if (!selected.isAssigned()) {
         JOptionPane.showMessageDialog(
             this,
-            "El fotógrafo está OCUPADO con el evento: "
-            + selected.getAssignedEvent(),
-            "Fotógrafo Ocupado",
+            "El fotógrafo está DISPONIBLE (Sin evento). \nPrimero debe asignarle un evento en el menú principal para poder entregarle equipos.",
+            "Falta Asignación",
             JOptionPane.WARNING_MESSAGE
         );
         return;
@@ -258,6 +275,7 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -273,8 +291,6 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
         txtSelectedPhotographer = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        btnRemove = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listAssigned = new javax.swing.JList<>();
         btnAssignEquipment = new javax.swing.JButton();
@@ -283,27 +299,49 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
         lblAlexisStatus = new javax.swing.JLabel();
         lblPaolaStatus = new javax.swing.JLabel();
         btnOpenAvailability = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        btnSave = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        AsignEvent = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel3.setBackground(new java.awt.Color(0, 153, 255));
+
+        jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setText("Asignamiento de Fotografos");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(24, 24, 24))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 24, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Lista de Fotografos");
@@ -342,15 +380,6 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
 
         jLabel9.setText("Accion");
 
-        btnRemove.setText("Eliminar");
-
-        btnSave.setText("Guardar");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
-            }
-        });
-
         listAssigned.setModel(new DefaultListModel<String>()
         );
         jScrollPane1.setViewportView(listAssigned);
@@ -377,14 +406,6 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Regresar al Menu");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -393,17 +414,8 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txtSelectedPhotographer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnOpenAvailability)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
-                        .addComponent(btnAssignEquipment)
-                        .addContainerGap())
+                        .addComponent(jLabel7)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -422,22 +434,28 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
                                     .addComponent(btnAssign4, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblMicaelaStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                                    .addComponent(lblLuisaStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblMicaelaStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(lblLuisaStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(134, 134, 134))
                                     .addComponent(lblAlexisStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblPaolaStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(120, 120, 120))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSave)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtSelectedPhotographer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(btnOpenAvailability)
+                                .addGap(75, 75, 75)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnRemove)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18))))
+                        .addComponent(btnAssignEquipment)
+                        .addGap(166, 166, 166))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,38 +485,87 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
                             .addComponent(btnAssign4)
                             .addComponent(lblPaolaStatus)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSelectedPhotographer)
                             .addComponent(jLabel8)
-                            .addComponent(btnOpenAvailability)))
+                            .addComponent(btnOpenAvailability))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel9))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
+                        .addGap(23, 23, 23)
                         .addComponent(btnAssignEquipment)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(93, 93, 93)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSave)
-                            .addComponent(btnRemove))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
+
+        jPanel4.setBackground(new java.awt.Color(0, 153, 255));
+
+        btnSave.setText("Guardar");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setText("Regresar al Menu");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        btnRemove.setText("Eliminar");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(btnSave)
+                .addGap(18, 18, 18)
+                .addComponent(btnRemove)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(44, 44, 44))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave)
+                    .addComponent(btnRemove)
+                    .addComponent(jButton1))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        jMenu1.setText("Asignar Evento");
+
+        AsignEvent.setText("Disponibilidad");
+        AsignEvent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AsignEventActionPerformed(evt);
+            }
+        });
+        jMenu1.add(AsignEvent);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -506,7 +573,8 @@ private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(27, 27, 27))
+                .addGap(36, 36, 36)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -649,6 +717,14 @@ if (frmAvailability == null || !frmAvailability.isDisplayable()) {
 this.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void AsignEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignEventActionPerformed
+
+
+FrmAssignEvent frmAssignEvent = new FrmAssignEvent();
+    frmAssignEvent.setVisible(true);
+    this.dispose();           // TODO add your handling code here:
+    }//GEN-LAST:event_AsignEventActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -683,10 +759,13 @@ private void selectPhotographerByName(String name) {
     boolean isAvailable = !p.isAssigned();
     btnAssignEquipment.setEnabled(isAvailable); // 🔥 Esto es lo que bloquea/habilita
 
-    if (!isAvailable) {
-        JOptionPane.showMessageDialog(this,
-            "El fotógrafo está **OCUPADO** (" + p.getAssignedEvent() + "). No se puede asignar equipo.",
-            "Acción Bloqueada", JOptionPane.WARNING_MESSAGE);
+  // LÓGICA INVERTIDA: Solo si TIENE evento (isAssigned = true), se activa el botón
+    boolean tieneEvento = p.isAssigned(); 
+    btnAssignEquipment.setEnabled(tieneEvento); 
+
+    if (!tieneEvento) {
+        // Opcional: Avisar por qué no se puede asignar
+        // JOptionPane.showMessageDialog(this, "El fotógrafo no tiene evento asignado. Primero asigne un evento.");
     }
 
     // --- Añadir / actualizar visualmente en la lista (evita duplicados) ---
@@ -726,6 +805,7 @@ private void selectPhotographerByName(String name) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem AsignEvent;
     private javax.swing.JButton btnAssign1;
     private javax.swing.JButton btnAssign2;
     private javax.swing.JButton btnAssign3;
@@ -744,8 +824,12 @@ private void selectPhotographerByName(String name) {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAlexisStatus;
     private javax.swing.JLabel lblLuisaStatus;

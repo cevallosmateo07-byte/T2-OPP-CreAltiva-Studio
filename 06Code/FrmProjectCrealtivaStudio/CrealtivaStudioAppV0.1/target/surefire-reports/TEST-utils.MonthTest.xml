@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="utils.MonthTest" time="0.063" tests="21" errors="19" skipped="0" failures="2">
+  <properties>
+    <property name="java.specification.version" value="24"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1\target\test-classes;C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1\target\classes;C:\Users\USER\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.3\junit-jupiter-api-5.10.3.jar;C:\Users\USER\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\USER\.m2\repository\org\junit\platform\junit-platform-commons\1.10.3\junit-platform-commons-1.10.3.jar;C:\Users\USER\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.3\junit-jupiter-params-5.10.3.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.3\junit-jupiter-engine-5.10.3.jar;C:\Users\USER\.m2\repository\org\junit\platform\junit-platform-engine\1.10.3\junit-platform-engine-1.10.3.jar;"/>
+    <property name="java.vm.vendor" value="Azul Systems, Inc."/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="http://www.azul.com/"/>
+    <property name="user.timezone" value="America/Guayaquil"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="24"/>
+    <property name="user.country" value="EC"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Apache NetBeans\jdk\bin"/>
+    <property name="sun.java.command" value="C:\Users\USER\AppData\Local\Temp\surefire8079265415713958862\surefirebooter-20251216073911804_3.jar C:\Users\USER\AppData\Local\Temp\surefire8079265415713958862 2025-12-16T07-39-11_498-jvmRun1 surefire-20251216073911804_1tmp surefire_0-20251216073911804_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1\target\test-classes;C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1\target\classes;C:\Users\USER\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.3\junit-jupiter-api-5.10.3.jar;C:\Users\USER\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\USER\.m2\repository\org\junit\platform\junit-platform-commons\1.10.3\junit-platform-commons-1.10.3.jar;C:\Users\USER\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.3\junit-jupiter-params-5.10.3.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.3\junit-jupiter-engine-5.10.3.jar;C:\Users\USER\.m2\repository\org\junit\platform\junit-platform-engine\1.10.3\junit-platform-engine-1.10.3.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\USER"/>
+    <property name="user.language" value="es"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-07-15"/>
+    <property name="java.home" value="C:\Program Files\Apache NetBeans\jdk"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\USER\AppData\Local\Temp\surefire8079265415713958862\surefirebooter-20251216073911804_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="24.0.2+12"/>
+    <property name="user.name" value="USER"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Zulu24.32+13-CA"/>
+    <property name="maven.ext.class.path" value="C:\Program Files\Apache NetBeans\java\maven-nblib\netbeans-eventspy.jar"/>
+    <property name="localRepository" value="C:\Users\USER\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="http://www.azul.com/support/"/>
+    <property name="java.io.tmpdir" value="C:\Users\USER\AppData\Local\Temp\"/>
+    <property name="java.version" value="24.0.2"/>
+    <property name="user.dir" value="C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Apache NetBeans\jdk\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\MATLAB\R2023b\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\PowerShell\7-preview\preview;C:\Program Files\nodejs\;C:\Program Files\PowerShell\7\;C:\Users\USER\AppData\Local\Programs\Python\Python314\Scripts\;C:\Users\USER\AppData\Local\Programs\Python\Python314\;C:\Users\USER\AppData\Local\Programs\Python\Launcher\;C:\Users\USER\AppData\Local\Microsoft\WindowsApps;;C:\intelFPGA\18.1\modelsim_ase\win32aloem;C:\Users\USER\AppData\Local\Python\bin;C:\Users\USER\AppData\Roaming\npm;C:\Users\USER\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\USER\AppData\Local\Programs\mongosh\;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Azul Systems, Inc."/>
+    <property name="java.vm.version" value="24.0.2+12"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="68.0"/>
+  </properties>
+  <testcase name="testAddVideoCall" classname="utils.MonthTest" time="0.003">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.addVideoCall(ec.edu.espe.crealtivastudios.model.VideoCall)&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.addVideoCall(ec.edu.espe.crealtivastudios.model.VideoCall)" because "instance" is null
+	at utils.MonthTest.testAddVideoCall(MonthTest.java:58)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[addVideoCall
+]]></system-out>
+  </testcase>
+  <testcase name="testGetDetailedReport" classname="utils.MonthTest" time="0.0">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getDetailedReport()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getDetailedReport()" because "instance" is null
+	at utils.MonthTest.testGetDetailedReport(MonthTest.java:181)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getDetailedReport
+]]></system-out>
+  </testcase>
+  <testcase name="testGetMonth" classname="utils.MonthTest" time="0.001">
+    <error message="Invalid value for MonthOfYear (valid values 1 - 12): 0" type="java.time.DateTimeException"><![CDATA[java.time.DateTimeException: Invalid value for MonthOfYear (valid values 1 - 12): 0
+	at java.base/java.time.temporal.ValueRange.checkValidValue(ValueRange.java:319)
+	at java.base/java.time.temporal.ChronoField.checkValidValue(ChronoField.java:721)
+	at java.base/java.time.YearMonth.of(YearMonth.java:229)
+	at ec.edu.espe.crealtivastudios.model.Month.<init>(Month.java:29)
+	at ec.edu.espe.crealtivastudios.model.Month.getMonth(Month.java:250)
+	at utils.MonthTest.testGetMonth(MonthTest.java:247)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getMonth
+]]></system-out>
+  </testcase>
+  <testcase name="testGetCurrentMonth" classname="utils.MonthTest" time="0.033">
+    <failure message="expected: &lt;null&gt; but was: &lt;diciembre 2025 - 0 eventos, 0 videollamadas&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <null> but was: <diciembre 2025 - 0 eventos, 0 videollamadas>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at utils.MonthTest.testGetCurrentMonth(MonthTest.java:236)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[getCurrentMonth
+]]></system-out>
+  </testcase>
+  <testcase name="testToString" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.toString()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.toString()" because "instance" is null
+	at utils.MonthTest.testToString(MonthTest.java:268)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[toString
+]]></system-out>
+  </testcase>
+  <testcase name="testGetEventsByDay" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getEventsByDay(int)&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getEventsByDay(int)" because "instance" is null
+	at utils.MonthTest.testGetEventsByDay(MonthTest.java:147)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getEventsByDay
+]]></system-out>
+  </testcase>
+  <testcase name="testAddEvent" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.addEvent(ec.edu.espe.crealtivastudios.model.Event)&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.addEvent(ec.edu.espe.crealtivastudios.model.Event)" because "instance" is null
+	at utils.MonthTest.testAddEvent(MonthTest.java:46)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[addEvent
+]]></system-out>
+  </testcase>
+  <testcase name="testGetAllMonthsWithActivities" classname="utils.MonthTest" time="0.001">
+    <failure message="expected: &lt;null&gt; but was: &lt;[]&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <null> but was: <[]>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at utils.MonthTest.testGetAllMonthsWithActivities(MonthTest.java:258)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[getAllMonthsWithActivities
+]]></system-out>
+  </testcase>
+  <testcase name="testGetYear" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getYear()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getYear()" because "instance" is null
+	at utils.MonthTest.testGetYear(MonthTest.java:214)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getYear
+]]></system-out>
+  </testcase>
+  <testcase name="testGetMonthName" classname="utils.MonthTest" time="0.002">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getMonthName()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getMonthName()" because "instance" is null
+	at utils.MonthTest.testGetMonthName(MonthTest.java:203)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getMonthName
+]]></system-out>
+  </testcase>
+  <testcase name="testGetVideoCalls" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getVideoCalls()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getVideoCalls()" because "instance" is null
+	at utils.MonthTest.testGetVideoCalls(MonthTest.java:89)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getVideoCalls
+]]></system-out>
+  </testcase>
+  <testcase name="testGetMonthValue" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getMonthValue()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getMonthValue()" because "instance" is null
+	at utils.MonthTest.testGetMonthValue(MonthTest.java:225)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getMonthValue
+]]></system-out>
+  </testcase>
+  <testcase name="testGetTotalVideoCalls" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getTotalVideoCalls()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getTotalVideoCalls()" because "instance" is null
+	at utils.MonthTest.testGetTotalVideoCalls(MonthTest.java:135)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getTotalVideoCalls
+]]></system-out>
+  </testcase>
+  <testcase name="testGetYearMonth" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getYearMonth()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getYearMonth()" because "instance" is null
+	at utils.MonthTest.testGetYearMonth(MonthTest.java:192)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getYearMonth
+]]></system-out>
+  </testcase>
+  <testcase name="testLoadAllFromSystem" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.loadAllFromSystem()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.loadAllFromSystem()" because "instance" is null
+	at utils.MonthTest.testLoadAllFromSystem(MonthTest.java:68)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[loadAllFromSystem
+]]></system-out>
+  </testcase>
+  <testcase name="testGetEvents" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getEvents()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getEvents()" because "instance" is null
+	at utils.MonthTest.testGetEvents(MonthTest.java:78)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getEvents
+]]></system-out>
+  </testcase>
+  <testcase name="testGetVideoCallsByCustomer" classname="utils.MonthTest" time="0.0">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getVideoCallsByCustomer(int)&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getVideoCallsByCustomer(int)" because "instance" is null
+	at utils.MonthTest.testGetVideoCallsByCustomer(MonthTest.java:113)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getVideoCallsByCustomer
+]]></system-out>
+  </testcase>
+  <testcase name="testGetTotalEvents" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getTotalEvents()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getTotalEvents()" because "instance" is null
+	at utils.MonthTest.testGetTotalEvents(MonthTest.java:124)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getTotalEvents
+]]></system-out>
+  </testcase>
+  <testcase name="testGetVideoCallsByDay" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getVideoCallsByDay(int)&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getVideoCallsByDay(int)" because "instance" is null
+	at utils.MonthTest.testGetVideoCallsByDay(MonthTest.java:159)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getVideoCallsByDay
+]]></system-out>
+  </testcase>
+  <testcase name="testGetEventsByType" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getEventsByType(int)&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getEventsByType(int)" because "instance" is null
+	at utils.MonthTest.testGetEventsByType(MonthTest.java:101)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getEventsByType
+]]></system-out>
+  </testcase>
+  <testcase name="testGetMonthSummary" classname="utils.MonthTest" time="0.001">
+    <error message="Cannot invoke &quot;ec.edu.espe.crealtivastudios.model.Month.getMonthSummary()&quot; because &quot;instance&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "ec.edu.espe.crealtivastudios.model.Month.getMonthSummary()" because "instance" is null
+	at utils.MonthTest.testGetMonthSummary(MonthTest.java:170)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[getMonthSummary
+]]></system-out>
+  </testcase>
+</testsuite>

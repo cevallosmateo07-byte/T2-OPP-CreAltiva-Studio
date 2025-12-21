@@ -14,5 +14,13 @@
     "email": "jorgeza@gmail.com",
     "address": "Tambillo",
     "events": []
+  },
+  {
+    "id": 25,
+    "name": "luis",
+    "phone": "0123456789",
+    "email": "12@gmail.com",
+    "address": "lagasca",
+    "events": []
   }
 ]

@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="utils.EquipmentTest" time="0.083" tests="20" errors="2" skipped="0" failures="18">
+  <properties>
+    <property name="java.specification.version" value="24"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1\target\test-classes;C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1\target\classes;C:\Users\USER\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.3\junit-jupiter-api-5.10.3.jar;C:\Users\USER\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\USER\.m2\repository\org\junit\platform\junit-platform-commons\1.10.3\junit-platform-commons-1.10.3.jar;C:\Users\USER\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.3\junit-jupiter-params-5.10.3.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.3\junit-jupiter-engine-5.10.3.jar;C:\Users\USER\.m2\repository\org\junit\platform\junit-platform-engine\1.10.3\junit-platform-engine-1.10.3.jar;"/>
+    <property name="java.vm.vendor" value="Azul Systems, Inc."/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="http://www.azul.com/"/>
+    <property name="user.timezone" value="America/Guayaquil"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="24"/>
+    <property name="user.country" value="EC"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Apache NetBeans\jdk\bin"/>
+    <property name="sun.java.command" value="C:\Users\USER\AppData\Local\Temp\surefire8079265415713958862\surefirebooter-20251216073911804_3.jar C:\Users\USER\AppData\Local\Temp\surefire8079265415713958862 2025-12-16T07-39-11_498-jvmRun1 surefire-20251216073911804_1tmp surefire_0-20251216073911804_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1\target\test-classes;C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1\target\classes;C:\Users\USER\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.3\junit-jupiter-api-5.10.3.jar;C:\Users\USER\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\USER\.m2\repository\org\junit\platform\junit-platform-commons\1.10.3\junit-platform-commons-1.10.3.jar;C:\Users\USER\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.3\junit-jupiter-params-5.10.3.jar;C:\Users\USER\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.3\junit-jupiter-engine-5.10.3.jar;C:\Users\USER\.m2\repository\org\junit\platform\junit-platform-engine\1.10.3\junit-platform-engine-1.10.3.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\USER"/>
+    <property name="user.language" value="es"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-07-15"/>
+    <property name="java.home" value="C:\Program Files\Apache NetBeans\jdk"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\USER\AppData\Local\Temp\surefire8079265415713958862\surefirebooter-20251216073911804_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="24.0.2+12"/>
+    <property name="user.name" value="USER"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Zulu24.32+13-CA"/>
+    <property name="maven.ext.class.path" value="C:\Program Files\Apache NetBeans\java\maven-nblib\netbeans-eventspy.jar"/>
+    <property name="localRepository" value="C:\Users\USER\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="http://www.azul.com/support/"/>
+    <property name="java.io.tmpdir" value="C:\Users\USER\AppData\Local\Temp\"/>
+    <property name="java.version" value="24.0.2"/>
+    <property name="user.dir" value="C:\Users\USER\T2-OPP-CreAltiva-Studio\06Code\FrmProjectCrealtivaStudio\CrealtivaStudioAppV0.1"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Apache NetBeans\jdk\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\MATLAB\R2023b\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\PowerShell\7-preview\preview;C:\Program Files\nodejs\;C:\Program Files\PowerShell\7\;C:\Users\USER\AppData\Local\Programs\Python\Python314\Scripts\;C:\Users\USER\AppData\Local\Programs\Python\Python314\;C:\Users\USER\AppData\Local\Programs\Python\Launcher\;C:\Users\USER\AppData\Local\Microsoft\WindowsApps;;C:\intelFPGA\18.1\modelsim_ase\win32aloem;C:\Users\USER\AppData\Local\Python\bin;C:\Users\USER\AppData\Roaming\npm;C:\Users\USER\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\USER\AppData\Local\Programs\mongosh\;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Azul Systems, Inc."/>
+    <property name="java.vm.version" value="24.0.2+12"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="68.0"/>
+  </properties>
+  <testcase name="testFindByStatus" classname="utils.EquipmentTest" time="0.018">
+    <error message="Cannot invoke &quot;String.equalsIgnoreCase(String)&quot; because the return value of &quot;ec.edu.espe.crealtivastudios.model.Equipment.getStatus()&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "String.equalsIgnoreCase(String)" because the return value of "ec.edu.espe.crealtivastudios.model.Equipment.getStatus()" is null
+	at ec.edu.espe.crealtivastudios.model.Equipment.lambda$findByStatus$0(Equipment.java:95)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:196)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1716)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:570)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:560)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:636)
+	at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:291)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:656)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:662)
+	at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:667)
+	at ec.edu.espe.crealtivastudios.model.Equipment.findByStatus(Equipment.java:96)
+	at utils.EquipmentTest.testFindByStatus(EquipmentTest.java:120)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[findByStatus
+]]></system-out>
+  </testcase>
+  <testcase name="testSave" classname="utils.EquipmentTest" time="0.01">
+    <failure message="expected: &lt;false&gt; but was: &lt;true&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <false> but was: <true>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at utils.EquipmentTest.testSave(EquipmentTest.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[save
+]]></system-out>
+  </testcase>
+  <testcase name="testSetDescription" classname="utils.EquipmentTest" time="0.001">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at utils.EquipmentTest.testSetDescription(EquipmentTest.java:186)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[setDescription
+]]></system-out>
+  </testcase>
+  <testcase name="testToString" classname="utils.EquipmentTest" time="0.005">
+    <failure message="expected: &lt;&gt; but was: &lt;--------------------------------------&#10;| ID Equipo:	0&#10;| Nombre:	null&#10;| Descripcion:	null&#10;| Estado:	null&#10;--------------------------------------&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: 
+expected: <> but was: <--------------------------------------
+| ID Equipo:	0
+| Nombre:	null
+| Descripcion:	null
+| Estado:	null
+-------------------------------------->
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at utils.EquipmentTest.testToString(EquipmentTest.java:238)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[toString
+]]></system-out>
+  </testcase>
+  <testcase name="testGetAllEquipment" classname="utils.EquipmentTest" time="0.001">
+    <failure message="expected: &lt;null&gt; but was: &lt;[--------------------------------------&#10;| ID Equipo:	1&#10;| Nombre:	null&#10;| Descripcion:	null&#10;| Estado:	null&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	2&#10;| Nombre:	null&#10;| Descripcion:	null&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	3&#10;| Nombre:	null&#10;| Descripcion:	null&#10;| Estado:	Mantenimiento&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	4&#10;| Nombre:	null&#10;| Descripcion:	null&#10;| Estado:	En Uso&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	7&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	8&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	9&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	10&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	11&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	12&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	13&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	14&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	15&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	16&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	17&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	18&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	19&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	20&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	21&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	22&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	23&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	24&#10;| Nombre:	Softbox 90cm&#10;| Descripcion:	Iluminación Suave&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	25&#10;| Nombre:	Softbox 90cm&#10;| Descripcion:	Iluminación Suave&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	26&#10;| Nombre:	Softbox 90cm&#10;| Descripcion:	Iluminación Suave&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	27&#10;| Nombre:	Softbox 90cm&#10;| Descripcion:	Iluminación Suave&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	28&#10;| Nombre:	Softbox 90cm&#10;| Descripcion:	Iluminación Suave&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	29&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	30&#10;| Nombre:	Tripod PRO X&#10;| Descripcion:	Trípode de Aluminio&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	31&#10;| Nombre:	Microphone Shotgun&#10;| Descripcion:	Micrófono Direccional&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	32&#10;| Nombre:	Tripod PRO X&#10;| Descripcion:	Trípode de Aluminio&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	33&#10;| Nombre:	LED Light Panel&#10;| Descripcion:	Iluminación Suave&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	34&#10;| Nombre:	Microphone Shotgun&#10;| Descripcion:	Micrófono Direccional&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	35&#10;| Nombre:	Softbox 90cm&#10;| Descripcion:	Iluminación Suave&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	36&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	37&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	En Uso&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	38&#10;| Nombre:	LED Light Panel&#10;| Descripcion:	Iluminación Suave&#10;| Estado:	En Uso&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	39&#10;| Nombre:	Tripod PRO X&#10;| Descripcion:	Trípode de Aluminio&#10;| Estado:	En Uso&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	40&#10;| Nombre:	LED Light Panel&#10;| Descripcion:	Iluminación Suave&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	43&#10;| Nombre:	LED Light Panel&#10;| Descripcion:	Iluminación Suave&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	44&#10;| Nombre:	Microphone Shotgun&#10;| Descripcion:	Micrófono Direccional&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	41&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	En Uso&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	45&#10;| Nombre:	Camera EOS R5&#10;| Descripcion:	Cámara Profesional Canon&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	46&#10;| Nombre:	Tripod PRO X&#10;| Descripcion:	Trípode de Aluminio&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	47&#10;| Nombre:	LED Light Panel&#10;| Descripcion:	Iluminación Suave&#10;| Estado:	Disponible&#10;--------------------------------------, --------------------------------------&#10;| ID Equipo:	48&#10;| Nombre:	null&#10;| Descripcion:	null&#10;| Estado:	null&#10;--------------------------------------]&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: 
+expected: <null> but was: <[--------------------------------------
+| ID Equipo:	1
+| Nombre:	null
+| Descripcion:	null
+| Estado:	null
+--------------------------------------, --------------------------------------
+| ID Equipo:	2
+| Nombre:	null
+| Descripcion:	null
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	3
+| Nombre:	null
+| Descripcion:	null
+| Estado:	Mantenimiento
+--------------------------------------, --------------------------------------
+| ID Equipo:	4
+| Nombre:	null
+| Descripcion:	null
+| Estado:	En Uso
+--------------------------------------, --------------------------------------
+| ID Equipo:	7
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	8
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	9
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	10
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	11
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	12
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	13
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	14
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	15
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	16
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	17
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	18
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	19
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	20
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	21
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	22
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	23
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	24
+| Nombre:	Softbox 90cm
+| Descripcion:	Iluminación Suave
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	25
+| Nombre:	Softbox 90cm
+| Descripcion:	Iluminación Suave
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	26
+| Nombre:	Softbox 90cm
+| Descripcion:	Iluminación Suave
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	27
+| Nombre:	Softbox 90cm
+| Descripcion:	Iluminación Suave
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	28
+| Nombre:	Softbox 90cm
+| Descripcion:	Iluminación Suave
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	29
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	30
+| Nombre:	Tripod PRO X
+| Descripcion:	Trípode de Aluminio
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	31
+| Nombre:	Microphone Shotgun
+| Descripcion:	Micrófono Direccional
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	32
+| Nombre:	Tripod PRO X
+| Descripcion:	Trípode de Aluminio
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	33
+| Nombre:	LED Light Panel
+| Descripcion:	Iluminación Suave
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	34
+| Nombre:	Microphone Shotgun
+| Descripcion:	Micrófono Direccional
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	35
+| Nombre:	Softbox 90cm
+| Descripcion:	Iluminación Suave
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	36
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	37
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	En Uso
+--------------------------------------, --------------------------------------
+| ID Equipo:	38
+| Nombre:	LED Light Panel
+| Descripcion:	Iluminación Suave
+| Estado:	En Uso
+--------------------------------------, --------------------------------------
+| ID Equipo:	39
+| Nombre:	Tripod PRO X
+| Descripcion:	Trípode de Aluminio
+| Estado:	En Uso
+--------------------------------------, --------------------------------------
+| ID Equipo:	40
+| Nombre:	LED Light Panel
+| Descripcion:	Iluminación Suave
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	43
+| Nombre:	LED Light Panel
+| Descripcion:	Iluminación Suave
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	44
+| Nombre:	Microphone Shotgun
+| Descripcion:	Micrófono Direccional
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	41
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	En Uso
+--------------------------------------, --------------------------------------
+| ID Equipo:	45
+| Nombre:	Camera EOS R5
+| Descripcion:	Cámara Profesional Canon
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	46
+| Nombre:	Tripod PRO X
+| Descripcion:	Trípode de Aluminio
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	47
+| Nombre:	LED Light Panel
+| Descripcion:	Iluminación Suave
+| Estado:	Disponible
+--------------------------------------, --------------------------------------
+| ID Equipo:	48
+| Nombre:	null
+| Descripcion:	null
+| Estado:	null
+--------------------------------------]>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at utils.EquipmentTest.testGetAllEquipment(EquipmentTest.java:99)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[getAllEquipment
+]]></system-out>
+  </testcase>
+  <testcase name="testGetName" classname="utils.EquipmentTest" time="0.001">
+    <failure message="expected: &lt;&gt; but was: &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <> but was: <null>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at utils.EquipmentTest.testGetName(EquipmentTest.java:153)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[getName
+]]></system-out>
+  </testcase>
+  <testcase name="testIsAvailable" classname="utils.EquipmentTest" time="0.005">
+    <error message="Cannot invoke &quot;String.equals(Object)&quot; because &quot;this.status&quot; is null" type="java.lang.NullPointerException"><![CDATA[java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because "this.status" is null
+	at ec.edu.espe.crealtivastudios.model.Equipment.isAvailable(Equipment.java:136)
+	at utils.EquipmentTest.testIsAvailable(EquipmentTest.java:215)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></error>
+    <system-out><![CDATA[isAvailable
+]]></system-out>
+  </testcase>
+  <testcase name="testSetEquipmentId" classname="utils.EquipmentTest" time="0.002">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at utils.EquipmentTest.testSetEquipmentId(EquipmentTest.java:144)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[setEquipmentId
+]]></system-out>
+  </testcase>
+  <testcase name="testFindById" classname="utils.EquipmentTest" time="0.001">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at utils.EquipmentTest.testFindById(EquipmentTest.java:112)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[findById
+]]></system-out>
+  </testcase>
+  <testcase name="testMarkAsAvailable" classname="utils.EquipmentTest" time="0.004">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at utils.EquipmentTest.testMarkAsAvailable(EquipmentTest.java:74)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[markAsAvailable
+]]></system-out>
+  </testcase>
+  <testcase name="testGetDescription" classname="utils.EquipmentTest" time="0.001">
+    <failure message="expected: &lt;&gt; but was: &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <> but was: <null>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at utils.EquipmentTest.testGetDescription(EquipmentTest.java:174)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[getDescription
+]]></system-out>
+  </testcase>
+  <testcase name="testMarkAsMaintenance" classname="utils.EquipmentTest" time="0.006">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at utils.EquipmentTest.testMarkAsMaintenance(EquipmentTest.java:83)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[markAsMaintenance
+]]></system-out>
+  </testcase>
+  <testcase name="testToSimpleString" classname="utils.EquipmentTest" time="0.005">
+    <failure message="expected: &lt;&gt; but was: &lt;ID: 0 | null | Estado: null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <> but was: <ID: 0 | null | Estado: null>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at utils.EquipmentTest.testToSimpleString(EquipmentTest.java:227)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[toSimpleString
+]]></system-out>
+  </testcase>
+  <testcase name="testSetStatus" classname="utils.EquipmentTest" time="0.001">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at utils.EquipmentTest.testSetStatus(EquipmentTest.java:207)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[setStatus
+]]></system-out>
+  </testcase>
+  <testcase name="testDelete" classname="utils.EquipmentTest" time="0.002">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at utils.EquipmentTest.testDelete(EquipmentTest.java:56)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[delete
+]]></system-out>
+  </testcase>
+  <testcase name="testGetStatus" classname="utils.EquipmentTest" time="0.001">
+    <failure message="expected: &lt;&gt; but was: &lt;null&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <> but was: <null>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at utils.EquipmentTest.testGetStatus(EquipmentTest.java:195)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[getStatus
+]]></system-out>
+  </testcase>
+  <testcase name="testSetName" classname="utils.EquipmentTest" time="0.001">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at utils.EquipmentTest.testSetName(EquipmentTest.java:165)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[setName
+]]></system-out>
+  </testcase>
+  <testcase name="testGetEquipmentId" classname="utils.EquipmentTest" time="0.001">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at utils.EquipmentTest.testGetEquipmentId(EquipmentTest.java:134)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[getEquipmentId
+]]></system-out>
+  </testcase>
+  <testcase name="testReloadFromJson" classname="utils.EquipmentTest" time="0.002">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at utils.EquipmentTest.testReloadFromJson(EquipmentTest.java:91)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[reloadFromJson
+]]></system-out>
+  </testcase>
+  <testcase name="testMarkAsInUse" classname="utils.EquipmentTest" time="0.002">
+    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:138)
+	at utils.EquipmentTest.testMarkAsInUse(EquipmentTest.java:65)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+]]></failure>
+    <system-out><![CDATA[markAsInUse
+]]></system-out>
+  </testcase>
+</testsuite>

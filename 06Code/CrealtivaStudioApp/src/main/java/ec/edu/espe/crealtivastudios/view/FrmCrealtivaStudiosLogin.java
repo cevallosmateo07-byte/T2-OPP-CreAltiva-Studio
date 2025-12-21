@@ -2,10 +2,12 @@ package ec.edu.espe.crealtivastudios.view;
 
 import ec.edu.espe.crealtivastudios.controller.UserController;
 import ec.edu.espe.crealtivastudios.model.User;
+import ec.edu.espe.crealtivastudios.view.FrmCrealtivaStudiosMenu;
 import java.awt.Color;
 import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 /**
  *
@@ -13,30 +15,44 @@ import javax.swing.ImageIcon;
  */
 public class FrmCrealtivaStudiosLogin extends javax.swing.JFrame {
     
+    
+
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmCrealtivaStudiosLogin.class.getName());
 
     /**
      * Creates new form FrmCrealtivaStudiosLogin
      */
     public FrmCrealtivaStudiosLogin() {
-        initComponents();
-        URL url = getClass().getResource("/ec/edu/espe/crealtivastudios/images/Logo.jpg");
+   initComponents();
 
-if (url != null) {
-    ImageIcon icon = new ImageIcon(url);
-    Image img = icon.getImage();
-    
-    // Obtener ancho y alto del JLabel
-    int width = lblwelcome.getWidth();
-    int height = lblwelcome.getHeight();
-    
-    // Escalar imagen al tamaño del JLabel
-    Image scaled = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-    lblwelcome.setIcon(new ImageIcon(scaled));
+    getContentPane().setBackground(new Color(18, 18, 18));
 
-    // Elimina texto del JLabel
-    lblwelcome.setText("");
-}
+    // Campos oscuros
+    txtUser.setBackground(new Color(25, 35, 45));
+    txtUser.setForeground(Color.WHITE);
+
+    passPassword.setBackground(new Color(25, 35, 45));
+    passPassword.setForeground(Color.WHITE);
+
+    btnAccept.setBackground(new Color(59, 130, 246));
+    btnAccept.setForeground(Color.WHITE);
+    btnAccept.setFocusPainted(false);
+
+    lblErrorMessage.setForeground(Color.LIGHT_GRAY);
+
+    URL url = getClass().getResource("/ec/edu/espe/crealtivastudios/images/login.png");
+    if (url != null) {
+        ImageIcon icon = new ImageIcon(url);
+        Image img = icon.getImage();
+        Image scaled = img.getScaledInstance(
+            lblwelcome.getWidth(),
+            lblwelcome.getHeight(),
+            Image.SCALE_SMOOTH
+        );
+        lblwelcome.setIcon(new ImageIcon(scaled));
+        lblwelcome.setText("");
+    }
 
     }
 
@@ -50,8 +66,6 @@ if (url != null) {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         btnAccept = new javax.swing.JButton();
         txtUser = new javax.swing.JTextField();
         passPassword = new javax.swing.JPasswordField();
@@ -59,15 +73,11 @@ if (url != null) {
         lblErrorMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 36)); // NOI18N
-        jLabel1.setText("Registro");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
-        jLabel2.setText("Usuario");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 2, 18)); // NOI18N
-        jLabel3.setText("Contraseña");
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("REGISTRO");
 
         btnAccept.setText("Empezar");
         btnAccept.addActionListener(new java.awt.event.ActionListener() {
@@ -108,41 +118,35 @@ if (url != null) {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(lblwelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                .addComponent(lblwelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAccept)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtUser)
                         .addComponent(passPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
-                    .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                    .addComponent(lblErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblErrorMessage))
-                    .addComponent(lblwelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(passPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblErrorMessage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(passPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(btnAccept)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblwelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -191,32 +195,25 @@ if (url != null) {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+      
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrmCrealtivaStudiosLogin().setVisible(true));
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
+            }
+        }
+    } catch (Exception ex) {
+        logger.log(java.util.logging.Level.SEVERE, null, ex);
     }
+
+    java.awt.EventQueue.invokeLater(() -> new FrmCrealtivaStudiosLogin().setVisible(true));
+ }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAccept;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblErrorMessage;
     private javax.swing.JLabel lblwelcome;
     private javax.swing.JPasswordField passPassword;
