@@ -1,20 +1,92 @@
 [
   {
-    "equipmentId": 1,
-    "name": "canon",
-    "description": "mirir",
-    "status": "Disponible"
+    "equipmentId": 1
   },
   {
     "equipmentId": 2,
-    "name": "1",
-    "description": "2",
     "status": "Disponible"
   },
   {
     "equipmentId": 3,
-    "name": "1",
-    "description": "1",
+    "status": "Mantenimiento"
+  },
+  {
+    "equipmentId": 4,
+    "status": "En Uso"
+  },
+  {
+    "equipmentId": 5
+  },
+  {
+    "equipmentId": 6,
     "status": "Disponible"
+  },
+  {
+    "equipmentId": 7,
+    "status": "Mantenimiento"
+  },
+  {
+    "equipmentId": 8,
+    "status": "En Uso"
+  },
+  {
+    "equipmentId": 9
+  },
+  {
+    "equipmentId": 10,
+    "status": "Disponible"
+  },
+  {
+    "equipmentId": 11,
+    "status": "Mantenimiento"
+  },
+  {
+    "equipmentId": 12,
+    "status": "En Uso"
+  },
+  {
+    "equipmentId": 13
+  },
+  {
+    "equipmentId": 14,
+    "status": "Disponible"
+  },
+  {
+    "equipmentId": 15,
+    "status": "Mantenimiento"
+  },
+  {
+    "equipmentId": 16,
+    "status": "En Uso"
+  },
+  {
+    "equipmentId": 17
+  },
+  {
+    "equipmentId": 18,
+    "status": "Disponible"
+  },
+  {
+    "equipmentId": 19,
+    "status": "Mantenimiento"
+  },
+  {
+    "equipmentId": 20,
+    "status": "En Uso"
+  },
+  {
+    "equipmentId": 21
+  },
+  {
+    "equipmentId": 22,
+    "status": "Disponible"
+  },
+  {
+    "equipmentId": 23,
+    "status": "Mantenimiento"
+  },
+  {
+    "equipmentId": 24,
+    "status": "En Uso"
   }
 ]

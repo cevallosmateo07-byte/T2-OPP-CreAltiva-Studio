@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "id": 22,
+    "name": "Hector",
+    "phone": "0979317213",
+    "email": "Hector12@gmail.com",
+    "address": "Sangolqui",
+    "events": []
+  },
+  {
+    "id": 23,
+    "name": "Jorge Iza",
+    "phone": "0983212431",
+    "email": "jorgeza@gmail.com",
+    "address": "Tambillo",
+    "events": []
+  },
+  {
+    "id": 25,
+    "name": "luis",
+    "phone": "0123456789",
+    "email": "12@gmail.com",
+    "address": "lagasca",
+    "events": []
+  },
+  {
+    "id": 28,
+    "name": "Ariel Cevallos",
+    "phone": "0989878876",
+    "email": "cevallosariel@gmail.com",
+    "address": "loma de puengasi",
+    "events": []
+  }
+]
