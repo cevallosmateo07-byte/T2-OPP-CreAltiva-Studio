@@ -22,5 +22,13 @@
     "email": "12@gmail.com",
     "address": "lagasca",
     "events": []
+  },
+  {
+    "id": 28,
+    "name": "Ariel Cevallos",
+    "phone": "0989878876",
+    "email": "cevallosariel@gmail.com",
+    "address": "loma de puengasi",
+    "events": []
   }
 ]

@@ -344,7 +344,7 @@ public class FrmEquipment extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel5.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel5.setBackground(java.awt.SystemColor.activeCaption);
 
         jLabel2.setFont(new java.awt.Font("sansserif", 2, 14)); // NOI18N
         jLabel2.setText("LISTA DE EQUIPOS DE FOTOGRAFIA");
@@ -420,7 +420,7 @@ public class FrmEquipment extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel3.setBackground(java.awt.SystemColor.activeCaption);
 
         jButton6.setText("Borrar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {

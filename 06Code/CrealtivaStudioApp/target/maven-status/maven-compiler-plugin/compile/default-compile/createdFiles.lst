@@ -28,6 +28,7 @@ ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosMenu$6.class
 ec\edu\espe\crealtivastudios\view\FrmBill$3.class
 ec\edu\espe\crealtivastudios\view\FrmCalendar.class
 ec\edu\espe\crealtivastudios\view\FrmCalendar$1.class
+ec\edu\espe\crealtivastudios\view\FrmCustomerList$4.class
 ec\edu\espe\crealtivastudios\view\FrmAvailable$2.class
 ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosLogin$3.class
 ec\edu\espe\crealtivastudios\view\FrmReportEvent$1.class
@@ -47,6 +48,7 @@ ec\edu\espe\crealtivastudios\view\FrmPhotographer$9.class
 ec\edu\espe\crealtivastudios\model\Equipment.class
 ec\edu\espe\crealtivastudios\view\FrmPhotographer$2.class
 ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosMenu$10.class
+ec\edu\espe\crealtivastudios\view\FrmCustomerList.class
 ec\edu\espe\crealtivastudios\view\FrmVideoCalls$4.class
 ec\edu\espe\crealtivastudios\view\FrmAtendencePhotographers$2.class
 ec\edu\espe\crealtivastudios\view\FrmAssignEvent$2.class
@@ -71,6 +73,7 @@ ec\edu\espe\crealtivastudios\view\FrmAtendencePhotographers$3.class
 ec\edu\espe\crealtivastudios\view\FrmVideoCalls$2.class
 ec\edu\espe\crealtivastudios\view\FrmBill$4.class
 ec\edu\espe\crealtivastudios\view\FrmCalendar$5.class
+ec\edu\espe\crealtivastudios\view\FrmCustomerList$3.class
 ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosLogin$5.class
 ec\edu\espe\crealtivastudios\view\FrmCalendar$2.class
 ec\edu\espe\crealtivastudios\view\FrmEquipmentAvailable$4.class
@@ -98,6 +101,7 @@ ec\edu\espe\crealtivastudios\view\FrmEquipment$4.class
 ec\edu\espe\crealtivastudios\controller\CustomerController$1.class
 ec\edu\espe\crealtivastudios\view\FrmAvailable.class
 ec\edu\espe\crealtivastudios\model\Bill.class
+ec\edu\espe\crealtivastudios\view\FrmCustomerList$1.class
 ec\edu\espe\crealtivastudios\view\FrmAssignEvent$5.class
 ec\edu\espe\crealtivastudios\view\FrmEquipmentAvailable.class
 ec\edu\espe\crealtivastudios\view\FrmBill$2.class
@@ -106,6 +110,7 @@ ec\edu\espe\crealtivastudios\view\FrmVideoCalls$1.class
 ec\edu\espe\crealtivastudios\view\FrmEquipment$3.class
 ec\edu\espe\crealtivastudios\model\Customer$1.class
 ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosMenu$5.class
+ec\edu\espe\crealtivastudios\view\FrmCustomerList$2.class
 utils\FrameValidations.class
 utils\MongoConnection.class
 ec\edu\espe\crealtivastudios\view\FrmPhotographer$5.class

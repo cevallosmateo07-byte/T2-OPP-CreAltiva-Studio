@@ -92,7 +92,7 @@ public class FrmReportEvent extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel1.setBackground(java.awt.SystemColor.activeCaption);
 
         jButtonSaveReportInMongo.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jButtonSaveReportInMongo.setText("Guardar");
@@ -142,7 +142,7 @@ public class FrmReportEvent extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel2.setBackground(java.awt.SystemColor.activeCaption);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         jLabel1.setText("REPORTE DEL EVENTO ");

@@ -309,7 +309,7 @@ if (!selected.isAssigned()) {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel3.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel3.setBackground(java.awt.SystemColor.activeCaption);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setText("Asignamiento de Fotografos");
@@ -502,7 +502,7 @@ if (!selected.isAssigned()) {
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel4.setBackground(java.awt.SystemColor.activeCaption);
 
         btnSave.setText("Guardar");
         btnSave.addActionListener(new java.awt.event.ActionListener() {

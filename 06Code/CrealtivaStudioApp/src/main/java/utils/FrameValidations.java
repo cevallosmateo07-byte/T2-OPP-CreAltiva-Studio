@@ -10,6 +10,7 @@ import javax.swing.JSpinner;
  * @author Mateo Cevallos
  */
 public class FrameValidations {
+    
     public static boolean validateClientSearcher(String txtId){
         if(txtId == null || txtId.trim().isEmpty()){
             return false;
@@ -23,7 +24,7 @@ public class FrameValidations {
         }
 
     }
-
+    
     public static boolean validateDateChooser(JDateChooser dateChooser){
         if(dateChooser.getDate() == null){
             JOptionPane.showMessageDialog(null, "Debe seleccionar fecha", "Error", JOptionPane.ERROR_MESSAGE);

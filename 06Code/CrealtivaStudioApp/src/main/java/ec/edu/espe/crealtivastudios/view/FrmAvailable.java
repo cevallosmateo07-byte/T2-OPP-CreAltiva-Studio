@@ -88,7 +88,7 @@ comboMicaela.setSelectedItem(micaela.isAssigned() ? "No disponible " : "Disponib
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel3.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel3.setBackground(java.awt.SystemColor.activeCaption);
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setText("DISPONIBILIDAD DE FOTOGRAFOS");

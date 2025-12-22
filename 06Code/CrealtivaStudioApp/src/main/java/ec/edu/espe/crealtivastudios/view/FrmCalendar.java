@@ -149,6 +149,8 @@ public class FrmCalendar extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(java.awt.SystemColor.activeCaption);
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Calendar");
 
@@ -168,6 +170,8 @@ public class FrmCalendar extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
+
+        jPanel3.setBackground(java.awt.SystemColor.activeCaption);
 
         btnAcceptAndSave.setText("Aceptar");
         btnAcceptAndSave.addActionListener(new java.awt.event.ActionListener() {
@@ -379,12 +383,14 @@ public class FrmCalendar extends javax.swing.JFrame {
         }
 
         try {
+            
             MongoDatabase database = MongoDBConnection.getConnection();
             MongoCollection<Document> eventsCollection = database.getCollection("Events");
 
-            Document query = new Document("_id", new org.bson.types.ObjectId(eventId));
+            Document query = new Document("eventId", eventId);
             Document event = eventsCollection.find(query).first();
 
+            
             if (event != null) {
                 Date eventDate = event.getDate("date");
                 setReminder(eventDate, true);

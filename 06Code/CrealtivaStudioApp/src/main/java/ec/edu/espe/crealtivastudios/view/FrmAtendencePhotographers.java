@@ -234,7 +234,7 @@ public class FrmAtendencePhotographers extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel2.setBackground(java.awt.SystemColor.activeCaption);
 
         btnBack.setText("Regresar al Menu");
         btnBack.addActionListener(new java.awt.event.ActionListener() {

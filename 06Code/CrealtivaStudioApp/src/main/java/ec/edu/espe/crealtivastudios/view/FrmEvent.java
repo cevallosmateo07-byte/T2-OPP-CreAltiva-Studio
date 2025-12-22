@@ -96,12 +96,12 @@ public class FrmEvent extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtIdSearcher = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cmbEventType = new javax.swing.JComboBox<>();
@@ -123,8 +123,8 @@ public class FrmEvent extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 204));
-        jPanel1.setForeground(new java.awt.Color(0, 51, 204));
+        jPanel1.setBackground(java.awt.SystemColor.activeCaption);
+        jPanel1.setForeground(java.awt.SystemColor.activeCaption);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Registro de Eventos:");
@@ -132,8 +132,6 @@ public class FrmEvent extends javax.swing.JFrame {
         jLabel2.setText("ID:");
 
         jLabel3.setText("Buscar Cliente:");
-
-        txtIdSearcher.setToolTipText("Buscar por ID de cliente");
 
         btnSearch.setText("Buscar");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -193,8 +191,6 @@ public class FrmEvent extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtIdSearcher, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -221,7 +217,6 @@ public class FrmEvent extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(txtIdSearcher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnSearch)
                         .addComponent(jLabel7))
                     .addComponent(cldDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -264,6 +259,9 @@ public class FrmEvent extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
+
+        jPanel3.setBackground(java.awt.SystemColor.activeCaption);
+        jPanel3.setForeground(java.awt.SystemColor.activeCaption);
 
         btnAssignAndSave.setText("Asignar y Guardar");
         btnAssignAndSave.addActionListener(new java.awt.event.ActionListener() {
@@ -326,13 +324,10 @@ public class FrmEvent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        String txtId = txtIdSearcher.getText();
+        FrmCustomerList customerList = new FrmCustomerList(this);
+        customerList.setVisible(true);
 
-        if (!FrameValidations.validateClientSearcher(txtId)) {
-            JOptionPane.showMessageDialog(this, "Ingrese un ID valido (solo numeros)");
-        }
 
-        return;
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtEventNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEventNameActionPerformed
@@ -439,9 +434,9 @@ public class FrmEvent extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JSpinner spnDisccount;
     private javax.swing.JTextArea txaShowEvents;
     private javax.swing.JTextField txtEventName;
-    private javax.swing.JTextField txtIdSearcher;
     // End of variables declaration//GEN-END:variables
 }
