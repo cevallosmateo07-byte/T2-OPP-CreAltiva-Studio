@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package ec.edu.espe.crealtivastudios.view;
 
 
@@ -43,10 +40,9 @@ public class FrmCustomerList extends javax.swing.JFrame {
 
     private void loadCustomersToTable() {
         try {
-            // Usar CrudOperations para obtener todos los clientes
+          
             List<Document> customers = CrudOperations.findAll("Customers");
 
-            // Crear modelo de tabla no editable
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int row, int column) {
@@ -54,21 +50,17 @@ public class FrmCustomerList extends javax.swing.JFrame {
                 }
             };
 
-            // Definir columnas (usando tu campo id numérico)
             model.addColumn("ID");
             model.addColumn("Nombre");
             model.addColumn("Teléfono");
             model.addColumn("Email");
             model.addColumn("Dirección");
 
-            // Contador para estadísticas
             int customerCount = 0;
 
-            // Llenar tabla con los datos específicos
             for (Document customer : customers) {
                 Object[] row = new Object[5];
 
-                // Usar tu campo id numérico
                 row[0] = customer.containsKey("id") ? customer.getInteger("id")
                         : customer.containsKey("customerId") ? customer.getInteger("customerId")
                         : "N/A";
@@ -84,7 +76,6 @@ public class FrmCustomerList extends javax.swing.JFrame {
 
             tblCustomers.setModel(model);
 
-            // Configurar apariencia de la tabla
             configureTableAppearance();
 
         } catch (Exception e) {
@@ -94,8 +85,7 @@ public class FrmCustomerList extends javax.swing.JFrame {
     
     private void notifyParentFrame() {
     if (parentFrame != null) {
-        // Aquí podrías implementar una interfaz de callback si necesitas
-        // pasar datos directamente al frame padre
+
         JOptionPane.showMessageDialog(parentFrame,
             "Cliente '" + selectedCustomerName + "' (ID: " + selectedCustomerId + 
             ") seleccionado.\nPuede continuar con la asignación del evento.",
@@ -108,18 +98,16 @@ public class FrmCustomerList extends javax.swing.JFrame {
      * Configura la apariencia de la tabla
      */
     private void configureTableAppearance() {
-        // Configurar anchos de columnas
+    
         int[] columnWidths = {50, 180, 120, 200, 250};
         for (int i = 0; i < columnWidths.length; i++) {
             tblCustomers.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
         }
 
-        // Configurar otras propiedades
         tblCustomers.setRowHeight(25);
         tblCustomers.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblCustomers.getTableHeader().setReorderingAllowed(false);
 
-        // Centrar contenido de la columna ID
         tblCustomers.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value,
@@ -266,12 +254,11 @@ public class FrmCustomerList extends javax.swing.JFrame {
     }
     
     try {
-        // Obtener datos usando tu campo id numérico
+
         Object idValue = tblCustomers.getValueAt(selectedRow, 0);
         selectedCustomerId = (idValue != null) ? idValue.toString() : "";
         selectedCustomerName = tblCustomers.getValueAt(selectedRow, 1).toString();
-        
-        // Crear mensaje de confirmación detallado
+ 
         StringBuilder message = new StringBuilder();
         message.append("¿Desea asignar el evento al siguiente cliente?\n\n");
         message.append("ID: ").append(selectedCustomerId).append("\n");
@@ -287,14 +274,11 @@ public class FrmCustomerList extends javax.swing.JFrame {
             JOptionPane.QUESTION_MESSAGE);
         
         if (option == JOptionPane.YES_OPTION) {
-            // Log de la selección
             logger.info("Cliente seleccionado - ID: " + selectedCustomerId + 
                        ", Nombre: " + selectedCustomerName);
-            
-            // Cerrar ventana
+
             this.dispose();
-            
-            // Notificar al frame padre si existe
+
             notifyParentFrame();
         }
         

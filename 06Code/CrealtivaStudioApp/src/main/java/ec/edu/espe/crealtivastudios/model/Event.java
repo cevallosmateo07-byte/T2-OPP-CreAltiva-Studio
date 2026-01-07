@@ -111,7 +111,6 @@ public class Event {
                 this.eventTypeCode >= 1 && this.eventTypeCode <= 4;
     }
 
-    // Getters y Setters 
     public int getEventId() { return eventId; }
     public void setEventId(int eventId) { this.eventId = eventId; }
 

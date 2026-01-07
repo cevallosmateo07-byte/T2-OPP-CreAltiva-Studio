@@ -75,7 +75,7 @@ public class Calendar {
         Map<String, List<String>> schedule = getFullSchedule();
         List<String> monthItems = schedule.getOrDefault(yearMonth, Collections.emptyList());
 
-        System.out.println("\n️ --- Agenda del mes " + yearMonth + " ---");
+       // System.out.println("\n️ --- Agenda del mes " + yearMonth + " ---");
         if (monthItems.isEmpty()) {
             System.out.println(" No hay eventos ni videollamadas registradas para este mes.");
         } else {

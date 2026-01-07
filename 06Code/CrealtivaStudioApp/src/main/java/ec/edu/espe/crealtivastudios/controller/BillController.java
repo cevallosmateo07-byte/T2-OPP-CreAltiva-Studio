@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package ec.edu.espe.crealtivastudios.controller;
 
 import ec.edu.espe.crealtivastudios.model.Bill;
@@ -15,7 +12,6 @@ public class BillController {
      */
     public static String registerBill(int customerId, int eventId, String notes) {
 
-        // Validar Customer
         Customer customer = Customer.findCustomerById(customerId);
         if (customer == null) {
             return "Cliente no encontrado";

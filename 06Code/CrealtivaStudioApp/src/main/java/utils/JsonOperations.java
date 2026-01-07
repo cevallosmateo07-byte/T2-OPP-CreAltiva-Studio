@@ -25,9 +25,7 @@ public class JsonOperations {
             .setPrettyPrinting()
             .create();
 
-    /**
-     * Guarda una lista de objetos en un archivo JSON
-     */
+
     public static <T> boolean saveListToFile(List<T> list, String filename) {
         try (Writer writer = new OutputStreamWriter(
                 new FileOutputStream(filename + ".json"), StandardCharsets.UTF_8)) {
@@ -39,9 +37,7 @@ public class JsonOperations {
         }
     }
 
-    /**
-     * Carga una lista de objetos desde un archivo JSON
-     */
+
     public static <T> List<T> loadListFromFile(String filename, Type type) {
         File file = new File(filename + ".json");
         if (!file.exists()) {
@@ -58,9 +54,7 @@ public class JsonOperations {
         }
     }
 
-    /**
-     * Guarda un solo objeto en un archivo JSON
-     */
+
     public static <T> boolean saveObjectToFile(T object, String filename) {
         try (Writer writer = new OutputStreamWriter(
                 new FileOutputStream(filename + ".json"), StandardCharsets.UTF_8)) {
@@ -72,9 +66,7 @@ public class JsonOperations {
         }
     }
 
-    /**
-     * Carga un solo objeto desde un archivo JSON
-     */
+
     public static <T> T loadObjectFromFile(String filename, Class<T> clazz) {
         File file = new File(filename + ".json");
         if (!file.exists()) {
@@ -90,16 +82,12 @@ public class JsonOperations {
         }
     }
 
-    /**
-     * Verifica si un archivo JSON existe
-     */
+
     public static boolean fileExists(String filename) {
         return new File(filename + ".json").exists();
     }
 
-    /**
-     * Elimina un archivo JSON
-     */
+
     public static boolean deleteFile(String filename) {
         File file = new File(filename + ".json");
         return file.exists() && file.delete();

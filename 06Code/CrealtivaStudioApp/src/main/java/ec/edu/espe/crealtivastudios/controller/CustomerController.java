@@ -187,9 +187,6 @@ public class CustomerController {
     
     private static boolean hasAssociatedEvents(int customerId) {
 
-        // FUTURO:
-        // Buscar eventos por customerId en Mongo o JSON
-
         return false;
     }
 }

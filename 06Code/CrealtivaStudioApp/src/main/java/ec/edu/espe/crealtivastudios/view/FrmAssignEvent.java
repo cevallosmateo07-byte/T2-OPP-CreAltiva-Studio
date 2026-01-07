@@ -26,17 +26,16 @@ public class FrmAssignEvent extends javax.swing.JFrame {
      */
     public FrmAssignEvent() {
 initComponents();
-        this.setLocationRelativeTo(null); // Centrar ventana
-        
-        // 1. Asegurar la conexión a MongoDB
+        this.setLocationRelativeTo(null); 
+
         try {
-            // Intentamos conectar. Si ya está conectado, la clase lo maneja.
+
             MongoConnection.connect(); 
         } catch (Exception e) {
             System.out.println("Error de conexión: " + e.getMessage());
         }
         
-        setupTable(); // Configura las columnas
+        setupTable(); 
         loadData();
     }
     
@@ -44,7 +43,7 @@ initComponents();
     
     private void loadData() {
       
-        loadEvents(); // Faltaba esta línea
+        loadEvents(); 
         loadAvailablePhotographers();
     }
 
@@ -216,7 +215,7 @@ initComponents();
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
     FrmCrealtivaStudiosMenu frmCrealtivaStudiosMenu = new FrmCrealtivaStudiosMenu();
  frmCrealtivaStudiosMenu.setVisible(true);
-this.setVisible(false);     // TODO add your handling code here:
+this.setVisible(false);    
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
@@ -237,7 +236,7 @@ if (jComboPhotographer.getSelectedIndex() <= 0) {
         try {
             MongoDatabase db = MongoDBConnection.getConnection();
             
-            // 1. Actualizar FOTÓGRAFO (Esto se mantiene igual)
+          
             MongoCollection<Document> photoColl = db.getCollection("PhotographerDB");
             photoColl.updateOne(
                 Filters.eq("name", photogName),
@@ -247,16 +246,15 @@ if (jComboPhotographer.getSelectedIndex() <= 0) {
                 )
             );
             
-            // 2. Actualizar EVENTO (CORREGIDO)
+         
             MongoCollection<Document> eventColl = db.getCollection("Events");
             
-            // --- CORRECCIÓN AQUÍ ---
-            // Buscamos el evento por "eventName", no por "name"
+
             eventColl.updateOne(
                 Filters.eq("eventName", eventName), 
                 Updates.set("assignedPhotographer", photogName)
             );
-            // -----------------------
+
 
             JOptionPane.showMessageDialog(this, "Asignación exitosa: " + photogName + " -> " + eventName);
             loadData();
@@ -269,15 +267,15 @@ if (jComboPhotographer.getSelectedIndex() <= 0) {
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jComboEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboEventActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jComboEventActionPerformed
 
     private void jComboPhotographerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboPhotographerActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jComboPhotographerActionPerformed
 
     private void btnQuitAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitAssignActionPerformed
-// 1. Obtener la fila seleccionada en la tabla
+
         int selectedRow = jTable1.getSelectedRow();
         
         if (selectedRow == -1) {
@@ -285,17 +283,17 @@ if (jComboPhotographer.getSelectedIndex() <= 0) {
             return;
         }
 
-        // 2. Obtener datos de la tabla (Columna 1: Evento, Columna 2: Fotógrafo)
+   
         String eventName = jTable1.getValueAt(selectedRow, 1).toString();
         String assignedTo = jTable1.getValueAt(selectedRow, 2).toString();
 
-        // Si no hay nadie asignado, no hacemos nada
+
         if (assignedTo.equals("NO ASIGNADO")) {
             JOptionPane.showMessageDialog(this, "Este evento no tiene fotógrafo asignado.");
             return;
         }
 
-        // Confirmación
+
         int confirm = JOptionPane.showConfirmDialog(this, 
                 "¿Estás seguro de quitar a " + assignedTo + " del evento " + eventName + "?",
                 "Borrar Asignación", JOptionPane.YES_NO_OPTION);
@@ -304,16 +302,13 @@ if (jComboPhotographer.getSelectedIndex() <= 0) {
             try {
                 MongoDatabase db = MongoConnection.getDatabase();
                 
-                // A. LIMPIAR EL EVENTO (En colección Events)
-                // Ponemos assignedPhotographer en vacío ""
                 MongoCollection<Document> eventColl = db.getCollection("Events");
                 eventColl.updateOne(
                     Filters.eq("eventName", eventName),
                     Updates.set("assignedPhotographer", "") // Borramos el nombre
                 );
 
-                // B. LIBERAR AL FOTÓGRAFO (En colección PhotographerDB)
-                // Ponemos assigned en false y borramos el evento asignado
+
                 MongoCollection<Document> photoColl = db.getCollection("PhotographerDB");
                 photoColl.updateOne(
                     Filters.eq("name", assignedTo),
@@ -325,29 +320,24 @@ if (jComboPhotographer.getSelectedIndex() <= 0) {
 
                 JOptionPane.showMessageDialog(this, "Asignación eliminada correctamente.");
                 
-                // C. RECARGAR DATOS VISUALES
                 loadData();
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error al borrar: " + e.getMessage());
             }
-        }        // TODO add your handling code here:
+        }        
     }//GEN-LAST:event_btnQuitAssignActionPerformed
 
-    // Configurar columnas de la tabla
     private void setupTable() {
-       // Definimos las columnas exactas que necesitas
+
         String[] columns = {"ID Evento", "Nombre Evento", "Asignado A"};
         tableModel.setColumnIdentifiers(columns);
         jTable1.setModel(tableModel);
-        
-        // Vinculamos los modelos a los ComboBox
+
         jComboPhotographer.setModel(comboPhotographersModel);
         jComboEvent.setModel(comboEventsModel);
     }
-// --- PEGAR ESTO EN EL ESPACIO VACÍO ---
 
-    // 1. CARGAR EVENTOS (Faltaba este método)
     private void loadEvents() {
 try {
             MongoDatabase db = MongoDBConnection.getConnection();
@@ -360,10 +350,7 @@ try {
             for (Document doc : eventsColl.find()) {
                 int id = doc.getInteger("eventId", 0);
                 
-                // --- CORRECCIÓN AQUÍ ---
-                // Ahora leemos el campo exacto que tienes en Mongo: "eventName"
                 String name = doc.getString("eventName"); 
-                // -----------------------
                 
                 String assignedPhotographer = doc.getString("assignedPhotographer");
                 String statusText = "NO ASIGNADO";
@@ -371,11 +358,9 @@ try {
                 if (assignedPhotographer != null && !assignedPhotographer.isEmpty()) {
                     statusText = assignedPhotographer; 
                 }
-                
-                // Llenar tabla
+
                 tableModel.addRow(new Object[]{id, name, statusText});
-                
-                // Llenar combo
+
                 if (name != null) {
                     comboEventsModel.addElement(name);
                 }
@@ -385,15 +370,13 @@ try {
         }
     }
 
-    // 2. CARGAR FOTÓGRAFOS (Solo una vez)
     private void loadAvailablePhotographers() {
         try {
             MongoCollection<Document> photoColl = MongoConnection.getPhotographerCollection();
             
             comboPhotographersModel.removeAllElements();
             comboPhotographersModel.addElement("- Seleccione Fotógrafo -");
-            
-            // Solo mostrar los que NO están asignados
+ 
             for (Document doc : photoColl.find(Filters.eq("assigned", false))) {
                 String name = doc.getString("name");
                 comboPhotographersModel.addElement(name);

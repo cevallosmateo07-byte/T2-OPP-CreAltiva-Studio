@@ -18,9 +18,7 @@ public class Photographer {
     private boolean attending;
     private boolean assigned;
 
-    // =====================================================
-    // ✅ CONSTRUCTOR PRINCIPAL (USADO POR MONGO)
-    // =====================================================
+
 public Photographer(int id, String name, String assignedEvent,
                     List<String> equipment, boolean attending) {
 
@@ -29,17 +27,13 @@ public Photographer(int id, String name, String assignedEvent,
     this.assignedEvent = assignedEvent;
     this.attending = attending;
     
-    // --- 🔥 CORRECCIÓN CLAVE ---
-    // El campo 'assigned' DEBE reflejar si hay un evento asignado,
-    // o si se marcó como NO DISPONIBLE en FrmAvailable
+
     this.assigned = assignedEvent != null && !assignedEvent.isBlank(); 
     
     this.equipment = (equipment != null) ? equipment : new ArrayList<>();
 }
 
-    // =====================================================
-    // ✅ CONSTRUCTOR COMPATIBLE CON CÓDIGO ANTIGUO (STRING)
-    // =====================================================
+
     public Photographer(int id, String name, String assignedEvent,
                         String equipmentString, boolean attending) {
 
@@ -57,9 +51,7 @@ public Photographer(int id, String name, String assignedEvent,
         );
     }
 
-    // =====================================================
-    // ✅ LISTAR DESDE MONGO
-    // =====================================================
+
     public static List<Photographer> findAll() {
         List<Photographer> list = new ArrayList<>();
 
@@ -79,9 +71,7 @@ public Photographer(int id, String name, String assignedEvent,
         return list;
     }
 
-    // =====================================================
-    // ✅ FIND BY ID
-    // =====================================================
+
     public static Photographer findById(int id) {
         MongoCollection<Document> collection = MongoConnection.getPhotographerCollection();
         Document doc = collection.find(new Document("id", id)).first();
@@ -96,9 +86,7 @@ public Photographer(int id, String name, String assignedEvent,
         );
     }
 
-    // =====================================================
-    // ✅ FIND BY NAME
-    // =====================================================
+
     public static Photographer findByName(String name) {
         MongoCollection<Document> collection = MongoConnection.getPhotographerCollection();
         Document doc = collection.find(new Document("name", name)).first();
@@ -113,18 +101,14 @@ public Photographer(int id, String name, String assignedEvent,
         );
     }
 
-    // =====================================================
-    // ✅ ID AUTO
-    // =====================================================
+
     public static int getNextId() {
         MongoCollection<Document> collection = MongoConnection.getPhotographerCollection();
         Document last = collection.find().sort(new Document("id", -1)).first();
         return (last == null) ? 1 : last.getInteger("id") + 1;
     }
 
-    // =====================================================
-    // ✅ GUARDAR / ACTUALIZAR
-    // =====================================================
+
     public boolean save() {
         MongoCollection<Document> collection = MongoConnection.getPhotographerCollection();
 
@@ -150,9 +134,7 @@ public Photographer(int id, String name, String assignedEvent,
         return true;
     }
 
-    // =====================================================
-    // ✅ ELIMINAR
-    // =====================================================
+
     public static boolean deletePhotographer(int id) {
         MongoCollection<Document> collection = MongoConnection.getPhotographerCollection();
 
@@ -164,9 +146,7 @@ public Photographer(int id, String name, String assignedEvent,
         return false;
     }
 
-    // =====================================================
-    // ✅ DISPONIBILIDAD
-    // =====================================================
+
     public boolean isAssigned() {
         return assigned;
     }
@@ -182,9 +162,7 @@ public Photographer(int id, String name, String assignedEvent,
         return assigned ? "No disponible" : "Disponible";
     }
 
-    // =====================================================
-    // ✅ GETTERS / SETTERS
-    // =====================================================
+ 
     public int getId() { return id; }
     public String getName() { return name; }
     public String getAssignedEvent() { return assignedEvent; }
@@ -200,11 +178,9 @@ public Photographer(int id, String name, String assignedEvent,
         this.equipment = equipment;
     }
 
-    // =====================================================
-    // ✅ TEXTO PARA UI
-    // =====================================================
+
     public String toSimpleString() {
-     // 🔥 CORRECCIÓN: Añadir más detalles si está asignado (ocupado)
+     
     String eventDetail = isAssigned() ? " (" + getAssignedEvent() + ")" : ""; 
     return "ID: " + id + " | " + name + " [" + getStatus() + eventDetail + "]";    }
 

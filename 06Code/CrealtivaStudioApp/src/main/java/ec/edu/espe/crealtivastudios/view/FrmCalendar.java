@@ -24,7 +24,7 @@ public class FrmCalendar extends javax.swing.JFrame {
      */
     public FrmCalendar() {
         initComponents();
-        txaEventDetails.setEditable(false); // Hacer no editable
+        txaEventDetails.setEditable(false); 
 
         btnRecordatoryNo.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -108,7 +108,7 @@ public class FrmCalendar extends javax.swing.JFrame {
 
             Calendar reminderTime = Calendar.getInstance();
             reminderTime.setTime(eventDate);
-            reminderTime.add(Calendar.DAY_OF_MONTH, -1); // Recordatorio 1 día antes
+            reminderTime.add(Calendar.DAY_OF_MONTH, -1); 
 
             JOptionPane.showMessageDialog(this,
                     "Recordatorio establecido para: "
@@ -395,7 +395,7 @@ public class FrmCalendar extends javax.swing.JFrame {
                 Date eventDate = event.getDate("date");
                 setReminder(eventDate, true);
 
-                // Actualizar documento con recordatorio
+         
                 Document update = new Document("$set", new Document("hasReminder", true));
                 eventsCollection.updateOne(query, update);
 
@@ -407,7 +407,7 @@ public class FrmCalendar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRecordatoryYesActionPerformed
 
     private void btnAcceptAndSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptAndSaveActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_btnAcceptAndSaveActionPerformed
 
     private void btnRecordatoryNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordatoryNoActionPerformed

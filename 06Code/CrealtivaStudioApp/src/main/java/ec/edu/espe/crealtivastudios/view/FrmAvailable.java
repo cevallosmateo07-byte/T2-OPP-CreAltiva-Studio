@@ -22,7 +22,7 @@ private Photographer micaela;
      * Creates new form FrmAvailable
      */
     public FrmAvailable() {
-       MongoConnection.connect(); // Asegurar la conexión
+       MongoConnection.connect(); 
         initComponents();
         loadPhotographerData();
         loadAvailability();
@@ -30,13 +30,12 @@ private Photographer micaela;
         
          }
  private void loadPhotographerData() {
-    MongoConnection.connect(); // Asegura la conexión
+    MongoConnection.connect(); 
 
-    // Intentar recuperar el fotógrafo por nombre. Si no existe, crearlo y GUARDARLO.
     micaela = Photographer.findByName("Micaela Garcia");
     if (micaela == null) {
         micaela = new Photographer(Photographer.getNextId(), "Micaela Garcia", "", "", true);
-        micaela.save(); // 🔥 CLAVE: Guardar el nuevo registro.
+        micaela.save(); 
     }
 
     luisa = Photographer.findByName("Luisa Andrade");
@@ -232,7 +231,6 @@ comboMicaela.setSelectedItem(micaela.isAssigned() ? "No disponible " : "Disponib
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-      
         
         JOptionPane.showMessageDialog(this, "Cambios no guardados.", "Cancelado", JOptionPane.INFORMATION_MESSAGE);
         this.setVisible(false);
@@ -245,27 +243,26 @@ comboMicaela.setSelectedItem(micaela.isAssigned() ? "No disponible " : "Disponib
     updatePhotographerAvailability("Paola Maza", comboPaola);
 
     JOptionPane.showMessageDialog(this, "Disponibilidad actualizada");
-    this.dispose(); // 🔥 importante
+    this.dispose(); 
     }//GEN-LAST:event_btnGuardarActionPerformed
 private void updatePhotographerAvailability(String name, JComboBox<String> combo) {
 
    Photographer p = Photographer.findByName(name);
     if (p == null) return;
 
-    // Obtener el valor seleccionado y limpiarlo de posibles espacios
-    String selected = combo.getSelectedItem().toString().trim(); // <-- Aseguramos .trim()
+    String selected = combo.getSelectedItem().toString().trim(); 
 
     if (selected.equalsIgnoreCase("No disponible")) {
         p.setAssigned(true);
-        // 🔥 CLAVE: Usar un texto NO VACÍO para marcarlo como ocupado/no disponible.
+
         p.setAssignedEvent("Bloqueado por disponibilidad"); 
     } else {
         p.setAssigned(false);
-        // 🔥 CLAVE: Usar un texto VACÍO para marcarlo como disponible.
+
         p.setAssignedEvent(""); 
     }
 
-    p.save(); // ✅ Guarda los cambios en MongoDB
+    p.save(); 
 }
 
     /**

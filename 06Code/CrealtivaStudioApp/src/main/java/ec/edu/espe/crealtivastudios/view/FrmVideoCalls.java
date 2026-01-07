@@ -48,8 +48,6 @@ public class FrmVideoCalls extends javax.swing.JFrame {
         cmbMedium = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVideoCalls = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
-        txtCustomersId = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnScheduleVideoCall = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -106,15 +104,6 @@ public class FrmVideoCalls extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblVideoCalls);
 
-        jLabel5.setText("Clientes:");
-
-        txtCustomersId.setText("Buscar cliente por Id");
-        txtCustomersId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCustomersIdActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -132,23 +121,13 @@ public class FrmVideoCalls extends javax.swing.JFrame {
                         .addComponent(cmbMedium, javax.swing.GroupLayout.Alignment.LEADING, 0, 180, Short.MAX_VALUE)
                         .addComponent(txtHour, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addGap(73, 73, 73)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCustomersId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtCustomersId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,19 +210,15 @@ public class FrmVideoCalls extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHourActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtHourActionPerformed
-
-    private void txtCustomersIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCustomersIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCustomersIdActionPerformed
 
     private void btnScheduleVideoCallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheduleVideoCallActionPerformed
         
@@ -362,13 +337,11 @@ public class FrmVideoCalls extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblVideoCalls;
-    private javax.swing.JTextField txtCustomersId;
     private javax.swing.JTextField txtHour;
     // End of variables declaration//GEN-END:variables
 }

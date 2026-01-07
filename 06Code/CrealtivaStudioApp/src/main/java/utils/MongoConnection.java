@@ -11,9 +11,9 @@ public class MongoConnection {
     private static MongoDatabase database;
 
     public static void connect() {
-        if (database != null) return; // ya conectado
+        if (database != null) return; 
 
-        // --- URI actualizado ---
+
         String uri = "mongodb+srv://Mateo:Mateo2006@cluster0.2mp0ve2.mongodb.net/?appName=Cluster0";
         mongoClient = MongoClients.create(uri);
         database = mongoClient.getDatabase("CreAltivaStudioDB");
@@ -23,13 +23,13 @@ public class MongoConnection {
     public static MongoCollection<Document> getPhotographerCollection() {
         if (database == null)
             throw new IllegalStateException("Mongo no conectado");
-        return database.getCollection("PhotographerDB"); // colección correcta
+        return database.getCollection("PhotographerDB"); 
     }
 
     public static MongoCollection<Document> getEquipmentCollection() {
         if (database == null)
             throw new IllegalStateException("Mongo no conectado");
-        return database.getCollection("EquipmentDB"); // colección correcta
+        return database.getCollection("EquipmentDB"); 
     }
 
     public static MongoDatabase getDatabase() {

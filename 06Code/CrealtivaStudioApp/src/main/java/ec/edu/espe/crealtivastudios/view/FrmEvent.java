@@ -33,7 +33,6 @@ public class FrmEvent extends javax.swing.JFrame {
             MongoDatabase database = MongoDBConnection.getConnection();
             MongoCollection<Document> eventsCollection = database.getCollection("Events");
 
-            // Buscar el máximo ID actual
             Document maxIdDoc = eventsCollection.find()
                     .sort(new Document("eventId", -1))
                     .limit(1)
@@ -42,7 +41,7 @@ public class FrmEvent extends javax.swing.JFrame {
             if (maxIdDoc != null && maxIdDoc.containsKey("eventId")) {
                 return maxIdDoc.getInteger("eventId") + 1;
             } else {
-                return 1; // Primer evento
+                return 1; 
             }
         } catch (Exception e) {
             logger.log(java.util.logging.Level.SEVERE, "Error al generar ID", e);

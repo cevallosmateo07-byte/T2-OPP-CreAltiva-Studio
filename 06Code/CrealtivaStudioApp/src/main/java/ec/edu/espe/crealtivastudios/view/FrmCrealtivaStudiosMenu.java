@@ -23,15 +23,12 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
             ImageIcon icon = new ImageIcon(url);
             Image img = icon.getImage();
 
-            // Obtener ancho y alto del JLabel
             int width = jLabel1.getWidth();
             int height = jLabel1.getHeight();
 
-            // Escalar imagen al tamaño del JLabel
             Image scaled = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             jLabel1.setIcon(new ImageIcon(scaled));
 
-            // Elimina texto del JLabel
             jLabel1.setText("");
         }
     }
@@ -45,13 +42,9 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
-        jToggleButton4 = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         mnuCustomer = new javax.swing.JMenu();
         mniCustomerRegister = new javax.swing.JMenuItem();
         mnuCite = new javax.swing.JMenu();
@@ -66,11 +59,8 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jToggleButton1.setText("jToggleButton1");
 
         jToggleButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jToggleButton2.setText("Fotógrafos");
@@ -80,14 +70,7 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton3.setText("jToggleButton3");
-
-        jToggleButton4.setText("jToggleButton4");
-
         jLabel1.setText("picture Photographers");
-
-        jMenu1.setText("Archivo");
-        jMenuBar1.add(jMenu1);
 
         mnuCustomer.setText("Clientes");
 
@@ -186,9 +169,6 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu6);
 
-        jMenu7.setText("Ayuda");
-        jMenuBar1.add(jMenu7);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,31 +176,23 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jToggleButton3)
-                    .addComponent(jToggleButton1))
-                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToggleButton4)
-                    .addComponent(jToggleButton2)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(82, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addComponent(jToggleButton2)))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton1)
-                    .addComponent(jToggleButton2))
-                .addGap(85, 85, 85)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton3)
-                    .addComponent(jToggleButton4))
-                .addGap(42, 42, 42))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jToggleButton2)
+                .addGap(68, 68, 68))
         );
 
         pack();
@@ -241,7 +213,7 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         FrmAtendencePhotographers frmAtendencePhotographers = new FrmAtendencePhotographers();
         frmAtendencePhotographers.setVisible(true);
-        this.setVisible(false);// TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
@@ -267,7 +239,7 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
     private void mniCustomerRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCustomerRegisterActionPerformed
         
         FrmCustomer frmCustomer = new FrmCustomer();
-        frmCustomer.setLocationRelativeTo(null); // centrar ventana
+        frmCustomer.setLocationRelativeTo(null); 
         frmCustomer.setVisible(true);
         
         this.dispose();
@@ -288,9 +260,9 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_mniVideCallsActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
- FrmBill frmBill = new FrmBill();
-    frmBill.setVisible(true);
-    this.dispose();         // TODO add your handling code here:
+    FrmBillp frmBillp = new FrmBillp();
+    frmBillp.setVisible(true);
+    this.dispose();         
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jReportEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jReportEventActionPerformed
@@ -326,11 +298,9 @@ this.dispose();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -339,10 +309,7 @@ this.dispose();
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jReportEvent;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JMenuItem mniCustomerRegister;
     private javax.swing.JMenuItem mniVideCalls;
     private javax.swing.JMenu mnuCite;

@@ -149,9 +149,7 @@ public class Bill {
         allBills = loadAllFromJson();
         updateNextBillId();
     }
-    
-    // --- MÉTODOS JSON ---
-    
+  
     private static List<Bill> loadAllFromJson() {
         List<Bill> loadedBills = JsonOperations.loadListFromFile(BILLS_FILE, BILL_LIST_TYPE);
         return loadedBills != null ? loadedBills : new ArrayList<>();

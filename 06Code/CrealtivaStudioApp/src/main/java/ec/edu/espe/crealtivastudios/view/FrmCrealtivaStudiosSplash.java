@@ -25,16 +25,13 @@ public class FrmCrealtivaStudiosSplash extends javax.swing.JFrame {
 if (url != null) {
     ImageIcon icon = new ImageIcon(url);
     Image img = icon.getImage();
-    
-    // Obtener ancho y alto del JLabel
+  
     int width = jLabel4.getWidth();
     int height = jLabel4.getHeight();
-    
-    // Escalar imagen al tamaño del JLabel
+
     Image scaled = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     jLabel4.setIcon(new ImageIcon(scaled));
 
-    // Elimina texto del JLabel
     jLabel4.setText("");
 }
 

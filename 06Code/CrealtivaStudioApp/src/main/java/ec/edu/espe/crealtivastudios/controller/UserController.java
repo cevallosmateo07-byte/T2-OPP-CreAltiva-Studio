@@ -8,7 +8,7 @@ import ec.edu.espe.crealtivastudios.model.User;
  */
 public class UserController {
       public static  boolean validateLogin(User user) {
-      // read information from the database with the user and pasword
+      
        return user.getUserName().equals("kevin")&& user.getPasword().equals("chalan");
     }
     

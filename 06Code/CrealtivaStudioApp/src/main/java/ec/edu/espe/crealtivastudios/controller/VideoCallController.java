@@ -19,9 +19,7 @@ public class VideoCallController {
     .getType();
 
     public static String scheduleVideoCall(int customerId,String date,String hour,String medium) {
-
-        // Validaciones básicas
-        
+  
         if (customerId <= 0) {
             return "Cliente invalido";
         }
@@ -38,7 +36,6 @@ public class VideoCallController {
             return "Medio obligatorio";
         }
 
-        // Validar fecha no pasada
         LocalDate callDate;
         try {
             callDate = LocalDate.parse(date.trim());
@@ -50,7 +47,6 @@ public class VideoCallController {
             return "No se puede programar una fecha anterior a hoy";
         }
 
-        // Validar que el cliente no tenga ya una videollamada 
         List<Document> jsonCalls =JsonOperations.loadListFromFile(JSON_FILE, VIDEOCALL_LIST_TYPE);
         
         if (jsonCalls==null){
@@ -63,8 +59,6 @@ public class VideoCallController {
             return "El cliente ya tiene una videollamada programada";
         }
 
-
-        // Crear documento para MongoDB
         Document videocall = new Document("customerId", customerId).append("datetime", date + " " + hour).append("medium", medium);
 
         jsonCalls.add(videocall);

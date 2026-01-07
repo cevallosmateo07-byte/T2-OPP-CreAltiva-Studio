@@ -19,7 +19,7 @@ public class FrmEquipmentAvailable extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     javax.swing.SwingUtilities.invokeLater(() -> {
-        loadImageIntoLabel(jLabel3, "tripode.png");      // ajusta nombres reales
+        loadImageIntoLabel(jLabel3, "tripode.png");      
         loadImageIntoLabel(jLabel4, "camara.jpeg");
         loadImageIntoLabel(jLabel5, "led.jpeg");
         loadImageIntoLabel(jLabel6, "microfono.jpg");
@@ -37,7 +37,6 @@ public class FrmEquipmentAvailable extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon(url);
         Image img = icon.getImage();
 
-        // Asegurarse que label ya tenga tamaño válido
         int w = Math.max(1, label.getWidth());
         int h = Math.max(1, label.getHeight());
 
@@ -252,7 +251,7 @@ public class FrmEquipmentAvailable extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
       JOptionPane.showMessageDialog(
           this,
-        "📷 *Cámara*\n\n" +
+        " *Cámara*\n\n" +
         "- Modelo: Canon EOS R6\n" +
         "- Resolución: 20.1 MP\n" +
         "- Video: 4K 60fps\n" +
@@ -266,7 +265,7 @@ public class FrmEquipmentAvailable extends javax.swing.JFrame {
        
    JOptionPane.showMessageDialog(
         this,
-        "💡 *Iluminación*\n\n" +
+        "*Iluminación*\n\n" +
         "- Flash: Godox V860II\n" +
         "- Modificador: Softbox 80cm\n" +
         "- Modo: TTL / Manual\n" +
@@ -279,7 +278,7 @@ public class FrmEquipmentAvailable extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
       JOptionPane.showMessageDialog(
         this,
-        "💡 *Softbox Profesional*\n\n" +
+        " *Softbox Profesional*\n\n" +
         "- Tamaño: 80 x 80 cm\n" +
         "- Tipo: Difusor de luz suave\n" +
         "- Montura: Bowens universal\n" +
@@ -293,7 +292,7 @@ public class FrmEquipmentAvailable extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         JOptionPane.showMessageDialog(
         this,
-        "📸 *Trípode Fotográfico*\n\n" +
+        " *Trípode Fotográfico*\n\n" +
         "- Altura máxima: 170 cm\n" +
         "- Material: Aluminio reforzado\n" +
         "- Cabezal: 3 ejes con nivel de burbuja\n" +
@@ -307,7 +306,7 @@ public class FrmEquipmentAvailable extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JOptionPane.showMessageDialog(
         this,
-        "🎤 *Micrófono Profesional*\n\n" +
+        " *Micrófono Profesional*\n\n" +
         "- Tipo: Condensador / Cardioide\n" +
         "- Rango de frecuencia: 20 Hz – 20 kHz\n" +
         "- Uso: Entrevistas · Video · Grabación\n" +

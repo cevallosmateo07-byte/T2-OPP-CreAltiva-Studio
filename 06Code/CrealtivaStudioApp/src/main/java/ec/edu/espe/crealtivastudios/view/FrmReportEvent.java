@@ -5,19 +5,22 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import utils.MongoDBConnection;
 
-// Importaciones necesarias para el reporte
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;  // <--- Esta es vital para leer los equipos
+import java.util.List;  
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+
 /**
  *
  * @author Kevin Chalan, OBJECT MASTER, OOP
@@ -32,29 +35,30 @@ public class FrmReportEvent extends javax.swing.JFrame {
     DefaultTableModel tableModel = new DefaultTableModel();
     public FrmReportEvent() {
        initComponents();
-        this.setLocationRelativeTo(null); // Centrar ventana
-        
-        // 1. Conectar a Mongo al abrir
+        this.setLocationRelativeTo(null);
+
         try {
             MongoDBConnection.getConnection();
         } catch (Exception e) {
             System.out.println("Error conexión: " + e.getMessage());
         }
-        
-        // 2. Configurar columnas y cargar datos
+
         setupTable();
         loadReportData();
     }
-    
-    // Configuración de las columnas del reporte
+
     private void setupTable() {
-        String[] columns = {
-            "Fotógrafo", 
-            "Evento Asignado", 
-            "Fecha Evento", 
-            "Tipo Evento", 
-            "Equipos que lleva"
-        };
+String[] columns = {
+    "Fotógrafo", 
+    "Cliente",
+    "Evento Asignado", 
+    "Fecha Evento", 
+    "Tipo Evento", 
+    "Medio de contacto",
+    "Videollamada",
+    "Pago",
+    "Equipos que lleva"
+};
         tableModel.setColumnIdentifiers(columns);
         jTable1.setModel(tableModel);
     }
@@ -190,7 +194,7 @@ public class FrmReportEvent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrintActionPerformed
-// En lugar de imprimir, generamos un documento HTML elegante
+
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Guardar Reporte PDF/HTML");
         
@@ -202,8 +206,11 @@ public class FrmReportEvent extends javax.swing.JFrame {
                 fileToSave = new File(fileToSave.getAbsolutePath() + ".html");
             }
             
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileToSave, java.nio.charset.StandardCharsets.UTF_8))) {
-                // Escribir estructura HTML con estilos CSS para que se vea BONITO
+           try (BufferedWriter bw = new BufferedWriter(
+        new OutputStreamWriter(
+            new FileOutputStream(fileToSave), "UTF-8"
+        ))) {
+
                 bw.write("<html><head><title>Reporte CreAltiva</title>");
                 bw.write("<style>");
                 bw.write("body { font-family: Arial, sans-serif; margin: 40px; }");
@@ -219,14 +226,13 @@ public class FrmReportEvent extends javax.swing.JFrame {
                 
                 bw.write("<table>");
                 
-                // Cabeceras
+                
                 bw.write("<thead><tr>");
                 for (int i = 0; i < jTable1.getColumnCount(); i++) {
                     bw.write("<th>" + jTable1.getColumnName(i) + "</th>");
                 }
                 bw.write("</tr></thead>");
-                
-                // Datos
+
                 bw.write("<tbody>");
                 for (int i = 0; i < jTable1.getRowCount(); i++) {
                     bw.write("<tr>");
@@ -241,8 +247,7 @@ public class FrmReportEvent extends javax.swing.JFrame {
                 bw.write("</body></html>");
                 
                 JOptionPane.showMessageDialog(this, "Documento generado correctamente.\nÁbrelo con tu navegador.");
-                
-                // Opcional: Abrir el archivo automáticamente
+  
                 java.awt.Desktop.getDesktop().open(fileToSave);
                 
             } catch (Exception e) {
@@ -254,7 +259,7 @@ public class FrmReportEvent extends javax.swing.JFrame {
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
 FrmCrealtivaStudiosMenu menu = new FrmCrealtivaStudiosMenu();
         menu.setVisible(true);
-        this.dispose();        // TODO add your handling code here:
+        this.dispose();        
     }//GEN-LAST:event_jButtonExitActionPerformed
 
     private void jButtonSaveReportInMongoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveReportInMongoActionPerformed
@@ -269,31 +274,32 @@ FrmCrealtivaStudiosMenu menu = new FrmCrealtivaStudiosMenu();
                 fileToSave = new File(fileToSave.getAbsolutePath() + ".csv");
             }
             
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileToSave, java.nio.charset.StandardCharsets.UTF_8))) {
-                // 1. IMPORTANTE: Escribir BOM para que Excel reconozca tildes/ñ
+           try (BufferedWriter bw = new BufferedWriter(
+        new OutputStreamWriter(
+            new FileOutputStream(fileToSave), "UTF-8"
+        ))) {
+ 
                 bw.write("\uFEFF");
                 
-                // 2. Títulos (Separados por PUNTO Y COMA para Excel en español)
+              
                 for (int i = 0; i < jTable1.getColumnCount(); i++) {
                     bw.write(jTable1.getColumnName(i));
-                    if (i < jTable1.getColumnCount() - 1) bw.write(";"); // USAR ;
+                    if (i < jTable1.getColumnCount() - 1) bw.write(";"); 
                 }
                 bw.newLine();
-                
-                // 3. Datos
+
                 for (int i = 0; i < jTable1.getRowCount(); i++) {
                     for (int j = 0; j < jTable1.getColumnCount(); j++) {
                         Object val = jTable1.getValueAt(i, j);
                         String strVal = (val == null) ? "" : val.toString();
                         
-                        // Limpiar saltos de línea y comillas dobles
+
                         strVal = strVal.replace("\"", "\"\"");
                         strVal = strVal.replace("\n", " ");
-                        
-                        // Encerramos en comillas por seguridad
+
                         bw.write("\"" + strVal + "\"");
                         
-                        if (j < jTable1.getColumnCount() - 1) bw.write(";"); // USAR ;
+                        if (j < jTable1.getColumnCount() - 1) bw.write(";"); 
                     }
                     bw.newLine();
                 }
@@ -305,64 +311,111 @@ FrmCrealtivaStudiosMenu menu = new FrmCrealtivaStudiosMenu();
             }
         }
     }//GEN-LAST:event_jButtonSaveReportInMongoActionPerformed
-// --- LÓGICA DE CARGA DE DATOS (JOIN MANUAL) ---
+
     private void loadReportData() {
 try {
             MongoDatabase db = MongoDBConnection.getConnection();
             MongoCollection<Document> photoColl = db.getCollection("PhotographerDB");
             MongoCollection<Document> eventColl = db.getCollection("Events");
-            
-            // Limpiar la tabla antes de cargar
+            MongoCollection<Document> customersColl = db.getCollection("Customers");
+            MongoCollection<Document> videocallsColl = db.getCollection("Videocalls");
+
+
             tableModel.setRowCount(0); 
             
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Formato de fecha
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
 
-            // Recorremos CADA fotógrafo
             for (Document photoDoc : photoColl.find()) {
-                // 1. Datos del Fotógrafo
+
                 String photoName = photoDoc.getString("name");
                 String eventName = photoDoc.getString("assignedEvent");
                 boolean isAssigned = photoDoc.getBoolean("assigned", false);
-                
-                // Valores por defecto
-                String dateStr = "---";
-                String typeStr = "---";
-                String equipStr = "Ninguno";
-                
-                // 2. Si tiene evento, buscamos los detalles en la colección 'Events'
+
+String dateStr = "---";
+String typeStr = "---";
+String equipStr = "Ninguno";
+
+String clientName = "---";
+String contactMedium = "---";
+String videoCall = "NO";
+String paymentStatus = "PENDIENTE";
+
+
                 if (isAssigned && eventName != null && !eventName.isEmpty() && !eventName.equals("Bloqueado por disponibilidad")) {
                     Document eventDoc = eventColl.find(Filters.eq("eventName", eventName)).first();
+                    Integer customerId = null;
+
+if (eventDoc != null) {
+    customerId = eventDoc.getInteger("customerId");
+}
+if (customerId != null) {
+Document customerDoc = customersColl
+        .find(Filters.eq("id", customerId))
+        .first();
+
+
+    if (customerDoc != null) {
+        clientName = customerDoc.getString("name");
+        contactMedium = customerDoc.getString("medium");
+    }
+}
+if (customerId != null) {
+    Document videoDoc = videocallsColl
+            .find(Filters.eq("id", customerId)
+)
+            .first();
+
+    if (videoDoc != null) {
+        videoCall = "SI";
+        contactMedium = videoDoc.getString("medium");
+    }
+}
+
                     
                     if (eventDoc != null) {
                         Date date = eventDoc.getDate("date");
                         if (date != null) dateStr = dateFormat.format(date);
                         typeStr = eventDoc.getString("eventType");
+                        
+                        
+
+Boolean paid = eventDoc.getBoolean("paid");
+if (paid != null && paid) {
+    paymentStatus = "PAGADO";
+} else {
+    paymentStatus = "PENDIENTE";
+}
+
                     }
                 } else {
                     eventName = "DISPONIBLE";
                 }
 
-                // 3. LEER EQUIPOS (CORRECCIÓN CRÍTICA AQUÍ)
                 try {
-                    // Mongo devuelve un ArrayList<String>, lo convertimos a texto
+                  
                     List<String> equipmentList = (List<String>) photoDoc.get("equipment");
                     
                     if (equipmentList != null && !equipmentList.isEmpty()) {
-                        // Unimos la lista con comas: "Cámara, Luz, Trípode"
+                      
                         equipStr = String.join(", ", equipmentList);
                     }
                 } catch (Exception ex) {
                     equipStr = "Error formato equipos";
                 }
 
-                // 4. Agregar la fila a la tabla
-                tableModel.addRow(new Object[]{
-                    photoName, 
-                    eventName, 
-                    dateStr, 
-                    typeStr, 
-                    equipStr
-                });
+            
+tableModel.addRow(new Object[]{
+    photoName,
+    clientName,
+    eventName,
+    dateStr,
+    typeStr,
+    contactMedium,
+    videoCall,
+    paymentStatus,
+    equipStr
+});
+
             }
             
         } catch (Exception e) {

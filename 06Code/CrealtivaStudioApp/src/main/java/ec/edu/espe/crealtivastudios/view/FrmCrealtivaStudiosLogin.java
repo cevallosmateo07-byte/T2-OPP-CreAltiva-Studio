@@ -28,7 +28,6 @@ public class FrmCrealtivaStudiosLogin extends javax.swing.JFrame {
 
     getContentPane().setBackground(new Color(18, 18, 18));
 
-    // Campos oscuros
     txtUser.setBackground(new Color(25, 35, 45));
     txtUser.setForeground(Color.WHITE);
 
@@ -173,7 +172,7 @@ public class FrmCrealtivaStudiosLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void passPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passPasswordFocusGained
@@ -188,7 +187,6 @@ public class FrmCrealtivaStudiosLogin extends javax.swing.JFrame {
 
     private void passPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passPasswordActionPerformed
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_passPasswordActionPerformed
 
     /**
