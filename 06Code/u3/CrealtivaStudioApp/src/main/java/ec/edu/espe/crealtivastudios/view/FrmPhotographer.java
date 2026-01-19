@@ -363,8 +363,9 @@ public class FrmPhotographer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAssignEquipmentActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        new FrmEquipment().setVisible(true);
-        // Opcional: this.dispose();
+    FrmEquipment frmEquipment = new FrmEquipment();
+    frmEquipment.setVisible(true);
+    this.dispose(); 
     }
     
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {                                          
@@ -412,15 +413,9 @@ controller.selectInListByName(listAssigned, "Luisa Andrade");
     }//GEN-LAST:event_btnAssign2ActionPerformed
 
     private void btnOpenAvailabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenAvailabilityActionPerformed
-FrmAvailable frm = new FrmAvailable();
-        // Cuando la ventana de disponibilidad se cierre, actualizamos esta pantalla
-        frm.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent e) {
-                updateUI();
-            }
-        });
-        frm.setVisible(true);
+     FrmAvailable frmAvailable = new FrmAvailable();
+    frmAvailable.setVisible(true);
+    this.dispose(); 
     }//GEN-LAST:event_btnOpenAvailabilityActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -429,7 +424,7 @@ FrmAvailable frm = new FrmAvailable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void AsignEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignEventActionPerformed
-FrmAssignEvent frmAssignEvent = new FrmAssignEvent();
+    FrmAssignEvent frmAssignEvent = new FrmAssignEvent();
     frmAssignEvent.setVisible(true);
     this.dispose();           // TODO add your handling code here:
     }//GEN-LAST:event_AsignEventActionPerformed

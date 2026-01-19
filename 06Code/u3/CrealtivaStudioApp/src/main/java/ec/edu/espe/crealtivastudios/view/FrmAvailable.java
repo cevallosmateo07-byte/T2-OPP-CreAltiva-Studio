@@ -208,8 +208,9 @@ public class FrmAvailable extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-JOptionPane.showMessageDialog(this, "Cambios no guardados.", "Cancelado", JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
+  FrmPhotographer  frmPhotographer  = new  FrmPhotographer ();
+    frmPhotographer.setVisible(true);
+    this.dispose(); 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed

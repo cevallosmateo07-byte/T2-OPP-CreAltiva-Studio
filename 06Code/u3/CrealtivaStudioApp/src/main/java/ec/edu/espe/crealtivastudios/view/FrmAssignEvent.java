@@ -189,8 +189,9 @@ private static final java.util.logging.Logger logger = java.util.logging.Logger.
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-new FrmCrealtivaStudiosMenu().setVisible(true);
-        this.dispose();   
+   FrmPhotographer frmPhotographer = new FrmPhotographer();
+    frmPhotographer.setVisible(true);
+    this.dispose();    
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed

@@ -395,9 +395,9 @@ public class FrmEquipment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-       menuController.openEquipmentSystem(this); // O volver al menú
-        new FrmCrealtivaStudiosMenu().setVisible(true);
-        this.dispose();
+       FrmPhotographer  frmPhotographer  = new  FrmPhotographer ();
+    frmPhotographer.setVisible(true);
+    this.dispose(); 
     
     }//GEN-LAST:event_jButton8ActionPerformed
 
