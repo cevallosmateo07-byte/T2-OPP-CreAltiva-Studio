@@ -2,47 +2,50 @@ package ec.edu.espe.crealtivastudios.view;
 
 import ec.edu.espe.crealtivastudios.controller.MenuController;
 import ec.edu.espe.crealtivastudios.controller.VideoCallController;
-import java.util.Date;
+import ec.edu.espe.crealtivastudios.model.VideoCall;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 public class FrmVideoCalls extends javax.swing.JFrame {
     
-    // 1. Instancias de Controladores
     private final VideoCallController controller = new VideoCallController();
-    private final MenuController menuController = new MenuController();
-    
-    // 2. Variables de estado
     private boolean isEditing = false;
-    private String currentIdStr = "0";
+    private String currentId = null;
 
     public FrmVideoCalls() {
         initComponents();
         this.setLocationRelativeTo(null);
-        refreshTable(); // Carga la tabla desde el controlador
+        loadCustomers();
+        refreshTable();
     }
     
-    
-       // Pide la tabla lista al controlador
+   
     private void refreshTable() {
-        tblVideoCalls.setModel(controller.getTableModel());
+        tblVideoCalls.setModel(controller.getVideoCallsTableModel());
     }
     
     private void resetForm() {
         dcVideoCallDate.setDate(null);
         txtHour.setText("");
         cmbMedium.setSelectedIndex(0);
+        cmbCustomers.setSelectedIndex(-1);
         isEditing = false;
-        currentIdStr = "0";
-        btnScheduleVideoCall.setText("Programar Videollamada");
+        currentId = null;
+        btnScheduleVideoCall.setText("Programar");
     }
     
-    // Helper para obtener ID seleccionado
     private String getSelectedIdRaw() {
         int row = tblVideoCalls.getSelectedRow();
-        return (row != -1) ? tblVideoCalls.getValueAt(row, 0).toString() : null;
+        if (row == -1) return null;
+        return tblVideoCalls.getValueAt(row, 0).toString();
     }
     
-    
+    private void loadCustomers() {
+        cmbCustomers.removeAllItems();
+        controller.customerController.getAllCustomers().forEach(c -> 
+            cmbCustomers.addItem(c.getId() + " - " + c.getName())
+        );
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,10 +66,13 @@ public class FrmVideoCalls extends javax.swing.JFrame {
         cmbMedium = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVideoCalls = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        cmbCustomers = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         btnScheduleVideoCall = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnEditVideoCall = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        btnDeleteVideoCall = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,7 +98,7 @@ public class FrmVideoCalls extends javax.swing.JFrame {
                 .addGap(21, 21, 21))
         );
 
-        jLabel2.setText("Fecha");
+        jLabel2.setText("Fecha:");
 
         jLabel3.setText("Hora:");
 
@@ -119,32 +125,44 @@ public class FrmVideoCalls extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblVideoCalls);
 
+        jLabel5.setText("Cliente:");
+
+        cmbCustomers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dcVideoCallDate, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dcVideoCallDate, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cmbMedium, javax.swing.GroupLayout.Alignment.LEADING, 0, 180, Short.MAX_VALUE)
-                        .addComponent(txtHour, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(73, 73, 73)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addComponent(cmbMedium, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtHour, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCustomers, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(cmbCustomers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(dcVideoCallDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -156,25 +174,24 @@ public class FrmVideoCalls extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(cmbMedium, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 22, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 87, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         jPanel3.setBackground(java.awt.SystemColor.activeCaption);
         jPanel3.setForeground(java.awt.SystemColor.activeCaption);
 
-        btnScheduleVideoCall.setText("Programar Videollamda");
+        btnScheduleVideoCall.setText("Programar");
         btnScheduleVideoCall.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnScheduleVideoCallActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Editar Videollamada");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnEditVideoCall.setText("Editar ");
+        btnEditVideoCall.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnEditVideoCallActionPerformed(evt);
             }
         });
 
@@ -185,18 +202,27 @@ public class FrmVideoCalls extends javax.swing.JFrame {
             }
         });
 
+        btnDeleteVideoCall.setText("Eliminar ");
+        btnDeleteVideoCall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteVideoCallActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(94, 94, 94)
                 .addComponent(btnScheduleVideoCall)
-                .addGap(123, 123, 123)
-                .addComponent(jButton2)
+                .addGap(105, 105, 105)
+                .addComponent(btnEditVideoCall)
+                .addGap(107, 107, 107)
+                .addComponent(btnDeleteVideoCall)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExit)
-                .addGap(67, 67, 67))
+                .addGap(75, 75, 75))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,8 +230,9 @@ public class FrmVideoCalls extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnScheduleVideoCall)
-                    .addComponent(jButton2)
-                    .addComponent(btnExit))
+                    .addComponent(btnEditVideoCall)
+                    .addComponent(btnExit)
+                    .addComponent(btnDeleteVideoCall))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -213,13 +240,13 @@ public class FrmVideoCalls extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,10 +254,10 @@ public class FrmVideoCalls extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
 
         pack();
@@ -241,52 +268,64 @@ public class FrmVideoCalls extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHourActionPerformed
 
     private void btnScheduleVideoCallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheduleVideoCallActionPerformed
-  String customerIdInput = JOptionPane.showInputDialog(this, "Ingrese el ID del Cliente (Ej: 1):");
-        if (customerIdInput == null || customerIdInput.isEmpty()) return;
-        
-        // Simulamos el formato "1 - Nombre" que espera el controlador
-        String customerSelection = customerIdInput + " - Generico"; 
+        if (cmbCustomers.getSelectedItem() == null || dcVideoCallDate.getDate() == null || txtHour.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Complete todos los campos");
+                return;
+            }
 
-        // Enviamos datos al controlador
-        controller.saveFromUI(
-            currentIdStr,
-            customerSelection,
-            cmbMedium.getSelectedItem().toString(), // Plataforma
-            "Enlace Pendiente", // Tu diseño no tiene campo Link, enviamos default
-            dcVideoCallDate.getDate(),
-            txtHour.getText(),
-            isEditing,
-            
-            // Acción de Éxito
-            () -> { 
-                refreshTable(); 
-                resetForm(); 
-            },
-            this
+            controller.saveVideoCall(
+                currentId,
+                cmbCustomers.getSelectedItem().toString(),
+                cmbMedium.getSelectedItem().toString(),
+                dcVideoCallDate.getDate(),
+                txtHour.getText(),
+                isEditing,
+                () -> { refreshTable(); resetForm(); },
+                this
         );
     }//GEN-LAST:event_btnScheduleVideoCallActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-menuController.openVideoCalls(this); // O volver al menú principal
+
         new FrmCrealtivaStudiosMenu().setVisible(true);
         this.dispose();
         
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        controller.findForEdit(getSelectedIdRaw(), v -> {
-            currentIdStr = String.valueOf(v.getId());
-            txtHour.setText(v.getTime());
-            cmbMedium.setSelectedItem(v.getPlatform());
-            try {
-                // Parseo rápido de fecha solo para visualización
-                dcVideoCallDate.setDate(new java.text.SimpleDateFormat("yyyy-MM-dd").parse(v.getDate()));
-            } catch(Exception e) {}
-            
-            isEditing = true;
-            btnScheduleVideoCall.setText("Actualizar");
-        }, this);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnDeleteVideoCallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteVideoCallActionPerformed
+        String idRaw = getSelectedIdRaw();
+        if (idRaw == null) { JOptionPane.showMessageDialog(this, "Seleccione una videollamada"); return; }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "¿Eliminar la videollamada?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) return;
+
+        controller.deleteVideoCall(Integer.parseInt(idRaw), this::refreshTable, this);
+    }//GEN-LAST:event_btnDeleteVideoCallActionPerformed
+
+    private void btnEditVideoCallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditVideoCallActionPerformed
+        String idRaw = getSelectedIdRaw();
+        if (idRaw == null) { JOptionPane.showMessageDialog(this, "Seleccione una videollamada"); return; }
+
+        VideoCall v = controller.getVideoCallById(Integer.parseInt(idRaw));
+        if (v == null) return;
+
+        currentId = String.valueOf(v.getId());
+        try {
+            dcVideoCallDate.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(v.getDate()));
+        } catch (Exception e) { e.printStackTrace(); }
+        txtHour.setText(v.getTime());
+        cmbMedium.setSelectedItem(v.getPlatform());
+
+        for (int i = 0; i < cmbCustomers.getItemCount(); i++) {
+            if (cmbCustomers.getItemAt(i).startsWith(v.getCustomerId() + " -")) {
+                cmbCustomers.setSelectedIndex(i);
+                break;
+            }
+        }
+
+        isEditing = true;
+        btnScheduleVideoCall.setText("Actualizar");
+    }//GEN-LAST:event_btnEditVideoCallActionPerformed
     
 
 
@@ -309,15 +348,18 @@ menuController.openVideoCalls(this); // O volver al menú principal
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDeleteVideoCall;
+    private javax.swing.JButton btnEditVideoCall;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnScheduleVideoCall;
+    private javax.swing.JComboBox<String> cmbCustomers;
     private javax.swing.JComboBox<String> cmbMedium;
     private com.toedter.calendar.JDateChooser dcVideoCallDate;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

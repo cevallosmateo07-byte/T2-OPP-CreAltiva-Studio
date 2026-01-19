@@ -3,10 +3,10 @@ package ec.edu.espe.crealtivastudios.model;
 public class VideoCall {
     private int id;
     private int customerId;
-    private String platform; // Zoom, Meet, Teams
+    private String platform; 
     private String link;
-    private String date;     // YYYY-MM-DD
-    private String time;     // HH:mm
+    private String date;     
+    private String time;     
 
     public VideoCall(int id, int customerId, String platform, String link, String date, String time) {
         this.id = id;
@@ -17,7 +17,6 @@ public class VideoCall {
         this.time = time;
     }
 
-    // --- Getters y Setters ---
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

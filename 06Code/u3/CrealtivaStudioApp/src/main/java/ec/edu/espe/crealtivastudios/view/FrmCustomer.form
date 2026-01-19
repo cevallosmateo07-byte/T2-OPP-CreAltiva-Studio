@@ -232,15 +232,15 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                   <Component id="btnRegister" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                   <Component id="btnEditCustomer" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
                   <Component id="btnDeleteCustomer" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
                   <Component id="btnExit" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="138" max="32767" attributes="0"/>
+                  <EmptySpace pref="99" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

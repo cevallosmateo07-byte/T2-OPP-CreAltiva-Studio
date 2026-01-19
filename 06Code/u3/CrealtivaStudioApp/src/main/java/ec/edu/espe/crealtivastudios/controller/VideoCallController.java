@@ -1,5 +1,6 @@
 package ec.edu.espe.crealtivastudios.controller;
 
+import ec.edu.espe.crealtivastudios.model.Customer;
 import ec.edu.espe.crealtivastudios.model.VideoCall;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
@@ -13,14 +14,31 @@ import utils.CrudOperations;
 
 public class VideoCallController {
     private final String COLLECTION = "VideoCalls";
+    public final CustomerController customerController = new CustomerController();
 
-    public DefaultTableModel getTableModel() {
-        String[] columns = {"ID", "ID Cliente", "Plataforma", "Fecha", "Hora", "Link"};
+    // Tabla lista para mostrar
+    public DefaultTableModel getVideoCallsTableModel() {
+        String[] columns = {"ID", "Cliente", "Plataforma", "Fecha", "Hora"};
         DefaultTableModel model = new DefaultTableModel(columns, 0) {
-            @Override public boolean isCellEditable(int r, int c) { return false; }
+            @Override public boolean isCellEditable(int row, int col) { return false; }
         };
+
+        List<Customer> customers = customerController.getAllCustomers();
+
         for (VideoCall v : getAllVideoCalls()) {
-            model.addRow(new Object[]{v.getId(), v.getCustomerId(), v.getPlatform(), v.getDate(), v.getTime(), v.getLink()});
+            String customerName = customers.stream()
+                    .filter(c -> c.getId() == v.getCustomerId())
+                    .map(Customer::getName)
+                    .findFirst()
+                    .orElse("No registrado");
+
+            model.addRow(new Object[]{
+                    v.getId(),
+                    customerName,
+                    v.getPlatform(),
+                    v.getDate(),
+                    v.getTime()
+            });
         }
         return model;
     }
@@ -37,36 +55,56 @@ public class VideoCallController {
     private VideoCall toObject(Document doc) {
         if (doc == null) return null;
         try {
-            // Conversión segura de tipos numéricos (Double/Int) desde MongoDB
-            int id = (doc.get("id") != null) ? ((Number) doc.get("id")).intValue() : 0;
-            int cId = (doc.get("customerId") != null) ? ((Number) doc.get("customerId")).intValue() : 0;
-            String platform = doc.getString("platform") != null ? doc.getString("platform") : "Zoom";
-            String link = doc.getString("link") != null ? doc.getString("link") : "";
-            String date = doc.getString("date") != null ? doc.getString("date") : "";
-            String time = doc.getString("time") != null ? doc.getString("time") : "";
-            return new VideoCall(id, cId, platform, link, date, time);
+            int id = ((Number) doc.get("id")).intValue();
+            int customerId = ((Number) doc.get("customerId")).intValue();
+            String platform = doc.getString("platform");
+            String link = doc.getString("link");
+            String date = doc.getString("date");
+            String time = doc.getString("time");
+            return new VideoCall(id, customerId, platform, link, date, time);
         } catch (Exception e) { return null; }
     }
 
-    public void saveFromUI(String idS, String cSel, String plat, String link, Date dRaw, String t, boolean isE, Runnable ok, Component v) {
+    public void saveVideoCall(String idStr, String customerCombo, String platform, Date date, String time, boolean isEditing, Runnable onSuccess, Component view) {
         try {
-            int cId = Integer.parseInt(cSel.split(" - ")[0]);
-            String dStr = (dRaw != null) ? new SimpleDateFormat("yyyy-MM-dd").format(dRaw) : "";
-            int id = isE ? Integer.parseInt(idS) : generateNextId();
-            Document doc = new Document("id", id).append("customerId", cId).append("platform", plat).append("link", link).append("date", dStr).append("time", t);
-            if (isE ? CrudOperations.update(COLLECTION, "id", id, doc) : CrudOperations.insert(COLLECTION, doc)) ok.run();
-        } catch (Exception e) { JOptionPane.showMessageDialog(v, "Error: " + e.getMessage()); }
+            int customerId = parseCustomerId(customerCombo);
+            String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+            int id = isEditing ? Integer.parseInt(idStr) : generateNextId();
+
+            Document doc = new Document("id", id)
+                    .append("customerId", customerId)
+                    .append("platform", platform)
+                    .append("link", "Enlace Pendiente")
+                    .append("date", dateStr)
+                    .append("time", time);
+
+            boolean ok = isEditing
+                    ? CrudOperations.update(COLLECTION, "id", id, doc)
+                    : CrudOperations.insert(COLLECTION, doc);
+
+            if (ok) onSuccess.run();
+            else JOptionPane.showMessageDialog(view, "No se pudo guardar la videollamada");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(view, "Error: " + e.getMessage());
+        }
     }
 
-    public void findForEdit(String idRaw, java.util.function.Consumer<VideoCall> onFound, Component view) {
-        if (idRaw == null) return;
-        Document doc = CrudOperations.searchOne(COLLECTION, new Document("id", Integer.parseInt(idRaw)));
-        if (doc != null) onFound.accept(toObject(doc));
+    public VideoCall getVideoCallById(int id) {
+        Document doc = CrudOperations.searchOne(COLLECTION, new Document("id", id));
+        return toObject(doc);
+    }
+
+    public void deleteVideoCall(int id, Runnable onSuccess, Component view) {
+        boolean deleted = CrudOperations.delete(COLLECTION, "id", id);
+        if (deleted) onSuccess.run();
+        else JOptionPane.showMessageDialog(view, "No se pudo eliminar la videollamada");
+    }
+
+    public int parseCustomerId(String comboValue) {
+        return Integer.parseInt(comboValue.split(" - ")[0]);
     }
 
     private int generateNextId() {
-        int max = 0;
-        for (VideoCall v : getAllVideoCalls()) if (v.getId() > max) max = v.getId();
-        return max + 1;
+        return getAllVideoCalls().stream().mapToInt(VideoCall::getId).max().orElse(0) + 1;
     }
 }

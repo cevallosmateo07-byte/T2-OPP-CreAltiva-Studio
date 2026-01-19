@@ -198,15 +198,15 @@ public class FrmCustomer extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
+                .addGap(110, 110, 110)
                 .addComponent(btnRegister)
-                .addGap(83, 83, 83)
+                .addGap(82, 82, 82)
                 .addComponent(btnEditCustomer)
                 .addGap(115, 115, 115)
                 .addComponent(btnDeleteCustomer)
                 .addGap(91, 91, 91)
                 .addComponent(btnExit)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +253,7 @@ public class FrmCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-controller.saveFromUI(
+            controller.saveFromUI(
             currentIdStr,
             txtName.getText(),
             txtPhone.getText(),
@@ -274,23 +274,17 @@ controller.saveFromUI(
             txtAddress.setText(c.getAddress());
             isEditing = true;
             btnRegister.setText("Actualizar");
-        }, this);
+             }, this);
     }//GEN-LAST:event_btnEditCustomerActionPerformed
 
     private void btnDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustomerActionPerformed
-   controller.deleteFromUI(
+            controller.deleteFromUI(
             getSelectedIdRaw(), 
             () -> { refreshTable(); resetForm(); }, 
             this
         );
 
     }//GEN-LAST:event_btnDeleteCustomerActionPerformed
-
-
-    
-    
-    
-
     
     /**
      * @param args the command line arguments
