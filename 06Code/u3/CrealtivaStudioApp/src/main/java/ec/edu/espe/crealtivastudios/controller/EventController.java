@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 import utils.CrudOperations;
+import javax.swing.JComboBox;
 
 public class EventController {
     
@@ -149,4 +150,21 @@ public class EventController {
             doc.getInteger("customerId", 0)
         );
     }
+    
+    public void loadEventsIntoComboBox(JComboBox<String> combo) {
+    combo.removeAllItems();
+
+    List<Event> events = getAllEvents();
+    if (events.isEmpty()) {
+        combo.addItem("No hay eventos registrados");
+        return;
+    }
+
+    for (Event e : events) {
+        combo.addItem(
+            e.getEventId() + " - " + e.getEventName()
+        );
+    }
+}
+    
 }

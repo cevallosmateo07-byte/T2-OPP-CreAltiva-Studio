@@ -12,6 +12,9 @@ public class FrmCalendar extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         txaEventDetails.setEditable(false);
+        
+        controller.loadEventsIntoCombo(jComboBox1);
+
         // refreshTable(); // Si tienes una tabla en tu diseño, descomenta esto
     }
     
@@ -43,6 +46,7 @@ public class FrmCalendar extends javax.swing.JFrame {
         btnRecordatoryYes = new javax.swing.JButton();
         btnRecordatoryNo = new javax.swing.JButton();
         jCalendar1 = new com.toedter.calendar.JCalendar();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -138,6 +142,13 @@ public class FrmCalendar extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -147,6 +158,8 @@ public class FrmCalendar extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addGap(76, 76, 76))
@@ -175,10 +188,11 @@ public class FrmCalendar extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -259,8 +273,11 @@ public class FrmCalendar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEventIdSearcherActionPerformed
 
     private void btntxtSearcherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntxtSearcherActionPerformed
-  controller.searchEventForUI(txtEventIdSearcher.getText(), txaEventDetails, this);
-    
+     controller.showSelectedEventFromCombo(
+        jComboBox1,
+        txtEventIdSearcher,
+        txaEventDetails
+    );
     }//GEN-LAST:event_btntxtSearcherActionPerformed
 
     private void btnRecordatoryYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordatoryYesActionPerformed
@@ -289,8 +306,18 @@ public class FrmCalendar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRecordatoryNoActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-menuController.openEventSystem(this);
+        new FrmCrealtivaStudiosMenu().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        controller.showSelectedEventFromCombo(
+        jComboBox1,
+        txtEventIdSearcher,
+        txaEventDetails
+    );
+
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -314,6 +341,7 @@ menuController.openEventSystem(this);
     private javax.swing.JButton btnRecordatoryYes;
     private javax.swing.JButton btntxtSearcher;
     private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -1,12 +1,16 @@
 package ec.edu.espe.crealtivastudios.controller;
 
 import ec.edu.espe.crealtivastudios.model.Calendar;
-import ec.edu.espe.crealtivastudios.model.Event; // Necesitamos buscar eventos
+import ec.edu.espe.crealtivastudios.model.Event;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 import utils.CrudOperations;
@@ -14,69 +18,118 @@ import utils.CrudOperations;
 public class CalendarController {
 
     private final String CALENDAR_COLLECTION = "Calendar";
-    private final String EVENTS_COLLECTION = "Events"; // Para buscar eventos
+    private final String EVENTS_COLLECTION = "Events";
 
-    // --- LÓGICA PARA LA VISTA ---
+    // 🔹 Lista interna de eventos (NO visible para la vista)
+    private List<Event> eventsCache = new ArrayList<>();
 
-    // 1. BUSCAR EVENTO Y MOSTRAR DETALLES
-    public void searchEventForUI(String idRaw, javax.swing.JTextArea txaDetails, Component view) {
-        if (idRaw == null || idRaw.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Ingrese un ID de evento.", "Aviso", JOptionPane.WARNING_MESSAGE);
+    // =====================================================
+    // 1. CARGAR EVENTOS EN COMBO (String)
+    // =====================================================
+public void loadEventsIntoCombo(javax.swing.JComboBox combo) {
+    combo.removeAllItems();
+
+    for (Document doc : CrudOperations.findAll(EVENTS_COLLECTION)) {
+
+        int eventId = doc.getInteger("eventId", 0);
+        String eventName = doc.getString("eventName");
+        String eventDate = doc.getString("eventDate");
+        int eventTypeCode = doc.getInteger("eventTypeCode", 0);
+        int customerId = doc.getInteger("customerId", 0);
+
+        if (eventId == 0 || eventName == null) {
+            continue;
+        }
+
+        Event event = new Event(
+                eventId,
+                eventName,
+                eventDate,
+                eventTypeCode,
+                customerId
+        );
+
+        combo.addItem(event); // se guarda el OBJETO, no el String
+    }
+}
+
+
+
+    // =====================================================
+    // 2. MOSTRAR EVENTO SELECCIONADO
+    // =====================================================
+    public void showSelectedEventFromCombo(
+            JComboBox<String> combo,
+            JTextField txtEventId,
+            JTextArea txaDetails) {
+
+        int index = combo.getSelectedIndex();
+
+        if (index < 0 || index >= eventsCache.size()) {
             return;
         }
 
-        try {
-            int eventId = Integer.parseInt(idRaw);
-            Document doc = CrudOperations.searchOne(EVENTS_COLLECTION, new Document("eventId", eventId));
+        Event event = eventsCache.get(index);
 
-            if (doc != null) {
-                String details = String.format(
-                    "Evento Encontrado:\nID: %d\nNombre: %s\nFecha: %s\nTipo: %d",
-                    doc.getInteger("eventId"),
-                    doc.getString("eventName"),
-                    doc.getString("eventDate"),
-                    doc.getInteger("eventTypeCode")
-                );
-                txaDetails.setText(details);
-            } else {
-                txaDetails.setText("");
-                JOptionPane.showMessageDialog(view, "No se encontró el evento con ID: " + eventId, "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(view, "El ID debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        txtEventId.setText(String.valueOf(event.getEventId()));
+
+        String details = "Evento Seleccionado:\n"
+                + "ID: " + event.getEventId() + "\n"
+                + "Nombre: " + event.getEventName() + "\n"
+                + "Fecha: " + event.getEventDate() + "\n"
+                + "Tipo: " + event.getEventTypeCode();
+
+        txaDetails.setText(details);
     }
 
-    // 2. GUARDAR RECORDATORIO (Botón SÍ)
-    public void saveReminderFromUI(String eventIdRaw, Date dateRaw, Runnable onSuccess, Component view) {
+    // =====================================================
+    // 3. GUARDAR RECORDATORIO
+    // =====================================================
+    public void saveReminderFromUI(
+            String eventIdRaw,
+            Date dateRaw,
+            Runnable onSuccess,
+            Component view) {
+
         if (eventIdRaw.isEmpty() || dateRaw == null) {
-            JOptionPane.showMessageDialog(view, "Busque un evento y seleccione una fecha.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(view,
+                    "Seleccione un evento y una fecha.",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         try {
             int eventId = Integer.parseInt(eventIdRaw);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String dateStr = sdf.format(dateRaw);
+            String dateStr = new SimpleDateFormat("yyyy-MM-dd").format(dateRaw);
 
-            Calendar calendar = new Calendar(generateNextId(), eventId, "Recordatorio Auto", dateStr);
+            Calendar calendar = new Calendar(
+                    generateNextId(),
+                    eventId,
+                    "Recordatorio",
+                    dateStr
+            );
 
             if (CrudOperations.insert(CALENDAR_COLLECTION, toDocument(calendar))) {
-                JOptionPane.showMessageDialog(view, "Recordatorio guardado.");
+                JOptionPane.showMessageDialog(view, "Recordatorio guardado correctamente.");
                 onSuccess.run();
             } else {
                 JOptionPane.showMessageDialog(view, "Error al guardar.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(view, "Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(view, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    // 3. GENERAR TABLA DE RECORDATORIOS
+    // =====================================================
+    // 4. TABLA DE RECORDATORIOS
+    // =====================================================
     public DefaultTableModel getTableModel() {
-        String[] columns = {"ID Rec", "ID Evento", "Fecha Recordatorio"};
-        DefaultTableModel model = new DefaultTableModel(columns, 0);
-        
+
+        DefaultTableModel model = new DefaultTableModel(
+                new String[]{"ID", "Evento", "Fecha"}, 0);
+
         for (Document doc : CrudOperations.findAll(CALENDAR_COLLECTION)) {
             model.addRow(new Object[]{
                 doc.getInteger("id"),
@@ -87,12 +140,16 @@ public class CalendarController {
         return model;
     }
 
-    // --- HELPERS ---
+    // =====================================================
+    // HELPERS
+    // =====================================================
     private int generateNextId() {
         int max = 0;
         for (Document doc : CrudOperations.findAll(CALENDAR_COLLECTION)) {
             int id = doc.getInteger("id", 0);
-            if (id > max) max = id;
+            if (id > max) {
+                max = id;
+            }
         }
         return max + 1;
     }

@@ -6,15 +6,16 @@ public class FrmEvent extends javax.swing.JFrame {
 
     // Instancia del Controlador
     private final EventController eventController = new EventController();
-    
+    private javax.swing.JComboBox<String> cmbEvents;
+
     // Variable ID cliente (se llena desde FrmCustomerList)
     public static int selectedCustomerId = 0;
 
     public FrmEvent() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        txaShowEvents.setEditable(false);
-        refreshList(); // Carga inicial
+initComponents();
+    this.setLocationRelativeTo(null);
+    txaShowEvents.setEditable(false);
+    refreshList();
     }
     
     
@@ -284,7 +285,7 @@ public class FrmEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApplyDisccountActionPerformed
 
     private void btnAssignAndSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignAndSaveActionPerformed
-eventController.saveEventFromUI(
+            eventController.saveEventFromUI(
             txtEventName.getText(),          // Nombre crudo
             cldDateChooser.getDate(),        // Fecha cruda (puede ser null)
             cmbEventType.getSelectedIndex(), // Índice combo
@@ -292,8 +293,9 @@ eventController.saveEventFromUI(
             
             // Acción de éxito (Lambda): Esto se ejecuta si todo sale bien
             () -> { 
-                refreshList(); 
-                cleanForm(); 
+    refreshList(); 
+    eventController.loadEventsIntoComboBox(cmbEvents);
+    cleanForm(); 
             },
             
             this // Referencia para mostrar mensajes
