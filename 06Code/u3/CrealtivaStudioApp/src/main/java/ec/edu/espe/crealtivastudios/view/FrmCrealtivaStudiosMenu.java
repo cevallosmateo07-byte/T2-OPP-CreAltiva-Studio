@@ -1,16 +1,45 @@
 package ec.edu.espe.crealtivastudios.view;
 
 import ec.edu.espe.crealtivastudios.controller.MenuController;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
 
-    // Instancia del Controlador de Navegación
     private final MenuController menuController = new MenuController();
 
     public FrmCrealtivaStudiosMenu() {
         initComponents();
         this.setLocationRelativeTo(null);
+    javax.swing.SwingUtilities.invokeLater(() -> {
+            // Asegurate que jLabel1 sea el nombre de tu etiqueta en el diseño
+            loadImageIntoLabel(jLabel1, "caratula.jpg"); 
+        });
     }
+    
+    private void loadImageIntoLabel(javax.swing.JLabel label, String imageName) {
+        try {
+            java.net.URL url = getClass().getResource("/ec/edu/espe/crealtivastudios/images/" + imageName);
+            if (url == null) {
+                System.err.println("Imagen no encontrada: " + imageName);
+                return;
+            }
+            ImageIcon icon = new ImageIcon(url);
+            Image img = icon.getImage();
+
+            int w = Math.max(1, label.getWidth());
+            int h = Math.max(1, label.getHeight());
+
+            Image scaled = img.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+            label.setIcon(new ImageIcon(scaled));
+            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
+            label.setText("");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -21,7 +50,6 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jToggleButton2 = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuCustomer = new javax.swing.JMenu();
@@ -34,20 +62,13 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jReportEvent = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jToggleButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jToggleButton2.setText("Fotógrafos");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
-            }
-        });
 
         jLabel1.setText("picture Photographers");
 
@@ -118,6 +139,14 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
         });
         jMenu5.add(jReportEvent);
 
+        jMenuItem7.setText("Reporte del Fotografo");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem7);
+
         jMenuBar1.add(jMenu5);
 
         jMenu6.setText("Equipo");
@@ -155,23 +184,15 @@ public class FrmCrealtivaStudiosMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jToggleButton2)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1006, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jToggleButton2)
-                .addGap(68, 68, 68))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE))
         );
 
         pack();
@@ -188,10 +209,6 @@ menuController.openEquipmentSystem(this);
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
 menuController.openAttendanceSystem(this);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-menuController.openPhotographerSystem(this);
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
       menuController.openCalendar(this);
@@ -220,6 +237,12 @@ menuController.openBillingSystem(this);
     private void jReportEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jReportEventActionPerformed
 menuController.openReports(this);  
     }//GEN-LAST:event_jReportEventActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        FrmReportPhotographers frmReportPhotographers = new FrmReportPhotographers();
+        this.setVisible(false);
+        frmReportPhotographers.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,8 +274,8 @@ menuController.openReports(this);
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jReportEvent;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JMenuItem mniCustomerRegister;
     private javax.swing.JMenuItem mniVideCalls;
     private javax.swing.JMenu mnuCite;

@@ -11,7 +11,7 @@ public class Customer {
     private String email;
     private String address;
 
-    // 
+   
     public Customer() {}
 
     public Customer(int id, String name, String phone, String email, String address) {
@@ -22,7 +22,7 @@ public class Customer {
         this.address = address;
     }
 
-    // 
+   
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

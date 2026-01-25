@@ -12,7 +12,7 @@ public class PhotographerController {
     private final String COLL_PHOTO = "PhotographerDB";
     private final String COLL_EVENTS = "Events";
 
-    // --- Usado por FrmPhotographer ---
+
     public void fillListModel(DefaultListModel<String> model) {
         model.clear();
         for (Document d : CrudOperations.findAll(COLL_PHOTO)) {
@@ -45,7 +45,7 @@ public class PhotographerController {
         }
     }
 
-    // --- Usado por FrmAssignEvent ---
+
     public DefaultTableModel getAssignTableModel() {
         String[] cols = {"ID Evento", "Nombre Evento", "Asignado A"};
         DefaultTableModel model = new DefaultTableModel(cols, 0);
@@ -86,7 +86,7 @@ public class PhotographerController {
         }
     }
 
-    // --- Usado por FrmAvailable y Asistencia ---
+ 
     public void initDefaultPhotographers() {
         String[] names = {"Micaela Garcia", "Luisa Andrade", "Alexis Fares", "Paola Maza"};
         for (String n : names) if (CrudOperations.searchOne(COLL_PHOTO, new Document("name", n)) == null)

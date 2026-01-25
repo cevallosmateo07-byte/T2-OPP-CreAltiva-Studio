@@ -14,6 +14,8 @@ C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\model\Equipment.java
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\model\Event.java
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\model\Photographer.java
+C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\model\ReporterDetailsEvent.java
+C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\model\ReportPhotographers.java
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\model\User.java
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\model\VideoCall.java
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\view\FrmAssignEvent.java
@@ -31,6 +33,7 @@ C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\view\FrmEvent.java
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\view\FrmPhotographer.java
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\view\FrmReportEvent.java
+C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\view\FrmReportPhotographers.java
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\ec\edu\espe\crealtivastudios\view\FrmVideoCalls.java
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\utils\CrudOperations.java
 C:\Users\USER\Documents\NetBeansProjects\CrealtivaStudioApp\src\main\java\utils\FrameValidations.java

@@ -260,7 +260,7 @@ public class FrmCustomer extends javax.swing.JFrame {
             txtEmail.getText(),
             txtAddress.getText(),
             isEditing,
-            () -> { refreshTable(); resetForm(); }, // Esto se ejecuta SI el controller dice OK
+            () -> { refreshTable(); resetForm(); }, 
             this
         );
     }//GEN-LAST:event_btnRegisterActionPerformed
@@ -298,7 +298,7 @@ public static void main(String args[]) {
                 }
             }
         } catch (Exception ex) {
-            // Ya no usamos logger, solo imprimimos en consola si falla el LookAndFeel
+
             System.err.println("Error UI: " + ex.getMessage());
         }
         

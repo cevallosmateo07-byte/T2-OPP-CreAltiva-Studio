@@ -8,32 +8,31 @@ public class FrmAvailable extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmAvailable.class.getName());
     
-    // 1. Instancia del Controlador Único
+
     private final PhotographerController controller = new PhotographerController();
 
     public FrmAvailable() {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        // 2. Carga inicial delegada al controlador
-        // El controlador asegura que existan los datos y nos dice qué mostrar
+
         controller.initDefaultPhotographers(); 
         loadStatus();
     }
     
-    // --- MÉTODO VISUAL (Sin lógica de negocio) ---
+ 
     private void loadStatus() {
-        // Configuramos cada combo según lo que diga la base de datos (vía controlador)
+       
         setComboSelection(comboMicaela, "Micaela Garcia");
         setComboSelection(comboLuisa, "Luisa Andrade");
         setComboSelection(comboAlexis, "Alexis Fares");
         setComboSelection(comboPaola, "Paola Maza");
     }
     
-    // Helper visual pequeño
+
     private void setComboSelection(JComboBox<String> combo, String name) {
         boolean isAssigned = controller.isPhotographerAssigned(name);
-        // Si está ocupado/asignado, mostramos "No disponible", si no "Disponible"
+        
         combo.setSelectedItem(isAssigned ? "No disponible " : "Disponible");
     }
 
@@ -208,20 +207,21 @@ public class FrmAvailable extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-  FrmPhotographer  frmPhotographer  = new  FrmPhotographer ();
+   FrmPhotographer  frmPhotographer  = new  FrmPhotographer ();
     frmPhotographer.setVisible(true);
     this.dispose(); 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-// Enviamos la selección visual al controlador. Él sabrá qué hacer en Mongo.
+
         controller.updateAvailabilityManual("Micaela Garcia", comboMicaela.getSelectedItem().toString());
         controller.updateAvailabilityManual("Luisa Andrade", comboLuisa.getSelectedItem().toString());
         controller.updateAvailabilityManual("Alexis Fares", comboAlexis.getSelectedItem().toString());
         controller.updateAvailabilityManual("Paola Maza", comboPaola.getSelectedItem().toString());
 
-        JOptionPane.showMessageDialog(this, "Disponibilidad actualizada exitosamente.");
-        this.dispose(); // Cerrar ventana
+    FrmPhotographer  frmPhotographer  = new  FrmPhotographer ();
+    frmPhotographer.setVisible(true);
+    this.dispose(); 
      
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -231,7 +231,7 @@ public class FrmAvailable extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
  /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+     
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
@@ -245,9 +245,8 @@ public class FrmAvailable extends javax.swing.JFrame {
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+      
 
-        /* Create and display the form */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

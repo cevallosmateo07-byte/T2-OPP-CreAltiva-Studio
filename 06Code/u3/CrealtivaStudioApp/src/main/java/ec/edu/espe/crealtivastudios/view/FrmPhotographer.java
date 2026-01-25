@@ -6,22 +6,22 @@ import javax.swing.DefaultListModel;
 
 public class FrmPhotographer extends javax.swing.JFrame {
 
-    // 1. Instancias
+    
     private final PhotographerController controller = new PhotographerController();
     private final MenuController menuController = new MenuController();
     
-    // 2. Modelo de lista (necesario para JList)
+  
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
 
     public FrmPhotographer() {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        // Configuración inicial
-        listAssigned.setModel(listModel);
-        updateUI(); // Carga datos
         
-        // Listener simple: Si seleccionas algo en la lista, muestra el texto en el label
+        listAssigned.setModel(listModel);
+        updateUI(); 
+        
+       
         listAssigned.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 txtSelectedPhotographer.setText(listAssigned.getSelectedValue());
@@ -30,23 +30,19 @@ public class FrmPhotographer extends javax.swing.JFrame {
     }
     
     private void updateUI() {
-        // 1. Pedir al controlador que llene la lista
+    
         controller.fillListModel(listModel);
         
-        // 2. Pedir al controlador que pinte las etiquetas de estado
-        // (Pasamos el JLabel y el nombre, el controlador decide color y texto)
+
         controller.updateStatusLabel(lblMicaelaStatus, "Micaela Garcia");
         controller.updateStatusLabel(lblLuisaStatus, "Luisa Andrade");
         controller.updateStatusLabel(lblAlexisStatus, "Alexis Fares");
         controller.updateStatusLabel(lblPaolaStatus, "Paola Maza");
         
-        // Limpiar selección
+        
         txtSelectedPhotographer.setText("Ninguno");
     }
     
-    
-
-    // --- CÓDIGO GENERADO Y MÉTODOS AUXILIARES ---
 
   /**
      * This method is called from within the constructor to initialize the form.
@@ -196,38 +192,31 @@ public class FrmPhotographer extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnAssign1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnAssign2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnAssign3, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(btnAssign4, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblMicaelaStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnAssign1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(btnAssign2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(btnAssign3, javax.swing.GroupLayout.Alignment.TRAILING))
-                                    .addComponent(btnAssign4, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblMicaelaStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblLuisaStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(134, 134, 134))
-                                    .addComponent(lblAlexisStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblPaolaStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(120, 120, 120))
+                                .addComponent(lblLuisaStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                                .addGap(134, 134, 134))
+                            .addComponent(lblAlexisStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPaolaStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txtSelectedPhotographer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
@@ -235,9 +224,12 @@ public class FrmPhotographer extends javax.swing.JFrame {
                                 .addGap(75, 75, 75)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAssignEquipment)
-                        .addGap(166, 166, 166))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAssignEquipment))
+                .addGap(55, 55, 55))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,22 +258,18 @@ public class FrmPhotographer extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(btnAssign4)
                             .addComponent(lblPaolaStatus)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSelectedPhotographer)
-                            .addComponent(jLabel8)
-                            .addComponent(btnOpenAvailability))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel9))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(btnAssignEquipment)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSelectedPhotographer)
+                    .addComponent(jLabel8)
+                    .addComponent(btnOpenAvailability)
+                    .addComponent(btnAssignEquipment))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(java.awt.SystemColor.activeCaption);
@@ -314,7 +302,7 @@ public class FrmPhotographer extends javax.swing.JFrame {
                 .addComponent(btnRemove)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(44, 44, 44))
+                .addGap(196, 196, 196))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,7 +335,7 @@ public class FrmPhotographer extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,16 +359,16 @@ public class FrmPhotographer extends javax.swing.JFrame {
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {                                          
    String selected = (String) listAssigned.getSelectedValue();
     
-    // 2. Validación preventiva en la vista
+    
     if (selected == null) {
         javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione un fotógrafo de la lista.");
         return;
     }
 
-    // 3. Llamada al controlador usando una referencia de método más clara
+   
     controller.deletePhotographer(
             selected, 
-            () -> this.updateUI(), // Referencia explícita a tu método
+            () -> this.updateUI(), 
             this
     );
 }
@@ -426,15 +414,8 @@ controller.selectInListByName(listAssigned, "Luisa Andrade");
     private void AsignEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsignEventActionPerformed
     FrmAssignEvent frmAssignEvent = new FrmAssignEvent();
     frmAssignEvent.setVisible(true);
-    this.dispose();           // TODO add your handling code here:
+    this.dispose();          
     }//GEN-LAST:event_AsignEventActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-
-
-    // FrmPhotographer.java
 
 
     public static void main(String args[]) {

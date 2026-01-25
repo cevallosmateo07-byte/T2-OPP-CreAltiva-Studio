@@ -58,7 +58,6 @@ ec\edu\espe\crealtivastudios\view\FrmVideoCalls$4.class
 ec\edu\espe\crealtivastudios\view\FrmAtendencePhotographers$2.class
 ec\edu\espe\crealtivastudios\view\FrmAssignEvent$2.class
 ec\edu\espe\crealtivastudios\view\FrmBillp$1.class
-ec\edu\espe\crealtivastudios\view\FrmEquipment$10.class
 ec\edu\espe\crealtivastudios\view\FrmAvailable$1.class
 ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosMenu$7.class
 ec\edu\espe\crealtivastudios\view\FrmCustomer$3.class
@@ -66,6 +65,7 @@ ec\edu\espe\crealtivastudios\view\FrmEquipment$6.class
 ec\edu\espe\crealtivastudios\view\FrmVideoCalls$5.class
 ec\edu\espe\crealtivastudios\view\FrmPhotographer$1.class
 ec\edu\espe\crealtivastudios\model\Event.class
+ec\edu\espe\crealtivastudios\view\FrmReportPhotographers.class
 ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosLogin$2.class
 ec\edu\espe\crealtivastudios\view\FrmEquipmentAvailable$3.class
 ec\edu\espe\crealtivastudios\model\VideoCall.class
@@ -80,6 +80,7 @@ ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosLogin$5.class
 ec\edu\espe\crealtivastudios\view\FrmCalendar$2.class
 ec\edu\espe\crealtivastudios\view\FrmEquipmentAvailable$4.class
 ec\edu\espe\crealtivastudios\controller\VideoCallController.class
+ec\edu\espe\crealtivastudios\model\ReporterDetailsEvent.class
 ec\edu\espe\crealtivastudios\view\FrmReportEvent$3.class
 ec\edu\espe\crealtivastudios\view\FrmEquipmentAvailable$1.class
 ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosLogin.class
@@ -91,6 +92,7 @@ ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosMenu$11.class
 ec\edu\espe\crealtivastudios\controller\CustomerController.class
 ec\edu\espe\crealtivastudios\view\FrmCustomer$2.class
 ec\edu\espe\crealtivastudios\view\FrmEquipment$7.class
+ec\edu\espe\crealtivastudios\view\FrmReportPhotographers$1.class
 ec\edu\espe\crealtivastudios\view\FrmPhotographer$3.class
 ec\edu\espe\crealtivastudios\view\FrmPhotographer$6.class
 ec\edu\espe\crealtivastudios\controller\CalendarController.class
@@ -104,6 +106,7 @@ ec\edu\espe\crealtivastudios\view\FrmEquipmentAvailable.class
 ec\edu\espe\crealtivastudios\view\FrmEvent$4.class
 ec\edu\espe\crealtivastudios\view\FrmVideoCalls$1.class
 ec\edu\espe\crealtivastudios\view\FrmEquipment$3.class
+ec\edu\espe\crealtivastudios\view\FrmReportPhotographers$2.class
 ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosMenu$5.class
 ec\edu\espe\crealtivastudios\view\FrmCustomerList$2.class
 utils\FrameValidations.class
@@ -113,9 +116,11 @@ ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosMenu$4.class
 ec\edu\espe\crealtivastudios\view\FrmCustomer.class
 ec\edu\espe\crealtivastudios\view\FrmEquipmentAvailable$6.class
 ec\edu\espe\crealtivastudios\view\FrmEvent.class
+ec\edu\espe\crealtivastudios\model\ReportPhotographers.class
 ec\edu\espe\crealtivastudios\controller\UserController.class
 ec\edu\espe\crealtivastudios\view\FrmCalendar$3.class
 ec\edu\espe\crealtivastudios\view\FrmEquipment$2.class
+ec\edu\espe\crealtivastudios\view\FrmReportPhotographers$3.class
 ec\edu\espe\crealtivastudios\view\FrmEquipment$9.class
 ec\edu\espe\crealtivastudios\model\Customer.class
 ec\edu\espe\crealtivastudios\view\FrmEvent$3.class

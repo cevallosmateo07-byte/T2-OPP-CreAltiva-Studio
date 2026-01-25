@@ -4,7 +4,7 @@ public class Equipment {
     private int id;
     private String name;
     private String description;
-    private String status; // "Disponible", "En Uso", "Mantenimiento"
+    private String status; 
 
     public Equipment(int id, String name, String description, String status) {
         this.id = id;

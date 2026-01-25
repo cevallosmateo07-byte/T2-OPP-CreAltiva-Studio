@@ -8,9 +8,9 @@ public class Event {
     
     private int eventId;
     private String eventName;
-    private String eventDate; // Formato YYYY-MM-DD
-    private int eventTypeCode; // 1:Bodas, 2:Cumpleaños, etc.
-    private int customerId;    // FK: ID del cliente dueño del evento
+    private String eventDate; 
+    private int eventTypeCode; 
+    private int customerId;    
 
     public Event(int eventId, String eventName, String eventDate, int eventTypeCode, int customerId) {
         this.eventId = eventId;
@@ -20,7 +20,7 @@ public class Event {
         this.customerId = customerId;
     }
 
-    // --- Getters y Setters (Encapsulamiento) ---
+   
 
     public int getEventId() { return eventId; }
     public void setEventId(int eventId) { this.eventId = eventId; }

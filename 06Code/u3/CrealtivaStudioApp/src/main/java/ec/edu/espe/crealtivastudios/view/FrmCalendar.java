@@ -11,11 +11,9 @@ public class FrmCalendar extends javax.swing.JFrame {
     public FrmCalendar() {
         initComponents();
         this.setLocationRelativeTo(null);
-        txaEventDetails.setEditable(false);
-        
+        txaEventDetails.setEditable(false);        
         controller.loadEventsIntoCombo(jComboBox1);
 
-        // refreshTable(); // Si tienes una tabla en tu diseño, descomenta esto
     }
     
 
@@ -282,12 +280,11 @@ public class FrmCalendar extends javax.swing.JFrame {
 
     private void btnRecordatoryYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecordatoryYesActionPerformed
     controller.saveReminderFromUI(
-            txtEventIdSearcher.getText(), // ID del evento buscado
-            jCalendar1.getDate(),         // Fecha del JCalendar
-            () -> {                       // Acción de éxito
+            txtEventIdSearcher.getText(), 
+            jCalendar1.getDate(),         
+            () -> {                       
                 txtEventIdSearcher.setText("");
                 txaEventDetails.setText("");
-                // refreshTable(); // Si usas tabla
             }, 
             this
         );

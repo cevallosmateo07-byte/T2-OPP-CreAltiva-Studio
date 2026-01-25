@@ -2,9 +2,9 @@ package ec.edu.espe.crealtivastudios.model;
 
 public class Calendar {
     private int id;
-    private int eventId; // Relación con el Evento
+    private int eventId; 
     private String description;
-    private String date; // YYYY-MM-DD
+    private String date; 
 
     public Calendar(int id, int eventId, String description, String date) {
         this.id = id;
@@ -13,7 +13,7 @@ public class Calendar {
         this.date = date;
     }
 
-    // --- Getters y Setters ---
+    
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

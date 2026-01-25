@@ -6,19 +6,19 @@ import javax.swing.event.TableModelEvent;
 
 public class FrmAtendencePhotographers extends javax.swing.JFrame {
 
-    // Instancia del controlador
+  
     private final PhotographerController controller = new PhotographerController();
 
     public FrmAtendencePhotographers() {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        setupTable(); // Solo configuramos, no iteramos
+        setupTable(); 
         hideUnusedComponents();
     }
     
  private void hideUnusedComponents() {
-        // Ocultamos componentes viejos
+       
         if(jComboBox1 != null) jComboBox1.setVisible(false);
         if(jComboBox2 != null) jComboBox2.setVisible(false);
         if(jComboBox3 != null) jComboBox3.setVisible(false);
@@ -28,17 +28,17 @@ public class FrmAtendencePhotographers extends javax.swing.JFrame {
     }
 
     private void setupTable() {
-        // 1. Pedir modelo al controlador (Él hizo el bucle por nosotros)
+       
         tblPhotographers.setModel(controller.getAttendanceTableModel());
         
-        // 2. Escuchar cambios en el Checkbox
+      
         tblPhotographers.getModel().addTableModelListener(e -> {
             if (e.getType() == TableModelEvent.UPDATE && e.getColumn() == 3) {
                 int row = e.getFirstRow();
                 int id = (int) tblPhotographers.getValueAt(row, 0);
                 boolean attending = (boolean) tblPhotographers.getValueAt(row, 3);
                 
-                // Avisar al controlador que guarde el cambio
+             
                 controller.updateAttendance(id, attending);
             }
         });
@@ -194,7 +194,7 @@ public class FrmAtendencePhotographers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        this.setVisible(false); // TODO add your handling code here:
+        this.setVisible(false); 
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

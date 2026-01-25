@@ -18,7 +18,7 @@ import utils.CrudOperations;
  * @author Mateo Cevallos
  */
 public class FrmCustomerList extends javax.swing.JFrame {
-
+private final ec.edu.espe.crealtivastudios.controller.CustomerController controller = new ec.edu.espe.crealtivastudios.controller.CustomerController();
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmCustomerList.class.getName());
     private String selectedCustomerId;
     private String selectedCustomerName;
@@ -243,63 +243,14 @@ public class FrmCustomerList extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnSelectCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectCustomerActionPerformed
-       int selectedRow = tblCustomers.getSelectedRow();
-    
-    if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, 
-            "Por favor, seleccione un cliente de la lista",
-            "Selección requerida",
-            JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-    
-    try {
-
-        Object idValue = tblCustomers.getValueAt(selectedRow, 0);
-        selectedCustomerId = (idValue != null) ? idValue.toString() : "";
-        selectedCustomerName = tblCustomers.getValueAt(selectedRow, 1).toString();
- 
-        StringBuilder message = new StringBuilder();
-        message.append("¿Desea asignar el evento al siguiente cliente?\n\n");
-        message.append("ID: ").append(selectedCustomerId).append("\n");
-        message.append("Nombre: ").append(selectedCustomerName).append("\n");
-        message.append("Teléfono: ").append(tblCustomers.getValueAt(selectedRow, 2)).append("\n");
-        message.append("Email: ").append(tblCustomers.getValueAt(selectedRow, 3)).append("\n");
-        message.append("Dirección: ").append(tblCustomers.getValueAt(selectedRow, 4));
-        
-        int option = JOptionPane.showConfirmDialog(this, 
-            message.toString(),
-            "Confirmar selección de cliente",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
-        
-        if (option == JOptionPane.YES_OPTION) {
-            logger.info("Cliente seleccionado - ID: " + selectedCustomerId + 
-                       ", Nombre: " + selectedCustomerName);
-
-            this.dispose();
-
-            notifyParentFrame();
-        }
-        
-    } catch (Exception e) {
-        logger.log(java.util.logging.Level.SEVERE, "Error al seleccionar cliente", e);
-        JOptionPane.showMessageDialog(this,
-            "Error al procesar la selección: " + e.getMessage(),
-            "Error",
-            JOptionPane.ERROR_MESSAGE);
-    }
+     controller.selectCustomerForEvent(tblCustomers, this, parentFrame);
     }//GEN-LAST:event_btnSelectCustomerActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -310,7 +261,7 @@ public class FrmCustomerList extends javax.swing.JFrame {
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+       
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new FrmCustomerList().setVisible(true));

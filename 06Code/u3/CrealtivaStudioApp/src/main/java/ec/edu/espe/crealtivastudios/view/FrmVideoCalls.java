@@ -268,20 +268,20 @@ public class FrmVideoCalls extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHourActionPerformed
 
     private void btnScheduleVideoCallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScheduleVideoCallActionPerformed
-        if (cmbCustomers.getSelectedItem() == null || dcVideoCallDate.getDate() == null || txtHour.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Complete todos los campos");
-                return;
-            }
-
-            controller.saveVideoCall(
-                currentId,
-                cmbCustomers.getSelectedItem().toString(),
-                cmbMedium.getSelectedItem().toString(),
-                dcVideoCallDate.getDate(),
-                txtHour.getText(),
-                isEditing,
-                () -> { refreshTable(); resetForm(); },
-                this
+    String customerData = (cmbCustomers.getSelectedItem() != null) ? cmbCustomers.getSelectedItem().toString() : "";
+        
+        controller.saveVideoCall(
+            customerData,
+            cmbMedium.getSelectedItem().toString(),
+            dcVideoCallDate.getDate(),
+            txtHour.getText(),
+            isEditing,
+            () -> {
+                JOptionPane.showMessageDialog(this, "Videollamada guardada correctamente.");
+                refreshTable();
+                resetForm();
+            },
+            this
         );
     }//GEN-LAST:event_btnScheduleVideoCallActionPerformed
 

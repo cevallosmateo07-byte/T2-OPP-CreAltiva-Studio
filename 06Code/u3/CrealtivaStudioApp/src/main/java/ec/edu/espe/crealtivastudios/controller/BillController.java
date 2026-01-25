@@ -10,25 +10,31 @@ import utils.CrudOperations;
 
 public class BillController {
     private final String COLLECTION = "Bills";
-    private final String EVENTS_COLLECTION = "Events"; // Referencia a eventos
+    private final String EVENTS_COLLECTION = "Events"; 
+    private final String CUSTOMERS_COLLECTION = "Customers";
 
-    // Constructor (Si no tienes uno, agrégalo así)
     public BillController() {
-        // Esto buscará eventos huerfanos (sin factura) y les creará una
         syncEventsToBills(); 
     }
 
     public DefaultTableModel getTableModel() {
-        // Aseguramos sincronización antes de mostrar
         syncEventsToBills(); 
         
-        String[] cols = {"ID", "Cliente", "Evento", "Monto", "Estado"};
+        String[] cols = {"ID Factura", "Cliente", "Evento", "Monto", "Estado"};
         DefaultTableModel model = new DefaultTableModel(cols, 0);
+        
         for (Bill b : getAllBills()) {
+            
+            Document custDoc = CrudOperations.searchOne(CUSTOMERS_COLLECTION, new Document("id", b.getCustomerId()));
+            String clientName = (custDoc != null) ? custDoc.getString("name") : "Cliente ID: " + b.getCustomerId();
+
+            Document eventDoc = CrudOperations.searchOne(EVENTS_COLLECTION, new Document("eventId", b.getEventId()));
+            String eventName = (eventDoc != null) ? eventDoc.getString("eventName") : "Evento ID: " + b.getEventId();
+
             model.addRow(new Object[]{
                 b.getBillId(), 
-                b.getCustomerId(), 
-                b.getEventId(), 
+                clientName, 
+                eventName, 
                 String.format("$%.2f", b.getAmount()), 
                 b.isPaid() ? "CANCELADO" : "PENDIENTE"
             });
@@ -36,15 +42,14 @@ public class BillController {
         return model;
     }
 
-    // --- NUEVO MÉTODO PARA CORREGIR TUS DATOS EXISTENTES ---
     public void syncEventsToBills() {
         List<Document> events = CrudOperations.findAll(EVENTS_COLLECTION);
         List<Document> bills = CrudOperations.findAll(COLLECTION);
 
         for (Document eventDoc : events) {
             int eventId = eventDoc.getInteger("eventId");
-            
-            // Verificar si este evento YA tiene factura
+            int customerId = eventDoc.getInteger("customerId", 0);
+
             boolean hasBill = false;
             for (Document bill : bills) {
                 if (bill.getInteger("eventId") == eventId) {
@@ -53,49 +58,39 @@ public class BillController {
                 }
             }
 
-            // Si NO tiene factura, la creamos ahora mismo
             if (!hasBill) {
-                int newBillId = generateNextBillId();
-                
-                // Intentamos obtener el precio o asignamos un base
-                double amount = 0.0;
-                // Lógica simple de precio basada en tu EventController anterior
-                String type = eventDoc.getString("eventType"); // "Bautizo"
-                if ("Bautizo".equalsIgnoreCase(type)) amount = 20.0;
-                else if ("Bodas".equalsIgnoreCase(type)) amount = 135.0;
-                else amount = 50.0;
+                int newBillId = eventId; 
 
-                // Recuperar ID Cliente (con manejo de nulos por si acaso)
-                int custId = eventDoc.containsKey("customerId") ? eventDoc.getInteger("customerId") : 1;
+                double amount = 0.0;
+                
+                if (eventDoc.containsKey("eventTypeCode")) {
+                    int typeCode = eventDoc.getInteger("eventTypeCode");
+                    if (typeCode == 1) amount = 135.0; 
+                    else if (typeCode == 3) amount = 20.0; 
+                    else amount = 50.0;
+                }
 
                 Document newBill = new Document("billId", newBillId)
-                        .append("customerId", custId)
+                        .append("customerId", customerId)
                         .append("eventId", eventId)
                         .append("amount", amount)
-                        .append("notes", "Generada por Sincronización")
-                        .append("isPaid", false); // Por defecto pendiente
+                        .append("notes", "Generada autom")
+                        .append("isPaid", false); 
 
                 CrudOperations.insert(COLLECTION, newBill);
-                System.out.println("Factura creada para evento antiguo: " + eventDoc.getString("eventName"));
             }
         }
     }
-
-    private int generateNextBillId() {
-        int max = 0;
-        for (Document d : CrudOperations.findAll(COLLECTION)) {
-            if (d.containsKey("billId") && d.getInteger("billId") > max) {
-                max = d.getInteger("billId");
-            }
-        }
-        return max + 1;
-    }
-    // -------------------------------------------------------
 
     public void updateStatusFromUI(String idRaw, String statusText, Runnable onSuccess, Component view) {
         if (idRaw == null) return;
         boolean isPaid = "CANCELADO".equals(statusText);
-        if (CrudOperations.update(COLLECTION, "billId", Integer.parseInt(idRaw), new Document("isPaid", isPaid))) onSuccess.run();
+        
+        int billId = Integer.parseInt(idRaw);
+        
+        if (CrudOperations.update(COLLECTION, "billId", billId, new Document("isPaid", isPaid))) {
+            onSuccess.run();
+        }
     }
 
     public List<Bill> getAllBills() {

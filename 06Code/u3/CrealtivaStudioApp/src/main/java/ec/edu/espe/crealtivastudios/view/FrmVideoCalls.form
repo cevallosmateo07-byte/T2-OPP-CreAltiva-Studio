@@ -103,10 +103,8 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="dcVideoCallDate" alignment="0" pref="181" max="32767" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="cmbMedium" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtHour" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="cmbMedium" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtHour" alignment="0" min="-2" pref="180" max="-2" attributes="0"/>
                       <Component id="cmbCustomers" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="54" max="32767" attributes="0"/>

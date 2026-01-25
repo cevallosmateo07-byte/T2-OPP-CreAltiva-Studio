@@ -1,13 +1,11 @@
 package ec.edu.espe.crealtivastudios.controller;
 
-import ec.edu.espe.crealtivastudios.view.*; // Importamos todas las vistas
+import ec.edu.espe.crealtivastudios.view.*;
 import javax.swing.JFrame;
 
 public class MenuController {
 
-    // =========================================================================
-    //  SISTEMA DE NAVEGACIÓN CENTRALIZADO
-    // =========================================================================
+
 
     public void openCustomerSystem(JFrame menu) {
         new FrmCustomer().setVisible(true);
@@ -41,7 +39,7 @@ public class MenuController {
 
     public void openVideoCalls(JFrame menu) {
         FrmVideoCalls v = new FrmVideoCalls();
-        v.setLocationRelativeTo(null); // Centrar
+        v.setLocationRelativeTo(null); 
         v.setVisible(true);
         menu.dispose();
     }

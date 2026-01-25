@@ -7,7 +7,7 @@ public class Photographer {
     private String specialty;
     private boolean isAssigned;
     private String assignedEvent;
-    private boolean attending; // NUEVO
+    private boolean attending; 
 
     public Photographer(int id, String name, String phone, String specialty, boolean isAssigned) {
         this.id = id;
@@ -19,7 +19,7 @@ public class Photographer {
         this.attending = false;
     }
 
-    // Getters y Setters normales...
+  
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getName() { return name; }
@@ -33,7 +33,7 @@ public class Photographer {
     public String getAssignedEvent() { return assignedEvent; }
     public void setAssignedEvent(String assignedEvent) { this.assignedEvent = assignedEvent; }
     
-    // NUEVOS GETTER/SETTER
+   
     public boolean isAttending() { return attending; }
     public void setAttending(boolean attending) { this.attending = attending; }
 }

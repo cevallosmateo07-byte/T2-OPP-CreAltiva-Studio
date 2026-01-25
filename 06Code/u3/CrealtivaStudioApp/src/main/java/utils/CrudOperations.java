@@ -18,7 +18,7 @@ public class CrudOperations {
 
     public static boolean update(String collection, String fieldName, Object value, Document updateData) {
         try {
-            // Se usa $set para modificar solo los campos enviados y mantener el resto
+          
             UpdateResult result = getDb().getCollection(collection)
                     .updateOne(new Document(fieldName, value), new Document("$set", updateData));
             return result.getMatchedCount() > 0;

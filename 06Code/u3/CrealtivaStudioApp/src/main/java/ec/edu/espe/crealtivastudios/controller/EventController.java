@@ -14,21 +14,11 @@ import javax.swing.JComboBox;
 public class EventController {
     
     private final String COLLECTION = "Events";
-
-    // Constantes
     public static final int TYPE_BODAS = 1;
     public static final int TYPE_CUMPLEANOS = 2;
     public static final int TYPE_BAUTIZOS = 3;
     public static final int TYPE_GRADUACIONES = 4;
 
-    // =========================================================================
-    //  SECCION GUI (PARA LA VISTA) - AQUÍ ESTÁ TODA LA LÓGICA VISUAL
-    // =========================================================================
-
-    /**
-     * Construye el texto completo para el JTextArea.
-     * La vista solo tiene que hacer setText().
-     */
     public String getEventsListText() {
         List<Event> events = getAllEvents();
         if (events.isEmpty()) return "No hay eventos registrados.";
@@ -46,18 +36,13 @@ public class EventController {
         return sb.toString();
     }
 
-    /**
-     * Valida, Convierte y Guarda. Maneja los mensajes de error/éxito internamente.
-     */
     public void saveEventFromUI(String rawName, Date rawDate, int typeIndex, int customerId, Runnable onSuccess, Component view) {
-        // 1. Validaciones (IFs movidos aquí)
         if (customerId <= 0) {
-            // Lógica de negocio: Si no hay cliente, preguntar si usa genérico
             int opt = JOptionPane.showConfirmDialog(view, "No seleccionó cliente. ¿Usar genérico (ID 1)?", "Aviso", JOptionPane.YES_NO_OPTION);
             if (opt == JOptionPane.YES_OPTION) {
                 customerId = 1; 
             } else {
-                return; // Cortamos ejecución
+                return; 
             }
         }
         
@@ -71,17 +56,16 @@ public class EventController {
             return;
         }
 
-        // 2. Proceso de Guardado
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String dateStr = sdf.format(rawDate);
             int typeCode = typeIndex + 1;
             
-            Event newEvent = new Event(generateNextId(), rawName.trim(), dateStr, typeCode, customerId);
+            Event newEvent = new Event(customerId, rawName.trim(), dateStr, typeCode, customerId);
 
             if (createEvent(newEvent)) {
                 JOptionPane.showMessageDialog(view, "Evento guardado exitosamente.");
-                onSuccess.run(); // <--- Ejecuta limpieza de vista
+                onSuccess.run(); 
             } else {
                 JOptionPane.showMessageDialog(view, "Error al guardar en BD.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -90,10 +74,6 @@ public class EventController {
             JOptionPane.showMessageDialog(view, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    // =========================================================================
-    //  LÓGICA DE NEGOCIO Y CRUD
-    // =========================================================================
 
     public boolean createEvent(Event event) {
         return CrudOperations.insert(COLLECTION, eventToDocument(event));
@@ -105,16 +85,10 @@ public class EventController {
         return list;
     }
 
-    public int generateNextId() {
-        int max = 0;
-        for (Event e : getAllEvents()) if (e.getEventId() > max) max = e.getEventId();
-        return max + 1;
-    }
-
     public double calculateEventPrice(Event event) {
         double basePrice = 50.00;
         switch (event.getEventTypeCode()) {
-            case TYPE_BODAS: basePrice = 150.00 * 0.90; break; // Con descuento
+            case TYPE_BODAS: basePrice = 150.00 * 0.90; break; 
             case TYPE_CUMPLEANOS: basePrice = 80.00; break;
             case TYPE_BAUTIZOS: basePrice = 20.00; break;
             case TYPE_GRADUACIONES: basePrice = 60.00; break;
@@ -132,7 +106,6 @@ public class EventController {
         }
     }
 
-    // --- MAPPERS ---
     private Document eventToDocument(Event event) {
         return new Document("eventId", event.getEventId())
                 .append("eventName", event.getEventName())
@@ -152,19 +125,16 @@ public class EventController {
     }
     
     public void loadEventsIntoComboBox(JComboBox<String> combo) {
-    combo.removeAllItems();
+        combo.removeAllItems();
 
-    List<Event> events = getAllEvents();
-    if (events.isEmpty()) {
-        combo.addItem("No hay eventos registrados");
-        return;
-    }
+        List<Event> events = getAllEvents();
+        if (events.isEmpty()) {
+            combo.addItem("No hay eventos registrados");
+            return;
+        }
 
-    for (Event e : events) {
-        combo.addItem(
-            e.getEventId() + " - " + e.getEventName()
-        );
+        for (Event e : events) {
+            combo.addItem(e.getEventId() + " - " + e.getEventName());
+        }
     }
-}
-    
 }

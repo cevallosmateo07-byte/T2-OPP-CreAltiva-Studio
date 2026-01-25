@@ -20,12 +20,10 @@ public class CalendarController {
     private final String CALENDAR_COLLECTION = "Calendar";
     private final String EVENTS_COLLECTION = "Events";
 
-    // 🔹 Lista interna de eventos (NO visible para la vista)
+ 
     private List<Event> eventsCache = new ArrayList<>();
 
-    // =====================================================
-    // 1. CARGAR EVENTOS EN COMBO (String)
-    // =====================================================
+
 public void loadEventsIntoCombo(javax.swing.JComboBox combo) {
     combo.removeAllItems();
 
@@ -49,15 +47,11 @@ public void loadEventsIntoCombo(javax.swing.JComboBox combo) {
                 customerId
         );
 
-        combo.addItem(event); // se guarda el OBJETO, no el String
+        combo.addItem(event); 
     }
 }
 
 
-
-    // =====================================================
-    // 2. MOSTRAR EVENTO SELECCIONADO
-    // =====================================================
     public void showSelectedEventFromCombo(
             JComboBox<String> combo,
             JTextField txtEventId,
@@ -82,9 +76,6 @@ public void loadEventsIntoCombo(javax.swing.JComboBox combo) {
         txaDetails.setText(details);
     }
 
-    // =====================================================
-    // 3. GUARDAR RECORDATORIO
-    // =====================================================
     public void saveReminderFromUI(
             String eventIdRaw,
             Date dateRaw,
@@ -122,9 +113,7 @@ public void loadEventsIntoCombo(javax.swing.JComboBox combo) {
         }
     }
 
-    // =====================================================
-    // 4. TABLA DE RECORDATORIOS
-    // =====================================================
+
     public DefaultTableModel getTableModel() {
 
         DefaultTableModel model = new DefaultTableModel(
@@ -140,9 +129,7 @@ public void loadEventsIntoCombo(javax.swing.JComboBox combo) {
         return model;
     }
 
-    // =====================================================
-    // HELPERS
-    // =====================================================
+
     private int generateNextId() {
         int max = 0;
         for (Document doc : CrudOperations.findAll(CALENDAR_COLLECTION)) {

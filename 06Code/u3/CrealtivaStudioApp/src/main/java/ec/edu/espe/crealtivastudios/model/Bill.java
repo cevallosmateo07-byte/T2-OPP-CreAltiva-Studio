@@ -17,7 +17,7 @@ public class Bill {
         this.isPaid = isPaid;
     }
 
-    // --- Getters y Setters ---
+   
     public int getBillId() { return billId; }
     public void setBillId(int billId) { this.billId = billId; }
 

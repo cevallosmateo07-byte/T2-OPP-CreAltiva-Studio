@@ -20,14 +20,12 @@ public class FrmBillp extends javax.swing.JFrame {
         jComboBox1.addItem("CANCELADO");
     }
     
-    // Helper para obtener ID sin lógica
     private String getSelectedIdRaw() {
         int row = jTable1.getSelectedRow();
         return (row != -1) ? jTable1.getValueAt(row, 0).toString() : null;
     }
     
    private void refreshTableData() {
-        // El controlador ya nos da el modelo con filas, columnas y datos.
         jTable1.setModel(billController.getTableModel());
     }
     /**
@@ -135,13 +133,12 @@ public class FrmBillp extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 billController.updateStatusFromUI(
-            getSelectedIdRaw(),                         // ID (o null)
-            jComboBox1.getSelectedItem().toString(),    // Estado seleccionado
-            
-            // Lambda: Acción a ejecutar solo si todo sale bien
+            getSelectedIdRaw(),                         
+            jComboBox1.getSelectedItem().toString(),    
+
             () -> refreshTableData(),
             
-            this // Referencia para los mensajes
+            this 
         );
     }//GEN-LAST:event_jButton1ActionPerformed
 

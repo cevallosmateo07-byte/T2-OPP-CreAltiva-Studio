@@ -4,11 +4,11 @@ import ec.edu.espe.crealtivastudios.controller.EventController;
 
 public class FrmEvent extends javax.swing.JFrame {
 
-    // Instancia del Controlador
+   
     private final EventController eventController = new EventController();
     private javax.swing.JComboBox<String> cmbEvents;
 
-    // Variable ID cliente (se llena desde FrmCustomerList)
+  
     public static int selectedCustomerId = 0;
 
     public FrmEvent() {
@@ -19,9 +19,9 @@ initComponents();
     }
     
     
-// --- MÉTODO VISUAL (Sin bucles) ---
+
     private void refreshList() {
-        // El controlador ya devuelve el String formateado con todos los eventos
+        
         txaShowEvents.setText(eventController.getEventsListText());
     }
     
@@ -286,19 +286,18 @@ initComponents();
 
     private void btnAssignAndSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignAndSaveActionPerformed
             eventController.saveEventFromUI(
-            txtEventName.getText(),          // Nombre crudo
-            cldDateChooser.getDate(),        // Fecha cruda (puede ser null)
-            cmbEventType.getSelectedIndex(), // Índice combo
-            selectedCustomerId,              // ID Cliente (puede ser 0)
-            
-            // Acción de éxito (Lambda): Esto se ejecuta si todo sale bien
+            txtEventName.getText(),          
+            cldDateChooser.getDate(),        
+            cmbEventType.getSelectedIndex(), 
+            selectedCustomerId,              
+
             () -> { 
     refreshList(); 
-    eventController.loadEventsIntoComboBox(cmbEvents);
+    
     cleanForm(); 
             },
             
-            this // Referencia para mostrar mensajes
+            this 
         );
     }//GEN-LAST:event_btnAssignAndSaveActionPerformed
 
@@ -309,9 +308,6 @@ initComponents();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 
-    /**
-     * @param args the command line arguments
-     */
 public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

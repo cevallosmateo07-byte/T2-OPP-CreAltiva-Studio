@@ -11,7 +11,7 @@ public class FrmReportEvent extends javax.swing.JFrame {
     public FrmReportEvent() {
         initComponents();
         this.setLocationRelativeTo(null);
-        jTable1.setModel(controller.getReportTableModel()); // Carga inmediata
+        jTable1.setModel(controller.getReportTableModel());
     }
 
     /**
@@ -145,29 +145,34 @@ public class FrmReportEvent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPrintActionPerformed
-JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         if (chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File f = chooser.getSelectedFile();
-            if (!f.getName().endsWith(".html")) f = new File(f.getAbsolutePath() + ".html");
+            if (!f.getName().endsWith(".html")) {
+                f = new File(f.getAbsolutePath() + ".html");
+            }
             controller.exportToHTML(jTable1, f, this);
         }
     }//GEN-LAST:event_jButtonPrintActionPerformed
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
-new FrmCrealtivaStudiosMenu().setVisible(true);
-        this.dispose();       
+        new FrmCrealtivaStudiosMenu().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonExitActionPerformed
 
     private void jButtonSaveReportInMongoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveReportInMongoActionPerformed
-   JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         if (chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File f = chooser.getSelectedFile();
-            if (!f.getName().endsWith(".csv")) f = new File(f.getAbsolutePath() + ".csv");
+            if (!f.getName().endsWith(".csv")) {
+                f = new File(f.getAbsolutePath() + ".csv");
+            }
+
             controller.exportToCSV(jTable1, f, this);
+            controller.generateJsonReports(jTable1);
         }
     }//GEN-LAST:event_jButtonSaveReportInMongoActionPerformed
 
-  
     /**
      * @param args the command line arguments
      */
