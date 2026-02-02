@@ -8,7 +8,9 @@ import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
-
+import javax.swing.JOptionPane;
+import com.warrenstrange.googleauth.GoogleAuthenticator; 
+ 
 /**
  *
  * @author Kevin Chalan, OBJECT MASTER, OOP
@@ -153,21 +155,56 @@ public class FrmCrealtivaStudiosLogin extends javax.swing.JFrame {
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
 
-        String userName= txtUser.getText();
-        String pasword = passPassword.getText();
 
-        User user=new User(userName,pasword,"family");
-        if ( UserController.validateLogin(user)) {
-            FrmCrealtivaStudiosMenu frmCrealtivaStudiosMenu = new FrmCrealtivaStudiosMenu();
-            frmCrealtivaStudiosMenu.setVisible(true);
-            lblErrorMessage.setForeground(Color.black);
-            lblErrorMessage.setText("Bienvenido");
-            this.setVisible(false);
+    String userName = txtUser.getText();
+    String pasword = new String(passPassword.getPassword()); // Es mejor usar getPassword()
 
-        }else {
+    User user = new User(userName, pasword, "family");
+if (UserController.validateLogin(user)) {
+        
+    String userSecretKey = "JBSWY3DPEHPK3PXP"; 
+        
+ 
+        String codigoIngresado = JOptionPane.showInputDialog(this, 
+                "Ingrese el código de Google Authenticator (2FA):", 
+                "Verificación de Dos Pasos", 
+                JOptionPane.PLAIN_MESSAGE);
+
+        if (codigoIngresado != null && !codigoIngresado.isEmpty()) {
+            try {
+                int codigo = Integer.parseInt(codigoIngresado);
+                
+                
+                GoogleAuthenticator gAuth = new GoogleAuthenticator();
+                boolean esCodigoValido = gAuth.authorize(userSecretKey, codigo);
+
+                if (esCodigoValido) {
+                    // 
+                    FrmCrealtivaStudiosMenu frmCrealtivaStudiosMenu = new FrmCrealtivaStudiosMenu();
+                    frmCrealtivaStudiosMenu.setVisible(true);
+                    
+                    lblErrorMessage.setForeground(Color.black);
+                    lblErrorMessage.setText("Bienvenido");
+                    this.setVisible(false); // O this.dispose();
+                } else {
+                    lblErrorMessage.setForeground(Color.red);
+                    lblErrorMessage.setText("Código 2FA incorrecto");
+                }
+            } catch (NumberFormatException e) {
+                lblErrorMessage.setForeground(Color.red);
+                lblErrorMessage.setText("El código debe ser numérico");
+            }
+        } else {
             lblErrorMessage.setForeground(Color.red);
-            lblErrorMessage.setText("La clave o el usuario son incorrectos");
+            lblErrorMessage.setText("Autenticación cancelada");
         }
+        
+
+    } else {
+        lblErrorMessage.setForeground(Color.red);
+        lblErrorMessage.setText("Usuario o contraseña incorrectos");
+    }
+
 
     }//GEN-LAST:event_btnAcceptActionPerformed
 

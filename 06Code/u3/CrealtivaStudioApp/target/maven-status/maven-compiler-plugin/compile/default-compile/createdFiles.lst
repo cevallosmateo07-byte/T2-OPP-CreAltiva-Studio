@@ -64,6 +64,7 @@ ec\edu\espe\crealtivastudios\view\FrmCustomer$3.class
 ec\edu\espe\crealtivastudios\view\FrmEquipment$6.class
 ec\edu\espe\crealtivastudios\view\FrmVideoCalls$5.class
 ec\edu\espe\crealtivastudios\view\FrmPhotographer$1.class
+ec\edu\espe\crealtivastudios\view\FrmEvent$6.class
 ec\edu\espe\crealtivastudios\model\Event.class
 ec\edu\espe\crealtivastudios\view\FrmReportPhotographers.class
 ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosLogin$2.class
@@ -89,6 +90,7 @@ ec\edu\espe\crealtivastudios\view\FrmAssignEvent$4.class
 ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosMenu$2.class
 ec\edu\espe\crealtivastudios\view\FrmEquipment$1.class
 ec\edu\espe\crealtivastudios\view\FrmCrealtivaStudiosMenu$11.class
+ec\edu\espe\crealtivastudios\view\FrmCalendar$8.class
 ec\edu\espe\crealtivastudios\controller\CustomerController.class
 ec\edu\espe\crealtivastudios\view\FrmCustomer$2.class
 ec\edu\espe\crealtivastudios\view\FrmEquipment$7.class
